@@ -1,0 +1,10 @@
+torch
+transformers
+numpy
+pandas
+requests
+lxml[html_clean]
+newspaper3k
+tqdm
+beautifulsoup4
+konlpy
