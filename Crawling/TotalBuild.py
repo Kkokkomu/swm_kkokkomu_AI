@@ -29,7 +29,7 @@ def SaveData(path, crawl, title, summary, tts):
         json.dump(data, json_file,indent='\t',ensure_ascii=False)
 
     # tts.astream_to_file(title_path+'/tts.mp3')
-    tts.stream_to_file(title_path+'/tts.mp3')
+    tts.stream_to_file(title_path+'/tts.wav')
 
 def SaveSeperateData(path, crawl, title, summary, tts):
     print(title)
@@ -46,7 +46,7 @@ def SaveSeperateData(path, crawl, title, summary, tts):
     # tts.astream_to_file(title_path+'/tts.mp3')
     for i,t in enumerate(tts):
 
-        t.stream_to_file(title_path+f'/sentence_{i}.mp3')
+        t.stream_to_file(title_path+f'/sentence_{i}.wav')
 
 # 크롤링, gpt 사용
 def MakeComponent(count_news = 5, count_sports = 5, count_entertain = 5, path = ''):
