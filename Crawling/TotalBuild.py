@@ -4,6 +4,7 @@ from datetime import datetime
 import os
 import json
 from tqdm import tqdm
+from ImgGenerator import SaveImg
 
 import re
 
@@ -31,7 +32,7 @@ def SaveData(path, crawl, title, summary, tts):
     # tts.astream_to_file(title_path+'/tts.mp3')
     tts.stream_to_file(title_path+'/tts.wav')
 
-def SaveSeperateData(path, crawl, title, summary, tts):
+def SaveSeperateData(path, crawl, title, summary, tts, images = None):
     print(title)
     data ={'url' : crawl['url'], 'title' : title, 'summary':summary ,'section' : crawl['section']}
 
@@ -48,6 +49,10 @@ def SaveSeperateData(path, crawl, title, summary, tts):
 
         t.stream_to_file(title_path+f'/sentence_{i}.wav')
 
+    if images:
+        for i,image in enumerate(images):
+
+            SaveImg(image, path = title_path+f'/sentence_{i}.png')
 # 크롤링, gpt 사용
 def MakeComponent(count_news = 5, count_sports = 5, count_entertain = 5, path = ''):
     kind_of_news = [NewsCrawling.News, SportsCrawling.sportsNews, EntertainCrawling.entertainNews ]
@@ -117,13 +122,13 @@ def MakeSeperateComponent(count_news = 5, count_sports = 5, count_entertain = 5,
                 os.makedirs(section_path)
 
             content = '\n'.join(crawl['content'])
-            title,summary,tts = Generate.SeperateSentence(content)
-            
-            SaveSeperateData(section_path, crawl, title, summary,tts)
-
+            title,summary,tts, images= Generate.SeperateSentence(content)
+            SaveSeperateData(section_path, crawl, title, summary,tts, images)
+            # title,summary,tts = Generate.SeperateSentence(content)
+            # SaveSeperateData(section_path, crawl, title, summary,tts)
 
 
 if __name__ == '__main__':
     # MakeComponent(10,10,10)
     # 파라미터 주요뉴스 갯수, 스포츠 뉴스, 연예 뉴스 갯수
-    MakeSeperateComponent(1,0,0)
+    MakeSeperateComponent(1, 0, 0)

@@ -1,6 +1,7 @@
 from openai import OpenAI
 import json
 import re
+from ImgGenerator import ImgGenerator
 
 with open('./secret.json') as f:
     secrets = json.loads(f.read())
@@ -57,8 +58,11 @@ def generate_total(text):
 
     return title, summary, tts
 
+
+
 def SeperateSentence(text):
     response = generation_summary(text)
+
     try:
         response = json.loads(response)
 
@@ -66,15 +70,44 @@ def SeperateSentence(text):
         summary_total = response['summary']
         summarys = re.sub(r'다\. ','다.\n',summary_total )
         summarys = summarys.split('\n')
-
+        if len(summarys) != 3:
+            raise
         summary_dic = {f'sentence_{i}' : summary for i,summary in enumerate(summarys)}
+        for i, summary in enumerate(summarys):
+            summary_dic[f'trans_sentence{i}'] = TransSummary(summary)
         summary_dic['sentence_total'] = summary_total
+        summary_dic['trans_sentence'] = TransSummary(summary_total)
 
         tts = [generate_TTS(summary) for summary in summarys]
+        images = []
+        for idx in range(3):
+            response = ImgGenerator(summary_dic[f'trans_sentence{idx}'])
+            images.append(response)
     except:
-        title, summary_dic, tts = SeperateSentence(text)
+        # title, summary_dic, tts = SeperateSentence(text)
+        title, summary_dic, tts, images = SeperateSentence(text)
         
-    return title, summary_dic, tts
+    return title, summary_dic, tts, images
+
+
+def TransSummary(text):
+    gpt_version ='gpt-3.5-turbo-0125'
+
+    system = '영어로 번역해줘'
+
+    response_sum = client.chat.completions.create(
+        model=gpt_version,  # 또는 다른 모델을 사용
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user", "content": text},
+        ],
+    )
+
+    response = response_sum.json()
+    response = json.loads(response)
+    response = response["choices"][0]["message"]['content']
+    return response
+
 
 
 
