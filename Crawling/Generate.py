@@ -2,6 +2,7 @@ from openai import OpenAI
 import json
 import re
 from ImgGenerator import ImgGenerator
+from Generalize import Generalize
 
 with open('./secret.json') as f:
     secrets = json.loads(f.read())
@@ -74,7 +75,8 @@ def SeperateSentence(text):
             raise
         summary_dic = {f'sentence_{i}' : summary for i,summary in enumerate(summarys)}
         for i, summary in enumerate(summarys):
-            summary_dic[f'trans_sentence{i}'] = TransSummary(summary)
+            # summary_dic[f'trans_sentence{i}'] = TransSummary(summary)
+            summary_dic[f'trans_sentence{i}'] = TransSummary(Generalize(summary))
         summary_dic['sentence_total'] = summary_total
         summary_dic['trans_sentence'] = TransSummary(summary_total)
 

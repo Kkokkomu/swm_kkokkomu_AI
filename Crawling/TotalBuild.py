@@ -48,7 +48,6 @@ def SaveSeperateData(path, crawl, title, summary, tts, images = None):
     for i,t in enumerate(tts):
 
         t.stream_to_file(title_path+f'/sentence_{i}.wav')
-
     if images:
         for i,image in enumerate(images):
 
@@ -93,8 +92,6 @@ def MakeSeperateComponent(count_news = 5, count_sports = 5, count_entertain = 5,
     counts = [count_news, count_sports, count_entertain]
 
     date = datetime.now().date()
-    # date = datetime.now().strftime('%Y-%m-%d-%H-%M')
-    # date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     path = str(date)
 
     if not os.path.isdir(path):
@@ -131,4 +128,4 @@ def MakeSeperateComponent(count_news = 5, count_sports = 5, count_entertain = 5,
 if __name__ == '__main__':
     # MakeComponent(10,10,10)
     # 파라미터 주요뉴스 갯수, 스포츠 뉴스, 연예 뉴스 갯수
-    MakeSeperateComponent(1, 0, 0)
+    MakeSeperateComponent(0, 5, 5)
