@@ -25,7 +25,7 @@ def ImgGenerator(text):
 
     url = "https://api.getimg.ai/v1/stable-diffusion-xl/text-to-image"
 
-    text +=', drawing style cartoon'
+    text +=', cartoon'
     payload = {
         "model": "stable-diffusion-xl-v1-0",
         "prompt": text,

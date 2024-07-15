@@ -2,7 +2,6 @@ from openai import OpenAI
 import json
 import re
 from ImgGenerator import ImgGenerator
-from Generalize import Generalize
 
 with open('./secret.json') as f:
     secrets = json.loads(f.read())
@@ -75,10 +74,8 @@ def SeperateSentence(text):
             raise
         summary_dic = {f'sentence_{i}' : summary for i,summary in enumerate(summarys)}
         for i, summary in enumerate(summarys):
-            # summary_dic[f'trans_sentence{i}'] = TransSummary(summary)
-            summary_dic[f'trans_sentence{i}'] = TransSummary(Generalize(summary))
+            summary_dic[f'trans_sentence{i}'] = TransSummary(summary)
         summary_dic['sentence_total'] = summary_total
-        summary_dic['trans_sentence'] = TransSummary(summary_total)
 
         tts = [generate_TTS(summary) for summary in summarys]
         images = []
@@ -91,11 +88,12 @@ def SeperateSentence(text):
         
     return title, summary_dic, tts, images
 
-
 def TransSummary(text):
-    gpt_version ='gpt-3.5-turbo-0125'
+    # gpt_version ='gpt-3.5-turbo-0125'
+    gpt_version ='gpt-4o'
 
-    system = '영어로 번역해줘'
+    # system = '영어로 번역해줘'
+    system = '문장에 맞는 그림을 그릴건데 그림을 subject, medium, style, color, lighting, extra details 의 주제에 맞게 영어로 표현해. 예시로는 "Prompt: A corgi dog sitting on the front porch, oil paint, fantasy, deviant art, 4k, brown, studio lighting, utopian future"'
 
     response_sum = client.chat.completions.create(
         model=gpt_version,  # 또는 다른 모델을 사용
@@ -108,7 +106,10 @@ def TransSummary(text):
     response = response_sum.json()
     response = json.loads(response)
     response = response["choices"][0]["message"]['content']
+    response = response.split('Prompt:')[-1].strip()
+
     return response
+
 
 
 

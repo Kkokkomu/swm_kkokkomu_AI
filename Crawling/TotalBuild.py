@@ -33,7 +33,6 @@ def SaveData(path, crawl, title, summary, tts):
     tts.stream_to_file(title_path+'/tts.wav')
 
 def SaveSeperateData(path, crawl, title, summary, tts, images = None):
-    print(title)
     data ={'url' : crawl['url'], 'title' : title, 'summary':summary ,'section' : crawl['section']}
 
     titleForPath = sanitize_filename(title)
@@ -60,7 +59,6 @@ def MakeComponent(count_news = 5, count_sports = 5, count_entertain = 5, path = 
 
     date = datetime.now().date()
     path = str(date)
-    print(path)
     if not os.path.isdir(path):
         os.makedirs(path)
     else:
@@ -99,7 +97,6 @@ def MakeSeperateComponent(count_news = 5, count_sports = 5, count_entertain = 5,
 
     time = datetime.now().strftime('%H-%M')
     path = path +'/' + time
-    print(path)
     if not os.path.isdir(path):
         os.makedirs(path)
     else:

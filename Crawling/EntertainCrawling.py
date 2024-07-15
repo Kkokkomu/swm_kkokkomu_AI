@@ -11,7 +11,7 @@ def entertainRankingURL(count = 5):
     return url
 
 def find_entertain_xhr(url):
-    result = 'https://api-gw.entertain.naver.com/news/article/'
+    result = 'https://api-gw.entertain.naver.com/news/article/' 
     url_component = url.split('/')
     result += url_component[-2]+'/'+url_component[-1]
     return result
