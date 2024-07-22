@@ -13,11 +13,21 @@ client = OpenAI(
 )
 
 
-def generation_summary(text):
-    
-    gpt_version ='gpt-3.5-turbo-0125'
+def find_json(text):
 
-    system = '다음 뉴스를 제목지어 주고 내용을 정확히 3문장으로 이야기하듯이 요약해줘. 요약할때 말투는 무조건 ~했습니다 와 같은 말투로 해. 결과물은 json 형식으로 {title : 제목, summary : 요약문}과 같은 형식으로 전달해줘'
+    pattern = re.compile(r'\{(.*?)\}', re.DOTALL)
+    match = pattern.search(text)
+    print(match.group(0))
+    return match.group(0)
+
+
+def generation_summary(text):
+    # gpt_version ='gpt-3.5-turbo-0125'
+    gpt_version = 'gpt-4o-mini'
+
+    # system = '다음 뉴스를 제목지어 주고 내용을 정확히 3문장으로 이야기하듯이 요약해줘. 요약할때 말투는 무조건 ~했습니다 와 같은 말투로 해. 결과물은 json 형식으로 {title : 제목, summary : 요약문}과 같은 형식으로 전달해줘'
+    # system = '다음 뉴스를 제목지어 주고 내용을 정확히 3문장으로 이야기하듯이 요약해줘. 요약할때 말투는 무조건 ~했습니다 와 같은 말투로 해. {title : 제목, summary : 요약문}으로 말해'
+    system = '다음 뉴스를 제목지어 주고 내용을 정확히 3문장으로 이야기하듯이 요약해줘. 요약할때 말투는 무조건 ~했습니다 와 같은 말투로 해. 답변을 json형식으로 말해. 예시로는 {"title" : "제목", "summary" : "요약문"}으로 말해'
 
     response_sum = client.chat.completions.create(
         model=gpt_version,  # 또는 다른 모델을 사용
@@ -47,6 +57,7 @@ def generate_TTS(text):
 def generate_total(text):
     response = generation_summary(text)
     try:
+        response = find_json(response)
         response = json.loads(response)
 
         title = response['title']
@@ -62,6 +73,7 @@ def generate_total(text):
 
 def SeperateSentence(text):
     response = generation_summary(text)
+    response = find_json(response)
 
     try:
         response = json.loads(response)
@@ -90,10 +102,12 @@ def SeperateSentence(text):
 
 def TransSummary(text):
     # gpt_version ='gpt-3.5-turbo-0125'
-    gpt_version ='gpt-4o'
+    # gpt_version ='gpt-4o'
+    gpt_version = 'gpt-4o-mini'
+
 
     # system = '영어로 번역해줘'
-    system = '문장에 맞는 그림을 그릴건데 그림을 subject, medium, style, color, lighting, extra details 의 주제에 맞게 영어로 표현해. 예시로는 "Prompt: A corgi dog sitting on the front porch, oil paint, fantasy, deviant art, 4k, brown, studio lighting, utopian future"'
+    system = '문장에 맞는 그림을 그릴건데 그림을 subject, medium, style, color, lighting, extra details 의 주제에 맞게 영어로 표현해. 예시로는 "Prompt: A corgi dog sitting on the front porch, oil paint, fantasy, deviant art, brown, studio lighting, utopian future"'
 
     response_sum = client.chat.completions.create(
         model=gpt_version,  # 또는 다른 모델을 사용
@@ -109,9 +123,4 @@ def TransSummary(text):
     response = response.split('Prompt:')[-1].strip()
 
     return response
-
-
-
-
-
 

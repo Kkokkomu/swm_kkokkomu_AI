@@ -1,3 +1,4 @@
 secret.json
 *.pyc
 Test/
+.DS_Store
