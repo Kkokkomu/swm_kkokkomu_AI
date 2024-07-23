@@ -32,8 +32,9 @@ def SaveData(path, crawl, title, summary, tts):
     # tts.astream_to_file(title_path+'/tts.mp3')
     tts.stream_to_file(title_path+'/tts.wav')
 
-def SaveSeperateData(path, crawl, title, summary, tts, images = None):
-    data ={'url' : crawl['url'], 'title' : title, 'summary':summary ,'section' : crawl['section']}
+def SaveSeperateData(path, crawl, title, summary, keywords ,tts, images = None):
+    data ={'url' : crawl['url'], 'title' : title, 'summary':summary ,'section' : crawl['section'], 
+           'keywords' : {f'keyword_{i}' : keyword.strip() for i, keyword in enumerate(keywords.split(','))}}
 
     titleForPath = sanitize_filename(title)
     title_path = path + '/'+ titleForPath
@@ -116,8 +117,8 @@ def MakeSeperateComponent(count_news = 5, count_sports = 5, count_entertain = 5,
                 os.makedirs(section_path)
 
             content = '\n'.join(crawl['content'])
-            title,summary,tts, images= Generate.SeperateSentence(content)
-            SaveSeperateData(section_path, crawl, title, summary,tts, images)
+            title,summary, keywords,tts, images= Generate.SeperateSentence(content)
+            SaveSeperateData(section_path, crawl, title, summary,keywords,tts, images)
             # title,summary,tts = Generate.SeperateSentence(content)
             # SaveSeperateData(section_path, crawl, title, summary,tts)
 
@@ -125,4 +126,4 @@ def MakeSeperateComponent(count_news = 5, count_sports = 5, count_entertain = 5,
 if __name__ == '__main__':
     # MakeComponent(10,10,10)
     # 파라미터 주요뉴스 갯수, 스포츠 뉴스, 연예 뉴스 갯수
-    MakeSeperateComponent(0, 2, 3)
+    MakeSeperateComponent(2, 0, 0)
