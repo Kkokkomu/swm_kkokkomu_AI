@@ -62,7 +62,7 @@ class ComponentRequest(BaseModel):
     count_entertain : int
 
 class ComponentResponse(BaseModel):
-    data : json
+    data : dict
     s3 : str
 
 # 크롤링, gpt 사용
@@ -88,8 +88,8 @@ def MakeSeperateComponent(request : ComponentRequest):
                 data_content = json.load(json_file)
 
             # 비디오 생성 및 저장
-            video_path = f"{path}/{request.id}.mp4"
-            Video.generate_video()  # 비디오 생성 로직을 구현해야 합니다.
+            video_path = f"{path}/final_output.mp4"
+            Video.generate_video()  
             
             # S3에 업로드
             url = save_to_s3(video_path, BUCKET_NAME, f"{request.id}.mp4")

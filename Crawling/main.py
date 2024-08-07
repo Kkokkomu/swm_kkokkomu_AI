@@ -18,7 +18,9 @@ app = FastAPI()
 @app.post("/generate")
 def test(request: ComponentRequest):
     print("generate ai resource")
-    TotalBuild2S3.MakeSeperateComponent(request)
+    response = TotalBuild2S3.MakeSeperateComponent(request)
+
+    return response
 
 
 @app.get("/test")

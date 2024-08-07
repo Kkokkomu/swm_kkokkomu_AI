@@ -92,9 +92,9 @@ def create_image_sequence_video(image_paths, durations, output_path, fps=24):
 def generate_video():
     # 파일 경로
     audio_paths = [
-        './resource/sentence_0.mp3',
-        './resource/sentence_1.mp3',
-        './resource/sentence_2.mp3'
+        './resource/sentence_0.wav',
+        './resource/sentence_1.wav',
+        './resource/sentence_2.wav'
     ]
     image_paths = [
         './resource/sentence_0.png',

@@ -11,13 +11,16 @@ SECRET_KEY = secrets['Img_API']
 
 def SaveImg(response, path ='./image.png'):
     
+    print(response.json())
     base64_string =response.json()['image']
+    
     # Base64 문자열 디코딩
     image_data = base64.b64decode(base64_string)
 
     image = Image.open(BytesIO(image_data))
 
     image.save(path, "PNG")
+
 
 
 
@@ -47,5 +50,6 @@ def ImgGenerator(text):
     }
 
     response = requests.post(url, json=payload, headers=headers)
+    print(response)
 
     return response
