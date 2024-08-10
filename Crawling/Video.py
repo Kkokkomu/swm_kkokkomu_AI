@@ -83,9 +83,28 @@ def concatenate_audios(audio_paths, output_path, silence_duration=0):
 
 def create_image_sequence_video(image_paths, durations, output_path, fps=24):
     clips = []
+    target_aspect_ratio = 9/16  # 9:16 비율
+    target_width = 1080  # 기준 너비 (영상 크기를 설정할 수 있음)
+    target_height = int(target_width / target_aspect_ratio)
+
     for image_path, duration in zip(image_paths, durations):
         clip = ImageClip(image_path, duration=duration)
+
+        # 현재 이미지의 가로, 세로 비율 계산
+        current_aspect_ratio = clip.w / clip.h
+        
+        # 이미지가 더 넓은 경우: 가로 크기를 유지하고 세로 여백만 추가
+        new_width = target_width
+        new_height = int(new_width / current_aspect_ratio)
+        
+        # 이미지 크기 조정
+        clip = clip.resize(newsize=(new_width, new_height))
+        
+        # 위아래에 여백 추가
+        clip = clip.on_color(size=(new_width, target_height), color=(255, 255, 255), pos=("center", "center"))
+        
         clips.append(clip)
+    
     video = concatenate_videoclips(clips, method="compose")
     video.write_videofile(output_path, fps=fps, codec="libx264")
 
