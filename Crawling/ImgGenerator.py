@@ -11,7 +11,6 @@ SECRET_KEY = secrets['Img_API']
 
 def SaveImg(response, path ='./image.png'):
     
-    print(response.json())
     base64_string =response.json()['image']
     
     # Base64 문자열 디코딩

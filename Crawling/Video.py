@@ -41,7 +41,7 @@ def wrap_text(text, max_chars_per_line):
     return "\n".join(textwrap.wrap(text, width=max_chars_per_line))
 os.environ["IMAGEMAGICK_BINARY"] = "/usr/bin/convert"
 
-def create_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=40, font='배달의민족-도현-OTF', color='black', max_chars_per_line=40):
+def create_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=40, font='Noto-Sans-Mono-Bold', color='black', max_chars_per_line=40):
     subtitle_clips = []
     
     for sentence_idx, (sentence_start_time, sentence_end_time) in enumerate(sentences):
