@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import TotalBuild2S3
 
 class ComponentRequest(BaseModel):
-    id: int
+    id_list: list[int]
     count_news : int
     count_sports : int 
     count_entertain : int

@@ -56,7 +56,7 @@ def SaveSeperateData(path, crawl, title, summary, keywords ,tts, images = None):
     return data_json_path
 
 class ComponentRequest(BaseModel):
-    id: int
+    id_list: list[int]
     count_news : int
     count_sports : int 
     count_entertain : int
@@ -74,6 +74,8 @@ def MakeSeperateComponent(request : ComponentRequest):
     counts = [request.count_news, request.count_sports, request.count_entertain]
 
     response = []
+    id_list = request.id_list
+    id_idx = 0
     for kind, count in zip(tqdm(kind_of_news, desc = '대분류 반복'),counts):
         crawls = kind(count)
         if not crawls:
@@ -93,7 +95,8 @@ def MakeSeperateComponent(request : ComponentRequest):
             Video.generate_video(crawl['section'])  
             
             # S3에 업로드
-            url = save_to_s3(video_path, BUCKET_NAME, f"{request.id}.mp4")
+            url = save_to_s3(video_path, BUCKET_NAME, f"{id_list[id_idx]}.mp4")
+            id_idx += 1
 
             # 반환값
             response.append(ComponentResponse(data=data_content, s3=url))
