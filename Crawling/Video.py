@@ -41,7 +41,7 @@ def wrap_text(text, max_chars_per_line):
     return "\n".join(textwrap.wrap(text, width=max_chars_per_line))
 os.environ["IMAGEMAGICK_BINARY"] = "/usr/bin/convert"
 
-def create_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=40, font='NanumBarunpen-Bold', color='black', max_chars_per_line=40):
+def create_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=50, font='NanumBarunpen-Bold', color='black', max_chars_per_line=40):
     subtitle_clips = []
     
     for sentence_idx, (sentence_start_time, sentence_end_time) in enumerate(sentences):
@@ -108,7 +108,27 @@ def create_image_sequence_video(image_paths, durations, output_path, fps=24):
     video = concatenate_videoclips(clips, method="compose")
     video.write_videofile(output_path, fps=fps, codec="libx264")
 
-def generate_video():
+def getBgmBySection(section):
+    if section == "정치":
+        path = './resource/bgm/politics.mp3'
+    elif section == "경제":
+        path = './resource/bgm/economy.mp3'
+    elif section == "사회":
+        path = './resource/bgm/social.mp3'
+    elif section == "세계":
+        path = './resource/bgm/world.mp3'
+    elif section == "생활":
+        path = './resource/bgm/living.mp3'
+    elif section == "IT":
+        path = './resource/bgm/it.mp3'
+    elif section == "스포츠":
+        path = './resource/bgm/sports.mp3'
+    elif section == "연예":
+        path = './resource/bgm/entertain.mp3'
+    
+    return path
+
+def generate_video(section):
     # 파일 경로
     audio_paths = [
         './resource/sentence_0.wav',
@@ -120,7 +140,7 @@ def generate_video():
         './resource/sentence_1.png',
         './resource/sentence_2.png'
     ]
-    bgm_path = './resource/bgm.mp3'
+    bgm_path = getBgmBySection(section)
     combined_audio_path = './resource/combined_audio.wav'
     video_output_path = './resource/generated_video.mp4'
     output_directory = './resource'

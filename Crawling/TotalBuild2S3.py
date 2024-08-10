@@ -88,8 +88,9 @@ def MakeSeperateComponent(request : ComponentRequest):
                 data_content = json.load(json_file)
 
             # 비디오 생성 및 저장
+            print(crawl['section'])
             video_path = f"{path}/final_output.mp4"
-            Video.generate_video()  
+            Video.generate_video(crawl['section'])  
             
             # S3에 업로드
             url = save_to_s3(video_path, BUCKET_NAME, f"{request.id}.mp4")
