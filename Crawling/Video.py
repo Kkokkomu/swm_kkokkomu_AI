@@ -41,7 +41,7 @@ def wrap_text(text, max_chars_per_line):
     return "\n".join(textwrap.wrap(text, width=max_chars_per_line))
 os.environ["IMAGEMAGICK_BINARY"] = "/usr/bin/convert"
 
-def create_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=50, font='NanumBarunpen-Bold', color='black', max_chars_per_line=40):
+def create_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=50, font='NanumBarunpen-Bold', color='white', max_chars_per_line=40):
     subtitle_clips = []
     
     for sentence_idx, (sentence_start_time, sentence_end_time) in enumerate(sentences):
@@ -59,7 +59,7 @@ def create_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=5
             text_lines = wrapped_text.count('\n') + 1
             text_clip_height = text_lines * fontsize
 
-            position_y = video.size[1] - 100 - (text_clip_height // 2)
+            position_y = video.size[1] - 150 - (text_clip_height // 2)
             
             subtitle_clip = (TextClip(wrapped_text, fontsize=fontsize, font=font, color=color, size=(video.size[0] - 40, None), method='caption')
                              .set_position(("center", position_y))
@@ -101,7 +101,7 @@ def create_image_sequence_video(image_paths, durations, output_path, fps=24):
         clip = clip.resize(newsize=(new_width, new_height))
         
         # 위아래에 여백 추가
-        clip = clip.on_color(size=(new_width, target_height), color=(255, 255, 255), pos=("center", "center"))
+        clip = clip.on_color(size=(new_width, target_height), color=(0, 0, 0), pos=("center", "center"))
         
         clips.append(clip)
     
@@ -189,7 +189,7 @@ def generate_video(section):
     bgm_audio = bgm_audio[:video_duration]  # 영상 길이에 맞게 자르기
     bgm_audio.export('./resource/bgm_cut.wav', format='wav')
 
-    bgm_clip = AudioFileClip('./resource/bgm_cut.wav').volumex(0.5)  # 볼륨 조정
+    bgm_clip = AudioFileClip('./resource/bgm_cut.wav').volumex(0.3)  # 볼륨 조정
     final_video = final_video.set_audio(CompositeAudioClip([final_video.audio, bgm_clip]))
 
     # 결과물 저장
