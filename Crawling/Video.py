@@ -59,7 +59,7 @@ def create_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=5
             text_lines = wrapped_text.count('\n') + 1
             text_clip_height = text_lines * fontsize
 
-            position_y = video.size[1] - 150 - (text_clip_height // 2)
+            position_y = video.size[1] - 205 - (text_clip_height // 2)
             
             subtitle_clip = (TextClip(wrapped_text, fontsize=fontsize, font=font, color=color, size=(video.size[0] - 40, None), method='caption')
                              .set_position(("center", position_y))
@@ -128,7 +128,7 @@ def getBgmBySection(section):
     
     return path
 
-def generate_video(section):
+def generate_video(section, title):
     # 파일 경로
     audio_paths = [
         './resource/sentence_0.wav',
@@ -180,8 +180,13 @@ def generate_video(section):
     # 단어 타이밍 정보로부터 자막 클립 생성
     subtitle_clips = create_subtitle_clips(video, sentence_times, words_info)
 
+    # **추가된 코드: 제목 클립 생성**
+    title_clip = (TextClip(title, fontsize=50, font='NanumBarunpen-Bold', color='white', size=(video.size[0] - 40, None), method='caption')
+                  .set_position(("center", 100))  # 영상 상단에 제목 배치
+                  .set_duration(video.duration))   # 전체 영상 길이 동안 제목을 표시
+
     # 비디오와 자막 합치기
-    final_video = CompositeVideoClip([video, *subtitle_clips])
+    final_video = CompositeVideoClip([video, title_clip, *subtitle_clips])
 
     # 배경 음악 추가
     bgm_audio = AudioSegment.from_mp3(bgm_path)

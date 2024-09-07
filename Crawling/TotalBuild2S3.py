@@ -17,7 +17,8 @@ with open('./secret.json') as f:
 AWS_ACCESS_KEY_ID = secrets['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = secrets['AWS_SECRET_ACCESS_KEY']
 AWS_REGION = secrets['AWS_REGION']
-BUCKET_NAME = secrets['BUCKET_NAME']
+SHORTFORM_BUCKET_NAME = secrets['BUCKET_NAME']
+THUMBNAIL_BUCKET_NAME = "kkm-thumbnail"
 
 # S3 클라이언트 생성
 s3_client = boto3.client(
@@ -31,7 +32,7 @@ s3_client = boto3.client(
 def save_to_s3(file_path, bucket_name, s3_key):
     try:
         s3_client.upload_file(file_path, bucket_name, s3_key)
-        print(f"File {file_path} uploaded to S3 as {s3_key}.")
+        print(f"File {file_path} uploaded to S3 bucket {bucket_name} as {s3_key}.")
     except Exception as e:
         print(f"Failed to upload {file_path} to S3: {e}")
         return None
@@ -64,6 +65,7 @@ class ComponentRequest(BaseModel):
 class ComponentResponse(BaseModel):
     data : dict
     s3 : str
+    thumbnail : str
 
 # 크롤링, gpt 사용
 def MakeSeperateComponent(request : ComponentRequest):
@@ -89,17 +91,29 @@ def MakeSeperateComponent(request : ComponentRequest):
             with open(json_path, 'r', encoding='UTF-8') as json_file:
                 data_content = json.load(json_file)
 
+            # title을 data_content에서 추출
+            title = data_content['title']
+            print(title)
+
             # 비디오 생성 및 저장
             print(crawl['section'])
             video_path = f"{path}/final_output.mp4"
-            Video.generate_video(crawl['section'])  
+            Video.generate_video(crawl['section'], title)  
             
-            # S3에 업로드
-            url = save_to_s3(video_path, BUCKET_NAME, f"{id_list[id_idx]}.mp4")
+            # 숏폼 S3에 업로드
+            url = save_to_s3(video_path, SHORTFORM_BUCKET_NAME, f"{id_list[id_idx]}.mp4")
+            
+
+            # 썸네일 S3에 업로드
+            thumbnail_path = f"{path}/sentence_0.png"
+            thumbnail_url = save_to_s3(thumbnail_path, THUMBNAIL_BUCKET_NAME, f"{id_list[id_idx]}.png")
+            print(f"thumbnail_url : {thumbnail_url}")
+
+            # S3내 객체 이름이 될 id 인덱스 증가
             id_idx += 1
 
             # 반환값
-            response.append(ComponentResponse(data=data_content, s3=url))
+            response.append(ComponentResponse(data=data_content, s3=url, thumbnail=thumbnail_url))
     
     return response
 
