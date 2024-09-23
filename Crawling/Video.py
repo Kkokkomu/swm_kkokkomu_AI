@@ -41,7 +41,7 @@ def wrap_text(text, max_chars_per_line):
     return "\n".join(textwrap.wrap(text, width=max_chars_per_line))
 os.environ["IMAGEMAGICK_BINARY"] = "/usr/bin/convert"
 
-def create_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=50, font='NanumBarunpen-Bold', color='white', max_chars_per_line=40):
+def create_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=50, font='NanumGothicExtraBold', color='white', stroke_color='black', stroke_width=2, max_chars_per_line=40):
     subtitle_clips = []
     
     for sentence_idx, (sentence_start_time, sentence_end_time) in enumerate(sentences):
@@ -59,9 +59,11 @@ def create_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=5
             text_lines = wrapped_text.count('\n') + 1
             text_clip_height = text_lines * fontsize
 
-            position_y = video.size[1] - 205 - (text_clip_height // 2)
+            position_y = video.size[1] - 400 - (text_clip_height // 2)
             
-            subtitle_clip = (TextClip(wrapped_text, fontsize=fontsize, font=font, color=color, size=(video.size[0] - 40, None), method='caption')
+            subtitle_clip = (TextClip(wrapped_text, fontsize=fontsize, font=font, color=color, 
+                                      stroke_color=stroke_color, stroke_width=stroke_width, 
+                                      size=(video.size[0] - 40, None), method='caption')
                              .set_position(("center", position_y))
                              .set_start(start_time)
                              .set_duration(duration))
@@ -181,8 +183,8 @@ def generate_video(section, title):
     subtitle_clips = create_subtitle_clips(video, sentence_times, words_info)
 
     # **추가된 코드: 제목 클립 생성**
-    title_clip = (TextClip(title, fontsize=50, font='NanumBarunpen-Bold', color='white', size=(video.size[0] - 40, None), method='caption')
-                  .set_position(("center", 100))  # 영상 상단에 제목 배치
+    title_clip = (TextClip(title, fontsize=50, font='NanumGothicExtraBold', color='white', stroke_color='black', stroke_width=2, size=(video.size[0] - 40, None), method='caption')
+                  .set_position(("center", 300))  # 영상 상단에 제목 배치
                   .set_duration(video.duration))   # 전체 영상 길이 동안 제목을 표시
 
     # 비디오와 자막 합치기
@@ -194,7 +196,7 @@ def generate_video(section, title):
     bgm_audio = bgm_audio[:video_duration]  # 영상 길이에 맞게 자르기
     bgm_audio.export('./resource/bgm_cut.wav', format='wav')
 
-    bgm_clip = AudioFileClip('./resource/bgm_cut.wav').volumex(0.3)  # 볼륨 조정
+    bgm_clip = AudioFileClip('./resource/bgm_cut.wav').volumex(0.05)  # 볼륨 조정
     final_video = final_video.set_audio(CompositeAudioClip([final_video.audio, bgm_clip]))
 
     # 결과물 저장

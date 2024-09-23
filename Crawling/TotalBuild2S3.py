@@ -7,6 +7,7 @@ import boto3
 from pydantic import BaseModel
 from tqdm import tqdm
 from ImgGenerator import SaveImg
+from moviepy.editor import ImageClip
 
 import re
 
@@ -27,6 +28,31 @@ s3_client = boto3.client(
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
     region_name=AWS_REGION,
 )
+
+# 썸네일 이미지 조정
+def adjust_thumbnail_to_9_16(image_path, output_path, target_width=180):
+    # 9:16 비율 설정
+    target_aspect_ratio = 9 / 16
+    target_height = int(target_width / target_aspect_ratio)
+
+    # 이미지 클립 생성
+    clip = ImageClip(image_path)
+
+    # 현재 이미지의 가로, 세로 비율 계산
+    current_aspect_ratio = clip.w / clip.h
+
+    # 이미지가 더 넓은 경우: 가로 크기를 유지하고 세로 여백만 추가
+    new_width = target_width
+    new_height = int(new_width / current_aspect_ratio)
+
+    # 이미지 크기 조정
+    clip = clip.resize(newsize=(new_width, new_height))
+
+    # 위아래에 여백 추가 (이미지를 9:16 비율로 맞추기)
+    clip = clip.on_color(size=(new_width, target_height), color=(0, 0, 0), pos=("center", "center"))
+
+    # 이미지 저장
+    clip.save_frame(output_path)
 
 # S3에 객체 업로드 하는 함수
 def save_to_s3(file_path, bucket_name, s3_key):
@@ -106,7 +132,10 @@ def MakeSeperateComponent(request : ComponentRequest):
 
             # 썸네일 S3에 업로드
             thumbnail_path = f"{path}/sentence_0.png"
-            thumbnail_url = save_to_s3(thumbnail_path, THUMBNAIL_BUCKET_NAME, f"{id_list[id_idx]}.png")
+            adjusted_thumbnail_path = f"{path}/adjusted_sentence_0.png"
+            adjust_thumbnail_to_9_16(thumbnail_path, adjusted_thumbnail_path)
+
+            thumbnail_url = save_to_s3(adjusted_thumbnail_path, THUMBNAIL_BUCKET_NAME, f"{id_list[id_idx]}.png")
             print(f"thumbnail_url : {thumbnail_url}")
 
             # S3내 객체 이름이 될 id 인덱스 증가
