@@ -51,6 +51,7 @@ def ImgGenerator(text):
 
     }
 
+    print('img generator')
     response = requests.post(url, json=payload, headers=headers)
     print(response)
 

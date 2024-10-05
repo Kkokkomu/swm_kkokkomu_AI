@@ -65,6 +65,7 @@ def save_to_s3(file_path, bucket_name, s3_key):
     return f"https://{bucket_name}.s3.{AWS_REGION}.amazonaws.com/{s3_key}"
 
 def SaveSeperateData(path, crawl, title, summary, keywords ,tts, images = None):
+    print('SaveSeperateData')
     data ={'url' : crawl['url'], 'title' : title, 'summary':summary ,'section' : crawl['section'], 
            'keywords' : {f'keyword_{i}' : keyword.strip() for i, keyword in enumerate(keywords.split(','))}}
 
@@ -74,7 +75,8 @@ def SaveSeperateData(path, crawl, title, summary, keywords ,tts, images = None):
         json.dump(data, json_file, indent='\t', ensure_ascii=False)
 
     for i, t in enumerate(tts):
-        t.stream_to_file(f"{title_path}/sentence_{i}.wav")
+        with open(f"{title_path}/sentence_{i}.wav", 'wb') as audio_file:
+            audio_file.write(t)
 
     if images:
         for i, image in enumerate(images):
@@ -119,7 +121,7 @@ def MakeSeperateComponent(request : ComponentRequest):
 
             # title을 data_content에서 추출
             title = data_content['title']
-            print(title)
+            print("data" + title)
 
             # 비디오 생성 및 저장
             print(crawl['section'])

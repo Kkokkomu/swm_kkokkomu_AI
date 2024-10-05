@@ -1,19 +1,19 @@
 {
-	"url": "https://m.sports.naver.com/article/311/0001777195",
-	"title": "손흥민, 허벅지 부상으로 맨유전 제외 및 복귀 일정 미정",
+	"url": "https://n.news.naver.com/mnews/article/088/0000908031",
+	"title": "한동훈, 이재명 비판하며 부산 보궐선거 지원",
 	"summary": {
-		"sentence_0": "허벅지 부상을 당한 손흥민이 생각보다 심각한 상태임을 밝혔습니다.",
-		"sentence_1": "토트넘 감독 안지 포스테코글루는 손흥민의 복귀 일정이 불확실하다고 발표하며 다음 두 경기에서 복귀할 수 있을지 지켜봐야 한다고 전했습니다.",
-		"sentence_2": "손흥민은 페렌츠바로시와 브라이턴전 또한 출전하지 못할 경우 월드컵 예선 출전에도 차질이 생길 수 있습니다.",
-		"Prompt0": "A man sitting on a bench, wearing a sports jersey, soft afternoon light, looking contemplative about his injury",
-		"Prompt1": "A man walking with a crutch, wearing a sports cap, dim lighting, focused on his uncertain recovery",
-		"Prompt2": "A man on the field, in sports attire, bright daylight, discussing his next steps with a team coach",
-		"sentence_total": "허벅지 부상을 당한 손흥민이 생각보다 심각한 상태임을 밝혔습니다. 토트넘 감독 안지 포스테코글루는 손흥민의 복귀 일정이 불확실하다고 발표하며 다음 두 경기에서 복귀할 수 있을지 지켜봐야 한다고 전했습니다. 손흥민은 페렌츠바로시와 브라이턴전 또한 출전하지 못할 경우 월드컵 예선 출전에도 차질이 생길 수 있습니다."
+		"sentence_0": "한동훈 국민의힘 대표는 이재명 더불어민주당 대표의 정치적 행보를 비판하며 선거의 중요성을 강조했습니다.",
+		"sentence_1": "그는 민주당과 조국혁신당의 단일 후보 합의를 '정치 야합'으로 규탄하고 이 지역 선거가 정치적 정쟁이 아닌 삶의 결정임을 일깨웠습니다.",
+		"sentence_2": "부산을 방문한 한 대표는 윤일현 후보의 지지를 호소하며 지역 숙원 사업인 침례병원 정상화 지원을 약속했습니다.",
+		"Prompt0": "A man criticizing political actions in a public setting, formal attire, natural lighting, emphasizing the importance of elections and civic duty.",
+		"Prompt1": "A woman listening attentively to a political speech in a crowd, casual attire, warm lighting, expressing concern over political agreements and public welfare.",
+		"Prompt2": "A man campaigning in a vibrant city square, professional outfit, bright daylight, passionately rallying support for a local candidate and promising community development.",
+		"sentence_total": "한동훈 국민의힘 대표는 이재명 더불어민주당 대표의 정치적 행보를 비판하며 선거의 중요성을 강조했습니다. 그는 민주당과 조국혁신당의 단일 후보 합의를 '정치 야합'으로 규탄하고 이 지역 선거가 정치적 정쟁이 아닌 삶의 결정임을 일깨웠습니다. 부산을 방문한 한 대표는 윤일현 후보의 지지를 호소하며 지역 숙원 사업인 침례병원 정상화 지원을 약속했습니다."
 	},
-	"section": "스포츠",
+	"section": "정치",
 	"keywords": {
-		"keyword_0": "손흥민",
-		"keyword_1": "허벅지부상",
-		"keyword_2": "복귀불투명"
+		"keyword_0": "한동훈",
+		"keyword_1": "이재명",
+		"keyword_2": "부산 보궐선거"
 	}
 }
