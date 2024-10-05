@@ -38,35 +38,47 @@ def soupFindNaverVideo(soup):
 
 
 def soupNaverComponent(soup):
-    title = soup.find('h2',class_='media_end_head_headline').text
+    # title = soup.find('h2',class_='media_end_head_headline').text 
     content = soup.find('article',class_='go_trans _article_content').contents
     content = list(map(str,content))
     category = soup.find('em',class_ = 'media_end_categorize_item').text
-    return title, content, category
+    # return title, content, category
+    return content, category
 
 def News(count = 5):
     if count > 15:
         count = 15
         
     if count == 0:
-        return None
-    tags = mainNewsURL()
-    news = [] 
+        return []
+    try:
+        tags = mainNewsURL()
+        news = [] 
 
-    for tag in tags:
-        news_url =find_url(tag['href'])
+        for tag in tags:
+            news_url =find_url(tag['href'])
 
-        soup = returnSoup(news_url)
+            soup = returnSoup(news_url)
 
-        if soupFindNaverVideo(soup):
-            continue
+            if soupFindNaverVideo(soup):
+                continue
 
-        title, content, section = soupNaverComponent(soup)
-        content = removeAll(content)
-        
-        news.append({'url' : tag['href'],'title' : title, 'content' : content, 'section': section})
-        
+            try:
+                content, section = soupNaverComponent(soup)
+                content = removeAll(content)
+            except:
+                continue
+            
+            news.append({'url' : tag['href'],'content' : content, 'section': section})
+            
 
-        if len(news) == count:
-            break
+            if len(news) == count:
+                break
+    except:
+        news = News(count)
     return news
+
+
+if __name__ =='__main__':
+    result = News(10)
+    print(len(result))

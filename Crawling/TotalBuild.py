@@ -72,14 +72,10 @@ def MakeSeperateComponent(count_news = 5, count_sports = 5, count_entertain = 5,
                 os.makedirs(section_path)
 
             content = '\n'.join(crawl['content'])
-            # title,summary, keywords,tts, images= Generate.SeperateSentence(content)
             title, summary, keywords, tts, images= Generate.SeperateSentence(content)
             SaveSeperateData(section_path, crawl, title, summary,keywords,tts, images)
-            # title,summary,tts = Generate.SeperateSentence(content)
-            # SaveSeperateData(section_path, crawl, title, summary,tts)
 
 
 if __name__ == '__main__':
-    # MakeComponent(10,10,10)
     # 파라미터 주요뉴스 갯수, 스포츠 뉴스, 연예 뉴스 갯수
-    MakeSeperateComponent(0, 0, 1)
+    MakeSeperateComponent(2, 2, 2)
