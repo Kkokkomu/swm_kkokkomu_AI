@@ -3,10 +3,18 @@ import json
 import re
 from ImgGenerator import ImgGenerator
 
+import os
+import sys
+import urllib.request
+import urllib.parse
+
 with open('./secret.json') as f:
     secrets = json.loads(f.read())
     
 SECRET_KEY = secrets['API_Key']
+
+CLOVA_CLIENT_ID = secrets['CLOVA_CLIENT_ID']
+CLOVA_CLIENT_SECRET = secrets['CLOVA_CLIENT_SECRET']
 
 client = OpenAI(
     api_key=SECRET_KEY,
@@ -51,6 +59,54 @@ def generate_TTS(text):
     )
     return response_tts
 
+def generate_TTS_clova(text):
+    client_id = CLOVA_CLIENT_ID  # Clova API Client ID
+    client_secret = CLOVA_CLIENT_SECRET  # Clova API Client Secret
+    text = str(text)  # Python 3에서 unicode는 str로 대체됨
+    speaker = "ngoeun"
+    speed = "0"
+    volume = "2"
+    pitch = "0"
+    fmt = "wav"
+    val = {
+        "speaker": speaker,
+        "volume": volume,
+        "speed": speed,
+        "pitch": pitch,
+        "text": text,
+        "format": fmt,
+        "sampling-rate": 24000
+    }
+
+    # 요청 데이터 확인 로그
+    print("TTS 요청 데이터:", val)
+
+    data = urllib.parse.urlencode(val).encode("utf-8")  # data를 인코딩
+    url = "https://naveropenapi.apigw.ntruss.com/tts-premium/v1/tts"
+    headers = {
+        "X-NCP-APIGW-API-KEY-ID": client_id,
+        "X-NCP-APIGW-API-KEY": client_secret
+    }
+
+    # 요청 URL 및 헤더 로그
+    print("TTS 요청 URL:", url)
+    print("TTS 요청 헤더:", headers)
+
+    request = urllib.request.Request(url, data, headers)
+
+    print('TTS API 요청 시작...')
+    try:
+        response = urllib.request.urlopen(request)
+        rescode = response.getcode()
+        print(f'TTS 응답 코드: {rescode}')
+        
+        if rescode == 200:
+            print("TTS wav 생성 성공")
+            return response.read()
+        else:
+            print("TTS 요청 실패, 응답 코드:", rescode)
+    except Exception as e:
+        print("TTS API 요청 중 예외 발생:", str(e))
 
 def generate_total(text):
     response = generation_summary(text)
@@ -68,11 +124,8 @@ def generate_total(text):
     return title, summary, tts
 
 
-
-
-
-
 def SeperateSentence(text):
+    print('generate summary')
     response = generation_summary(text)
     response = find_json(response)
 
@@ -80,7 +133,9 @@ def SeperateSentence(text):
         response = json.loads(response)
 
         title = response['title']
+        print(title)
         summary_total = response['summary']
+        print(summary_total)
         summarys = re.sub(r'다\. ','다.\n',summary_total)
         summarys = summarys.split('\n')
 
@@ -100,7 +155,10 @@ def SeperateSentence(text):
         summary_dic['sentence_total'] = summary_total
         keywords = response['keyword']
 
-        tts = [generate_TTS(summary) for summary in summarys]
+        print('generate tts')
+        tts = [generate_TTS_clova(summary) for summary in summarys]
+
+        print('generate image')
         images = []
         for idx in range(3):
             response_img = ImgGenerator(summary_dic[f'Prompt{idx}'])

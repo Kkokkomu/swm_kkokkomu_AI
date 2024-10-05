@@ -1,4 +1,5 @@
 secret.json
+google_stt_secret.json
 *.pyc
 Test/
-.DS_Store
+.DS_Store 
