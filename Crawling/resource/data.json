@@ -1,19 +1,19 @@
 {
-	"url": "https://n.news.naver.com/mnews/article/088/0000908031",
-	"title": "한동훈, 이재명 비판하며 부산 보궐선거 지원",
+	"url": "https://m.entertain.naver.com/ranking/article/312/0000683243",
+	"title": "관종 아내의 가족 불화와 예능 출연",
 	"summary": {
-		"sentence_0": "한동훈 국민의힘 대표는 이재명 더불어민주당 대표의 정치적 행보를 비판하며 선거의 중요성을 강조했습니다.",
-		"sentence_1": "그는 민주당과 조국혁신당의 단일 후보 합의를 '정치 야합'으로 규탄하고 이 지역 선거가 정치적 정쟁이 아닌 삶의 결정임을 일깨웠습니다.",
-		"sentence_2": "부산을 방문한 한 대표는 윤일현 후보의 지지를 호소하며 지역 숙원 사업인 침례병원 정상화 지원을 약속했습니다.",
-		"Prompt0": "A man criticizing political actions in a public setting, formal attire, natural lighting, emphasizing the importance of elections and civic duty.",
-		"Prompt1": "A woman listening attentively to a political speech in a crowd, casual attire, warm lighting, expressing concern over political agreements and public welfare.",
-		"Prompt2": "A man campaigning in a vibrant city square, professional outfit, bright daylight, passionately rallying support for a local candidate and promising community development.",
-		"sentence_total": "한동훈 국민의힘 대표는 이재명 더불어민주당 대표의 정치적 행보를 비판하며 선거의 중요성을 강조했습니다. 그는 민주당과 조국혁신당의 단일 후보 합의를 '정치 야합'으로 규탄하고 이 지역 선거가 정치적 정쟁이 아닌 삶의 결정임을 일깨웠습니다. 부산을 방문한 한 대표는 윤일현 후보의 지지를 호소하며 지역 숙원 사업인 침례병원 정상화 지원을 약속했습니다."
+		"sentence_0": "태유나는 예능의 다양한 관전 포인트와 핫이슈를 소개하며 독자들에게 유익한 정보를 제공했습니다.",
+		"sentence_1": "김경미라는 '관종 아내'는 여러 예능 프로그램에 출연하면서 가족 불화를 홍보하고 있으며, SNS 중독과 경제적 문제로 인해 이혼 위기에 처해 있습니다.",
+		"sentence_2": "그녀는 과거 방송에서도 문제가 되었던 주제들을 반복적으로 드러내고 있으며, 결국 예능 출연이 더 큰 관심을 끌고자 하는 의도로 해석되고 있습니다.",
+		"Prompt0": "A woman presenting various highlights and trending issues in a variety show, vibrant, bright lighting, engaging and informative atmosphere",
+		"Prompt1": "A woman discussing family conflicts while appearing on multiple variety shows, colorful, dramatic lighting, portraying emotional struggles and societal challenges",
+		"Prompt2": "A man reflecting on the negative impacts of social media and economic issues, subdued, contemplative lighting, exploring the deeper layers of personal crisis",
+		"sentence_total": "태유나는 예능의 다양한 관전 포인트와 핫이슈를 소개하며 독자들에게 유익한 정보를 제공했습니다. 김경미라는 '관종 아내'는 여러 예능 프로그램에 출연하면서 가족 불화를 홍보하고 있으며, SNS 중독과 경제적 문제로 인해 이혼 위기에 처해 있습니다. 그녀는 과거 방송에서도 문제가 되었던 주제들을 반복적으로 드러내고 있으며, 결국 예능 출연이 더 큰 관심을 끌고자 하는 의도로 해석되고 있습니다."
 	},
-	"section": "정치",
+	"section": "연예",
 	"keywords": {
-		"keyword_0": "한동훈",
-		"keyword_1": "이재명",
-		"keyword_2": "부산 보궐선거"
+		"keyword_0": "관종 아내",
+		"keyword_1": "가족 불화",
+		"keyword_2": "예능 출연"
 	}
 }
