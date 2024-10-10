@@ -1,7 +1,8 @@
 from openai import OpenAI
 import json
 import re
-from ImgGenerator import ImgGenerator
+from ImgGenerator import ImgGenerator, connectWebui
+import os
 
 with open('./secret.json') as f:
     secrets = json.loads(f.read())
@@ -11,6 +12,16 @@ SECRET_KEY = secrets['API_Key']
 client = OpenAI(
     api_key=SECRET_KEY,
 )
+
+characters_dic ={'woman1':'Olivia','woman2':'Emma','woman3':'Sophia','woman4':'Ava','man1':'Ethan','man2':'Liam','man3':'Noah','man4':'James'}
+
+
+def sanitize_filename(filename):
+    
+    # 사용할 수 없는 문자 목록: \ / : * ? " < > |
+    unsafe_characters = r'[:*?"<>|]'
+    # 사용할 수 없는 문자를 '_'로 대체
+    return re.sub(unsafe_characters, '_', filename)
 
 
 def find_json(text):
@@ -25,7 +36,13 @@ def generation_summary(text):
     # gpt_version ='gpt-3.5-turbo-0125'
     gpt_version = 'gpt-4o-mini'
 
-    system = '다음 뉴스를 제목지어 주고 내용을 정확히 3문장으로 이야기하듯이 요약하고 주요한 키워드 3개 뽑아. 요약할때 말투는 무조건 ~했습니다 와 같은 말투로 해. 답변을 json형식으로 말해. 예시로는 {"title" : "제목", "summary" : "요약문", "keyword" : "keyword1, keyword2, keyword3"}으로 말해'
+    system = '''다음 뉴스를 제목지어 주고 내용을 정확히 3문장으로 이야기하듯이 요약하고 주요한 키워드 3개 뽑아. 요약할때 말투는 무조건 ~했습니다 와 같은 말투로 해. 3문장을 요약할 때, 각 문장에 해당되는 인물의 성별을 적어줘. 만약 사람이 여러명 나오면 man1, man2, woman1, woman2 와 같이 표현하고 없으면 none으로 표시해. summary안에는 절대 woman1이나 man1같은게 들어가게 하지마.
+    예를 들어 '이승기는 정대세를 매력적인 '하극상' 캐릭터로 설명했습니다. 그는 정대세가 사회적 불편함을 다양한 매력으로 전환하는 인물이라고 밝혔습니다. '생존왕'은 10월 7일 첫 방송되며 총 12명의 멤버가 생존 대결을 펼칠 예정입니다.' 라는 요약이면 "sentence_Character0": "man1 man2", "sentence_Character1": "man1 man2", "sentence_Character2": "none" 으로 대답해. 그리고 윤석열이랑 윤대통령과 같이 직책앞에 성을 붙이는 건 성이 같으면 같은사람이야.
+    그리고 요약된 3문장 각각에 해당되는 이미지를 구체적으로 묘사하고 prompt로 말해. prompt에 none은 없어! 묘사할때 obsession with impressions, where, what, atmosphere, subject, color, lighting, extra details 의 주제에 맞게 최대한 상세하게 영어로 표현해. 특히 장소에 대한 묘사를 최대한 세부적으로 표현해. 예를 들어 stadium이면 baseball stadium인지 football stadium인지 정확하게 말해줘.
+    답변을 json형식으로 말해. 예시로는 {"title" : "제목", "summary" : "요약문", "keyword" : "keyword1, keyword2, keyword3", "sentence_Character0": "man1", "sentence_Character1": "man1 woman1", "sentence_Character2": "woman1",
+    "Prompt0": "wear suit, National Assembly​​,presenting in front of people, glad , stand in front of people, brown, studio lighting, utopian future", 
+    "Prompt1": "casual clothes, dimly lit room, focused on screen, concentrate ,cluttered with books and gadgets, blue glow from monitor, obsessed with learning", 
+    "Prompt2": "red dress, open field, comfort ,midday sun, green grass, carefree expression, short sharp shadows, pure joy"}으로 말해'''
 
     response_sum = client.chat.completions.create(
         model=gpt_version,  # 또는 다른 모델을 사용
@@ -68,54 +85,61 @@ def generate_total(text):
     return title, summary, tts
 
 
-
-
-
-
-def SeperateSentence(text):
+def makeJson(text):
     response = generation_summary(text)
     response = find_json(response)
 
     try:
         response = json.loads(response)
+        response_prompts = {f'Prompt{i}' :response[f'Prompt{i}'] for i in range(3)}
 
         title = response['title']
         summary_total = response['summary']
         summarys = re.sub(r'다\. ','다.\n',summary_total)
         summarys = summarys.split('\n')
+        characters ={}
 
         if len(summarys) != 3:
             raise
+
         summary_dic = {f'sentence_{i}' : summary for i,summary in enumerate(summarys)}
         
-        response_prompts = TransSummary(summary_total)
-        response_prompts = find_json(response_prompts)
-        response_prompts = json.loads(response_prompts)
+        prompt_total = ""
+        for i in range(3):
+            character_list = response[f'sentence_Character{i}'].strip().split(' ')
+            for character in character_list:
+                if character == 'none':
+                    continue
+                prompt_total += characters_dic[character] + ', '
+            characters[f'sentence_{i}'] = response[f'sentence_Character{i}']
 
+            prompt_total += response[f'Prompt{i}']
+            if not i ==2:
+                prompt_total += ' \n '
 
-        if len(response_prompts) != 3:
-            raise
-
+        summary_dic['prompt_total'] = prompt_total
+        
         summary_dic.update(response_prompts)
+
+
         summary_dic['sentence_total'] = summary_total
         keywords = response['keyword']
-
-        tts = [generate_TTS(summary) for summary in summarys]
-        images = []
-        for idx in range(3):
-            response_img = ImgGenerator(summary_dic[f'Prompt{idx}'])
-            images.append(response_img)
+        
     except:
-
-        title, summary_dic,keywords ,tts, images = SeperateSentence(text)
-    return title, summary_dic, keywords ,tts, images
+        title, summary_dic, keywords, characters = makeJson(text)
+        
+    
+    return title, summary_dic, keywords, characters
 
 
 
 def TransSummary(text):
     gpt_version = 'gpt-4o-mini'
 
-    system = '다음 3문장을 각각 상황에 맞게 묘사해. 묘사할때 subject, color, lighting, extra details 의 주제에 맞게 영어로 표현해. 특정 인물 이름 빼! 남자는 boy 나 man 여자는 girl 이나 woman으로 표시해! 예시로는 json 형식으로  {"Prompt0": "A corgi dog sitting on the front porch, brown, studio lighting, utopian future", "Prompt1": "A cat standing on the front porch, brown, studio lighting, utopian future", "Prompt2": "A man open the door, brown, studio lighting, utopian future"}'
+    system = '''다음 3문장을 각각 상황에 맞게 묘사해. 묘사할때 obsession with impressions, where, what, atmosphere, subject, color, lighting, extra details 의 주제에 맞게 최대한 상세하게 영어로 표현해. 특히 장소에 대한 묘사를 최대한 세부적으로 표현해. 예를 들어 stadium이면 baseball stadium인지 football stadium인지 정확하게 말해줘.
+    전체 예시로는 json 형식으로  {"Prompt0": "wear suit, National Assembly​​,presenting in front of people, glad , stand in front of people, brown, studio lighting, utopian future", 
+    "Prompt1": "casual clothes, dimly lit room, focused on screen, concentrate ,cluttered with books and gadgets, blue glow from monitor, obsessed with learning", 
+    "Prompt2": "red dress, open field, comfort ,midday sun, green grass, carefree expression, short sharp shadows, pure joy"}'''
 
     response_sum = client.chat.completions.create(
         model=gpt_version,  # 또는 다른 모델을 사용
@@ -133,6 +157,11 @@ def TransSummary(text):
     return response
 
 if __name__ == '__main__':
-    text = "박태준은 2024 파리 올림픽 태권도 남자 58kg급 준결승에서 세계랭킹 1위의 모하메드 칼릴 젠두비를 2-0으로 제압하며 결승에 진출했습니다. 공격적인 플레이로 연속 점수를 올린 박태준은 기량을 뽐내며 관중의 환호를 받았습니다. 8일 결승에서 박태준은 태권도 금메달에 도전하게 됩니다."
-    response = TransSummary(text)
+    text = """국민의힘 윤상현 의원은 10일 한동훈 대표를 겨냥해 "김 여사에 대한 악마화 작업에 부화뇌동하는 것이 아니라면 자해적 발언을 삼가야 한다"고 비판했다.
+윤 의원은 이날 한 대표가 김건희 여사의 도이치모터스 주가조작 연루 의혹에 대한 검찰 기소 판단과 관련해 "국민이 납득할만한 결과를 내놔야 한다"고 주문한 것을 두고 이같이 말했다.
+그는 소셜미디어(SNS)에 글을 올려 "수사가 객관적 사실과 법리에 근거해서 결론 내는 거지 국민 눈높이에 맞추라는 식은 법무부 장관까지 했던 사람의 발언으로는 상상조차 하기 어렵다"고 지적했다.
+이어 "법과 원칙에 맞는 수사대신 여론재판을 열자는 것인가"라며 "지금은 법리와 증거에 기반한 수사에 따라 진실이 밝혀지길 기다릴 때"라고 강조했다.
+앞서 한 대표는 이날 '검찰이 도이치모터스 사건에 대해 김 여사를 불기소할 것 같다'는 취재진 질문에 "검찰이 어떤 계획을 가지고 있는지 알지 못한다"면서도 "검찰이 국민이 납득할만한 결과를 내놔야 한다"고 밝혔다.
+그는 김 여사의 활동 자제가 필요하다고 했던 자신의 입장과 관련해서는 "당초 대선에서 국민에게 약속한 부분 아닌가. 그것을 지키면 된다"고 말했다."""
+    response = generation_summary(text)
     print(response)
