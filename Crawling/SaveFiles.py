@@ -43,4 +43,5 @@ def saveJsonFile(path, crawl, title, summary, keywords, characters):
 
 def saveTTS(tts, title_path):
     for i,t in enumerate(tts):
-        t.stream_to_file(title_path+f'/sentence_{i}.wav')
+        with open(f"{title_path}/sentence_{i}.wav", 'wb') as audio_file:
+            audio_file.write(t)

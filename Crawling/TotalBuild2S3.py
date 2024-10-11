@@ -6,7 +6,6 @@ import json
 import boto3
 from pydantic import BaseModel
 from tqdm import tqdm
-from ImgGenerator import SaveImg
 from moviepy.editor import ImageClip
 from SaveFiles import SaveImg, saveJsonFile, saveTTS
 from ImgGenerator import connectWebui, ImgGenerator
@@ -123,18 +122,23 @@ def MakeSeperateComponent(request : ComponentRequest):
             tts = [Generate.generate_TTS_clova(summary[f'sentence_{idx}']) for idx in range(3)]
             saveTTS(tts, title_path)
 
-            try:
-                images = connectWebui(summary['prompt_total'])
+            # try:
+            print("try connectWebui")
+            images = connectWebui(summary['prompt_total'])
+            print(11111111111)
 
-                for idx, image in enumerate(images):
-                    SaveImg(image, path = title_path+f'/sentence_{idx}.png')
+            for idx, image in enumerate(images):
+
+                print(1111111111)
+
+                SaveImg(image, path = title_path+f'/sentence_{idx}.png')
 
             
-            except:
-                print("\nGetImg로 이미지를 생성합니다.\n")
-                for idx in range(3):
-                    image = ImgGenerator(summary[f'Prompt{idx}'])
-                    SaveImg(image, path = title_path+f'/sentence_{idx}.png')
+            # except:
+            #     print("\nGetImg로 이미지를 생성합니다.\n")
+            #     for idx in range(3):
+            #         image = ImgGenerator(summary[f'Prompt{idx}'])
+            #         SaveImg(image, path = title_path+f'/sentence_{idx}.png')
             
             
             # title,summary, keywords,tts, images= Generate.SeperateSentence(content)
