@@ -43,7 +43,7 @@ def ImgGenerator(text):
 
 def connectWebui(prompt):
 # Define the URL and the payload to send.
-    url = "http://127.0.0.1:7860"
+    url = "http://10.0.4.18:7860"
 
     payload = {
         "prompt": "high quality, masterpiece, <lora:last-000008:0.7>, ",
