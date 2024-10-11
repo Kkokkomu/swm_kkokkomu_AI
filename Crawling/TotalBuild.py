@@ -4,43 +4,11 @@ from datetime import datetime
 import os
 import json
 from tqdm import tqdm
-from ImgGenerator import SaveImg
-
-import re
-
-
-def sanitize_filename(filename):
-    
-    # 사용할 수 없는 문자 목록: \ / : * ? " < > |
-    unsafe_characters = r'[:*?"<>|]'
-    # 사용할 수 없는 문자를 '_'로 대체
-    return re.sub(unsafe_characters, '_', filename)
-
-def SaveSeperateData(path, crawl, title, summary, keywords ,tts, images = None):
-    data ={'url' : crawl['url'], 'title' : title, 'summary':summary ,'section' : crawl['section'], 
-           'keywords' : {f'keyword_{i}' : keyword.strip() for i, keyword in enumerate(keywords.split(','))}}
-
-    titleForPath = sanitize_filename(title)
-    title_path = path + '/'+ titleForPath
-    if not os.path.isdir(title_path):
-        os.makedirs(title_path)
-
-    with open(title_path +'/data.json','w', encoding='UTF-8') as json_file:
-        json.dump(data, json_file,indent='\t',ensure_ascii=False)
-
-    # tts.astream_to_file(title_path+'/tts.mp3')
-    for i,t in enumerate(tts):
-
-        t.stream_to_file(title_path+f'/sentence_{i}.wav')
-    if images:
-        for i,image in enumerate(images):
-
-            SaveImg(image, path = title_path+f'/sentence_{i}.png')
-# 크롤링, gpt 사용
+from SaveFiles import SaveImg, saveJsonFile, saveTTS, sanitize_filename
+from ImgGenerator import connectWebui, ImgGenerator
 
 
-# 크롤링, gpt 사용
-def MakeSeperateComponent(count_news = 5, count_sports = 5, count_entertain = 5, path = ''):
+def renewalMakeComponent(count_news = 5, count_sports = 5, count_entertain = 5, path = ''):
     kind_of_news = [NewsCrawling.News, SportsCrawling.sportsNews, EntertainCrawling.entertainNews ]
     
     counts = [count_news, count_sports, count_entertain]
@@ -72,10 +40,32 @@ def MakeSeperateComponent(count_news = 5, count_sports = 5, count_entertain = 5,
                 os.makedirs(section_path)
 
             content = '\n'.join(crawl['content'])
-            title, summary, keywords, tts, images= Generate.SeperateSentence(content)
-            SaveSeperateData(section_path, crawl, title, summary,keywords,tts, images)
 
+            
+            title, summary, keywords, characters= Generate.makeJson(content)
+            title_path = saveJsonFile(section_path, crawl, title, summary,keywords, characters)
+
+
+            # Clova 사용할거면 tts 생성 필요없을거 같아서 주석처리 풀면 실행됨 
+            # tts = [Generate.generate_TTS(summary[f'sentence_{idx}']) for idx in range(3)]
+            # saveTTS(tts, title_path)
+            
+            try:
+                images = connectWebui(['prompt_total'])
+
+                for idx, image in enumerate(images):
+                    SaveImg(image, path = title_path+f'/sentence_{idx}.png')
+
+            
+            except:
+                print("\nGetImg로 이미지를 생성합니다.\n")
+                for idx in range(3):
+                    image = ImgGenerator(summary[f'Prompt{idx}'])
+                    SaveImg(image, path = title_path+f'/sentence_{idx}.png')
+            
 
 if __name__ == '__main__':
     # 파라미터 주요뉴스 갯수, 스포츠 뉴스, 연예 뉴스 갯수
-    MakeSeperateComponent(2, 2, 2)
+    # MakeSeperateComponent(1, 0, 0)
+    # MakeJson(0,2,2)
+    renewalMakeComponent(1,1,1)
