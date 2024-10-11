@@ -124,7 +124,7 @@ def MakeSeperateComponent(request : ComponentRequest):
             saveTTS(tts, title_path)
 
             try:
-                images = connectWebui(['prompt_total'])
+                images = connectWebui(summary['prompt_total'])
 
                 for idx, image in enumerate(images):
                     SaveImg(image, path = title_path+f'/sentence_{idx}.png')
