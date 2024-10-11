@@ -124,22 +124,6 @@ def generate_TTS_clova(text):
     except Exception as e:
         print("TTS API 요청 중 예외 발생:", str(e))
 
-def generate_total(text):
-    response = generation_summary(text)
-    try:
-        response = find_json(response)
-        response = json.loads(response)
-
-        title = response['title']
-        summary = response['summary']
-
-        tts = generate_TTS(summary)
-    except:
-        title, summary, tts = generate_total(text)
-
-    return title, summary, tts
-
-
 def makeJson(text):
     response = generation_summary(text)
     response = find_json(response)

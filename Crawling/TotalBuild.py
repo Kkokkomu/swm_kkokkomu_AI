@@ -47,8 +47,8 @@ def renewalMakeComponent(count_news = 5, count_sports = 5, count_entertain = 5, 
 
 
             # Clova 사용할거면 tts 생성 필요없을거 같아서 주석처리 풀면 실행됨 
-            # tts = [Generate.generate_TTS(summary[f'sentence_{idx}']) for idx in range(3)]
-            # saveTTS(tts, title_path)
+            tts = [Generate.generate_TTS_clova(summary[f'sentence_{idx}']) for idx in range(3)]
+            saveTTS(tts, title_path)
             
             try:
                 images = connectWebui(['prompt_total'])
