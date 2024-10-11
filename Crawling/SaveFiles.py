@@ -30,8 +30,9 @@ def saveJsonFile(path, crawl, title, summary, keywords, characters):
     data ={'url' : crawl['url'], 'title' : title, 'summary':summary ,'section' : crawl['section'], 
            'keywords' : {f'keyword_{i}' : keyword.strip() for i, keyword in enumerate(keywords.split(','))},'characters' :characters}
 
-    titleForPath = sanitize_filename(title)
-    title_path = path + '/'+ titleForPath
+    # titleForPath = sanitize_filename(title)
+    # title_path = path + '/'+ titleForPath
+    title_path = path 
     if not os.path.isdir(title_path):
         os.makedirs(title_path)
 
