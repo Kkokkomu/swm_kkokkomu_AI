@@ -18,7 +18,7 @@ def find_sports_xhr(url):
 
 def sportsComponent(xhr_url):
     response = requests.get(xhr_url)
-
+    ## 오류 발생
     result = response.json()['result']['articleInfo']['article']
     sports_title = result['title']
     sports_contents = result['content']
@@ -49,3 +49,6 @@ def sportsNews(count = 10):
         result.append({'url' : url['href'],'title' : title, 'content' : content, 'section': section})
     
     return result
+
+if __name__ =='__main__':
+    pass

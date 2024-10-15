@@ -88,4 +88,4 @@ def connectWebui(prompt):
     for i in range(3):
         result.append(r['images'][i])
         
-    return r
+    return result
