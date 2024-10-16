@@ -147,14 +147,23 @@ def makeJson(text):
         
         prompt_total = ""
         for i in range(3):
-            character_list = response[f'sentence_Character{i}'].strip().split(' ')
-            for character in character_list:
-                if character == 'none':
-                    continue
-                prompt_total += characters_dic[character] + ', '
-            characters[f'sentence_{i}'] = response[f'sentence_Character{i}']
+            character_set = response[f'sentence_Character{i}']
 
-            prompt_total += response[f'Prompt{i}']
+            prompt = response[f'Prompt{i}']
+
+            if character_set =='none':
+                prompt = prompt.split(',')[1:]
+                prompt = ', '.join(prompt)
+            else: 
+                character_list = character_set.strip().split(' ')
+                for character in character_list:
+                    if character == 'none':
+                        
+                        continue
+                    prompt_total += characters_dic[character] + ', '
+            characters[f'sentence_{i}'] = character_set
+            prompt_total += prompt
+            
             if not i ==2:
                 prompt_total += ' \n '
 
