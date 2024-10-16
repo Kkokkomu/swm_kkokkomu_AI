@@ -43,8 +43,7 @@ def generation_summary(text):
     # gpt_version ='gpt-3.5-turbo-0125'
     gpt_version = 'gpt-4o-mini'
 
-    system = '''다음 뉴스를 제목지어 주고 내용을 정확히 3문장으로 이야기하듯이 요약하고 주요한 키워드 3개 뽑아. 요약할때 말투는 무조건 ~했습니다 와 같은 말투로 해. 3문장을 요약할 때, 각 문장에 해당되는 인물의 성별을 적어줘. 만약 사람이 여러명 나오면 man1, man2, woman1, woman2 와 같이 표현하고 없으면 none으로 표시해. summary안에는 절대 woman1이나 man1같은게 들어가게 하지마.
-    예를 들어 '이승기는 정대세를 매력적인 '하극상' 캐릭터로 설명했습니다. 그는 정대세가 사회적 불편함을 다양한 매력으로 전환하는 인물이라고 밝혔습니다. '생존왕'은 10월 7일 첫 방송되며 총 12명의 멤버가 생존 대결을 펼칠 예정입니다.' 라는 요약이면 "sentence_Character0": "man1 man2", "sentence_Character1": "man1 man2", "sentence_Character2": "none" 으로 대답해. 그리고 윤석열이랑 윤대통령과 같이 직책앞에 성을 붙이는 건 성이 같으면 같은사람이야.
+    system = '''다음 뉴스를 제목지어 주고 내용을 정확히 3문장으로 이야기하듯이 요약하고 주요한 키워드 3개 뽑아. 요약할때 말투는 무조건 ~했습니다 와 같은 말투로 해. 
     그리고 요약된 3문장 각각에 해당되는 이미지를 구체적으로 묘사하고 prompt로 말해. prompt에 none은 없어! 묘사할때 obsession with impressions, where, what, atmosphere, subject, color, lighting, extra details 의 주제에 맞게 최대한 상세하게 영어로 표현해. 특히 장소에 대한 묘사를 최대한 세부적으로 표현해. 예를 들어 stadium이면 baseball stadium인지 football stadium인지 정확하게 말해줘.
     답변을 json형식으로 말해. 예시로는 {"title" : "제목", "summary" : "요약문", "keyword" : "keyword1, keyword2, keyword3", "sentence_Character0": "man1", "sentence_Character1": "man1 woman1", "sentence_Character2": "woman1",
     "Prompt0": "wear suit, National Assembly​​,presenting in front of people, glad , stand in front of people, brown, studio lighting, utopian future", 
@@ -136,6 +135,14 @@ def makeJson(text):
         summary_total = response['summary']
         summarys = re.sub(r'다\. ','다.\n',summary_total)
         summarys = summarys.split('\n')
+
+        character_response = FindCharacters(summary_total)
+
+        character_response = find_json(character_response)
+        character_response = json.loads(character_response)
+
+        character_set = character_response[f'sentence_Character0']
+        
         characters ={}
 
 
@@ -147,7 +154,7 @@ def makeJson(text):
         
         prompt_total = ""
         for i in range(3):
-            character_set = response[f'sentence_Character{i}']
+            character_set = character_response[f'sentence_Character{i}']
 
             prompt = response[f'Prompt{i}']
 
@@ -182,6 +189,30 @@ def makeJson(text):
     return title, summary_dic, keywords, characters
 
 
+def FindCharacters(text):
+
+    gpt_version = 'gpt-4o-mini'
+
+    system = '''다음 3문장에 해당되는 인물의 성별을 적어줘. 만약 사람이 여러명 나오면 man1, man2, woman1, woman2 와 같이 표현하고 없으면 none으로 표시해. 그리고 윤석열이랑 윤대통령과 같이 직책앞에 성을 붙이는 건 성이 같으면 같은사람이야. '그' 나 '그녀'와 같이 대명사를 쓰는 것도 포함시켜. 결과는 Json 형식으로 추출해.
+    예를 들어 '이승기는 정대세를 매력적인 '하극상' 캐릭터로 설명했습니다. 그는 정대세가 사회적 불편함을 다양한 매력으로 전환하는 인물이라고 밝혔습니다. '생존왕'은 10월 7일 첫 방송되며 총 12명의 멤버가 생존 대결을 펼칠 예정입니다.' 라는 요약이면 
+    {"sentence_Character0": "man1 man2", "sentence_Character1": "man1 man2", "sentence_Character2": "none"}으로 대답해. 
+    '''
+
+    response_sum = client.chat.completions.create(
+        model=gpt_version,  # 또는 다른 모델을 사용
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user", "content": text},
+        ],
+    )
+
+    response = response_sum.json()
+    response = json.loads(response)
+    response = response["choices"][0]["message"]['content']
+    response = response.split('Prompt:')[-1].strip()
+
+    return response
+
 
 def TransSummary(text):
     gpt_version = 'gpt-4o-mini'
@@ -213,5 +244,5 @@ if __name__ == '__main__':
 이어 "법과 원칙에 맞는 수사대신 여론재판을 열자는 것인가"라며 "지금은 법리와 증거에 기반한 수사에 따라 진실이 밝혀지길 기다릴 때"라고 강조했다.
 앞서 한 대표는 이날 '검찰이 도이치모터스 사건에 대해 김 여사를 불기소할 것 같다'는 취재진 질문에 "검찰이 어떤 계획을 가지고 있는지 알지 못한다"면서도 "검찰이 국민이 납득할만한 결과를 내놔야 한다"고 밝혔다.
 그는 김 여사의 활동 자제가 필요하다고 했던 자신의 입장과 관련해서는 "당초 대선에서 국민에게 약속한 부분 아닌가. 그것을 지키면 된다"고 말했다."""
-    response = generation_summary(text)
+    response = makeJson(text)
     print(response)

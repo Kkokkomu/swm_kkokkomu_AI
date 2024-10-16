@@ -67,13 +67,13 @@ if __name__ == '__main__':
     # 파라미터 주요뉴스 갯수, 스포츠 뉴스, 연예 뉴스 갯수
     # MakeSeperateComponent(1, 0, 0)
     # MakeJson(0,2,2)
-    # renewalMakeComponent(1,1,1)
+    renewalMakeComponent(1,1,1)
 
 
-    with open('./resource/data.json', 'r', encoding='UTF-8') as json_file:
-        data_content = json.load(json_file)
-    summary = data_content['summary']['prompt_total']
-    images = connectWebui(summary)
+    # with open('./resource/data.json', 'r', encoding='UTF-8') as json_file:
+    #     data_content = json.load(json_file)
+    # summary = data_content['summary']['prompt_total']
+    # images = connectWebui(summary)
 
-    for idx, image in enumerate(images):
-        SaveImg(image, path = f'./resource/sentence_{idx}.png')
+    # for idx, image in enumerate(images):
+    #     SaveImg(image, path = f'./resource/sentence_{idx}.png')
