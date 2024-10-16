@@ -133,12 +133,12 @@ def makeJson(text):
         response_prompts = {f'Prompt{i}' :response[f'Prompt{i}'] for i in range(3)}
 
         title = response['title']
-        print(title)
         summary_total = response['summary']
-        print(summary_total)
         summarys = re.sub(r'다\. ','다.\n',summary_total)
         summarys = summarys.split('\n')
         characters ={}
+
+
 
         if len(summarys) != 3:
             raise
@@ -163,7 +163,7 @@ def makeJson(text):
                     prompt_total += characters_dic[character] + ', '
             characters[f'sentence_{i}'] = character_set
             prompt_total += prompt
-            
+
             if not i ==2:
                 prompt_total += ' \n '
 
