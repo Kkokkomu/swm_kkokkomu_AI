@@ -1,25 +1,25 @@
 {
-	"url": "https://n.news.naver.com/mnews/article/028/0002711051",
-	"title": "김영배 의원, '혈세 낭비' 발언으로 논란 후 사과",
+	"url": "https://n.news.naver.com/mnews/article/001/0014986893",
+	"title": "고령 운전자의 페달 오조작 사고 증가",
 	"summary": {
-		"sentence_0": "김영배 더불어민주당 의원이 10·16 부산 금정구청장 보궐선거에 대해 '혈세 낭비'라고 발언한 후, 국민의힘과 유족의 강력한 반발을 받았습니다.",
-		"sentence_1": "그는 발언 후 유족에게 사과하며 신중한 언행을 하겠다고 밝혔습니다.",
-		"sentence_2": "그러자 국민의힘은 김 의원의 발언이 모욕적이라고 비판하며, 고인을 추모하는 메시지를 전달했습니다.",
-		"prompt_total": "Ethan, wearing suit, outdoor area near a former president's residence, briefing audience, serious tone, natural light, grassy field in background, somber atmosphere \n Ethan, Olivia, casual clothes, brightly lit room, looking at a mobile phone, concerned expression, family photos on the wall, warm tones, intense emotion, feeling of disbelief \n Liam, Noah, formal attire, office environment, addressing audience on social issues, passionate stance, bright light illuminating documents, atmosphere of determination, conveying a strong message",
-		"Prompt0": "wearing suit, outdoor area near a former president's residence, briefing audience, serious tone, natural light, grassy field in background, somber atmosphere",
-		"Prompt1": "casual clothes, brightly lit room, looking at a mobile phone, concerned expression, family photos on the wall, warm tones, intense emotion, feeling of disbelief",
-		"Prompt2": "formal attire, office environment, addressing audience on social issues, passionate stance, bright light illuminating documents, atmosphere of determination, conveying a strong message",
-		"sentence_total": "김영배 더불어민주당 의원이 10·16 부산 금정구청장 보궐선거에 대해 '혈세 낭비'라고 발언한 후, 국민의힘과 유족의 강력한 반발을 받았습니다. 그는 발언 후 유족에게 사과하며 신중한 언행을 하겠다고 밝혔습니다. 그러자 국민의힘은 김 의원의 발언이 모욕적이라고 비판하며, 고인을 추모하는 메시지를 전달했습니다."
+		"sentence_0": "자동차 페달 오조작 사고 4건 중 1건은 65세 이상 고령 운전자가 일으킨 것으로 나타났습니다.",
+		"sentence_1": "삼성화재 교통안전문화연구소의 분석에 따르면, 전체 페달 오조작 사고의 39.1%가 61세 이상이었고, 고령 운전자를 위한 오조작 방지 장치 보급이 필요하다는 지적이 있었습니다.",
+		"sentence_2": "일본은 대부분의 신차에 이를 장착하고 있으며, 국내에서도 현대자동차가 페달 오조작 안전보조장치를 제공하고 있습니다.",
+		"prompt_total": "none, traffic accident analysis room, surrounded by charts and reports, focused and analytical, large desk with papers scattered, bright white lighting, atmosphere of urgency and concern \n Ethan, man in casual clothes, modern office, discussing statistics, passionate expression, charts on the wall detailing accidents, soft natural light from windows creating a serious atmosphere \n car showroom, showcases with new vehicles, eager customers exploring, bright and polished environment, vibrant colors of cars, promotional banners highlighting safety features and innovations",
+		"Prompt0": "none, traffic accident analysis room, surrounded by charts and reports, focused and analytical, large desk with papers scattered, bright white lighting, atmosphere of urgency and concern",
+		"Prompt1": "man in casual clothes, modern office, discussing statistics, passionate expression, charts on the wall detailing accidents, soft natural light from windows creating a serious atmosphere",
+		"Prompt2": "car showroom, showcases with new vehicles, eager customers exploring, bright and polished environment, vibrant colors of cars, promotional banners highlighting safety features and innovations",
+		"sentence_total": "자동차 페달 오조작 사고 4건 중 1건은 65세 이상 고령 운전자가 일으킨 것으로 나타났습니다. 삼성화재 교통안전문화연구소의 분석에 따르면, 전체 페달 오조작 사고의 39.1%가 61세 이상이었고, 고령 운전자를 위한 오조작 방지 장치 보급이 필요하다는 지적이 있었습니다. 일본은 대부분의 신차에 이를 장착하고 있으며, 국내에서도 현대자동차가 페달 오조작 안전보조장치를 제공하고 있습니다."
 	},
-	"section": "정치",
+	"section": "경제",
 	"keywords": {
-		"keyword_0": "김영배",
-		"keyword_1": "혈세 낭비",
-		"keyword_2": "유족 반발"
+		"keyword_0": "고령 운전자",
+		"keyword_1": "페달 오조작 사고",
+		"keyword_2": "안전보조장치"
 	},
 	"characters": {
-		"sentence_0": "man1",
-		"sentence_1": "man1 woman1",
-		"sentence_2": "man2 man3"
+		"sentence_0": "none",
+		"sentence_1": "man1",
+		"sentence_2": "none"
 	}
 }

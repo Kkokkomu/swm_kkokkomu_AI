@@ -45,7 +45,7 @@ def ImgGenerator(text):
 def connectWebui(prompt):
 # Define the URL and the payload to send.
     print('start connectWebui')
-    url = "http://10.0.4.18:7860"
+    url = "http://10.0.4.53:7860"
 
     payload = {
         "prompt": "high quality, masterpiece, <lora:last-000008:0.7>, ",
@@ -68,9 +68,9 @@ def connectWebui(prompt):
             "CLIP_stop_at_last_layers": 2,
         },
 
-        # "enable_hr": True,
-        # "hr_upscaler": "Latent",
-        # "hr_scale": 2,
+        "enable_hr": True,
+        "hr_upscaler": "Latent",
+        "hr_scale": 2,
         "script_name": "Prompts from file or textbox",
         "script_args":[
             False,
@@ -89,9 +89,9 @@ def connectWebui(prompt):
     result = []
     for i in range(3):
         result.append(r['images'][i])
-        print(r['images'][i])
         
-    return r
+    return result
 if __name__ == '__main__':
+    print('ImgGenerator')
     prompt = "Ethan, Olivia, business attire, National Assembly room, presenting in front of lawmakers, serious atmosphere, standing confidently at a podium, warm lighting, decorated with national flags and emblems \n Ethan, suit, cluttered office, highlighting data on a screen, focused and concerned expression, papers and reports scattered around, soft overhead light, serious discussion on legal matters \n Ethan, Olivia, formal attire, conference room setting, discussing policy implications, collaborative atmosphere, surrounded by advisors and documents, bright but soft lighting, showcasing teamwork and dedication"
     connectWebui(prompt)
