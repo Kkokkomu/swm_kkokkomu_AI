@@ -45,8 +45,11 @@ def renewalMakeComponent(count_news = 5, count_sports = 5, count_entertain = 5, 
             title, summary, keywords, characters= Generate.makeJson(content)
             title_path = saveJsonFile(section_path, crawl, title, summary,keywords, characters)
 
+            try:
+                tts = [Generate.generate_TTS_clova(summary[f'sentence_{idx}']) for idx in range(3)]
+            except:
+                tts = [Generate.generate_TTS(summary[f'sentence_{idx}']) for idx in range(3)]
 
-            tts = [Generate.generate_TTS_clova(summary[f'sentence_{idx}']) for idx in range(3)]
             saveTTS(tts, title_path)
             
             try:
