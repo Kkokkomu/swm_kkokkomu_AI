@@ -45,8 +45,11 @@ def renewalMakeComponent(count_news = 5, count_sports = 5, count_entertain = 5, 
             title, summary, keywords, characters= Generate.makeJson(content)
             title_path = saveJsonFile(section_path, crawl, title, summary,keywords, characters)
 
+            try:
+                tts = [Generate.generate_TTS_clova(summary[f'sentence_{idx}']) for idx in range(3)]
+            except:
+                tts = [Generate.generate_TTS(summary[f'sentence_{idx}']) for idx in range(3)]
 
-            tts = [Generate.generate_TTS_clova(summary[f'sentence_{idx}']) for idx in range(3)]
             saveTTS(tts, title_path)
             
             try:
@@ -67,13 +70,13 @@ if __name__ == '__main__':
     # 파라미터 주요뉴스 갯수, 스포츠 뉴스, 연예 뉴스 갯수
     # MakeSeperateComponent(1, 0, 0)
     # MakeJson(0,2,2)
-    # renewalMakeComponent(1,1,1)
+    renewalMakeComponent(1,1,1)
 
 
-    with open('./resource/data.json', 'r', encoding='UTF-8') as json_file:
-        data_content = json.load(json_file)
-    summary = data_content['summary']['prompt_total']
-    images = connectWebui(summary)
+    # with open('./resource/data.json', 'r', encoding='UTF-8') as json_file:
+    #     data_content = json.load(json_file)
+    # summary = data_content['summary']['prompt_total']
+    # images = connectWebui(summary)
 
-    for idx, image in enumerate(images):
-        SaveImg(image, path = f'./resource/sentence_{idx}.png')
+    # for idx, image in enumerate(images):
+    #     SaveImg(image, path = f'./resource/sentence_{idx}.png')

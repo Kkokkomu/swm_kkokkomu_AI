@@ -18,8 +18,14 @@ def find_sports_xhr(url):
 
 def sportsComponent(xhr_url):
     response = requests.get(xhr_url)
+    if response.status_code != 200:
+        print('This news is none')
+        return None
     ## 오류 발생
-    result = response.json()['result']['articleInfo']['article']
+    try:
+        result = response.json()['result']['articleInfo']['article']
+    except:
+        return None
     sports_title = result['title']
     sports_contents = result['content']
 
@@ -45,10 +51,21 @@ def sportsNews(count = 10):
     result = []
     for url in urls:
         xhr_url = find_sports_xhr(url['href'])
-        title, content, section = sportsComponent(xhr_url)
+        print(xhr_url)
+        components = sportsComponent(xhr_url)
+        if components == None:
+            continue
+        title, content, section = components
         result.append({'url' : url['href'],'title' : title, 'content' : content, 'section': section})
     
     return result
 
+import json 
 if __name__ =='__main__':
-    pass
+
+    result = sportsNews(20)
+    result_dic = {i : x for i,x in enumerate(result)}
+    with open('./data.json','w', encoding='UTF-8') as json_file:
+        json.dump(result_dic, json_file,indent='\t',ensure_ascii=False)
+    
+    print(len(result))
