@@ -18,7 +18,7 @@ def ImgGenerator(text):
     payload = {
         "model": "reproduction-v3-31",
         "prompt": text,
-        'negative_prompt' : 'bad composition, bad anatomy, disfigured, mutated body parts, bad hands, poorly drawn hands, extra limb, missing limb, floating limbs, disconnecting limbs, long neck, long body, undetailed skin, poorly drawn face, poorly rendered face, bad shadow, unrealistic, oversaturated, cartoon, abstract, amateur, grainy, blurry, messy, out of frame, out of focus, worst quality, low quality, ugly, watermark, censored, text font ui, whimiscal interpretation of the prompt, tiling, ugly arms, ugly hands, ugly feet, ugly eyes, ugly nose, ugly mouth, ugly teeth, ugly ears, (bad anatomy), gross proportions, (malformed limbs), ((missing arms)), ((missing legs)), (((extra arms))), (((extra legs))), mutated hands, (fused fingers), (too many fingers), (((long neck))), NSFW, nude',
+        'negative_prompt' : 'bad composition, bad anatomy, disfigured, mutated body parts, bad hands, poorly drawn hands, extra limb, missing limb, floating limbs, disconnecting limbs, long neck, long body, undetailed skin, poorly drawn face, poorly rendered face, bad shadow, unrealistic, oversaturated, abstract, amateur, grainy, blurry, messy, out of frame, out of focus, worst quality, low quality, ugly, watermark, censored, text font ui, whimiscal interpretation of the prompt, tiling, ugly arms, ugly hands, ugly feet, ugly eyes, ugly nose, ugly mouth, ugly teeth, ugly ears, (bad anatomy), gross proportions, (malformed limbs), ((missing arms)), ((missing legs)), (((extra arms))), (((extra legs))), mutated hands, (fused fingers), (too many fingers), (((long neck))), NSFW, nude',
         "width": 768,
         "height": 1024,
         "steps": 20,
@@ -49,10 +49,10 @@ def connectWebui(prompt):
 
     payload = {
         "prompt": "high quality, masterpiece, <lora:last-000008:0.7>, ",
-        "negative_prompt":"""bad composition, bad anatomy, disfigured, mutated body parts, bad hands, poorly drawn hands, extra limb, missing limb, floating limbs, disconnecting limbs, long neck, long body, 
+        "negative_prompt":"""bad composition, bad anatomy, disfigured, Extra fingers, mutated body parts, poorly drawn hands,  bad hands, poorly drawn hands, extra limb, missing limb, floating limbs, disconnecting limbs, long neck, long body, 
         undetailed skin, poorly drawn face, poorly rendered face, bad shadow, unrealistic, oversaturated, cartoon, abstract, amateur, grainy, blurry, messy, out of frame, out of focus, worst quality, low quality, 
-        ugly, watermark, censored, text font ui, whimiscal interpretation of the prompt, tiling, ugly arms, ugly hands, ugly feet, ugly eyes, ugly nose, ugly mouth, ugly teeth, ugly ears, (bad anatomy), gross proportions, 
-        (malformed limbs),  ((missing arms)), ((missing legs)), (((extra arms))), (((extra legs))), mutated hands, (fused fingers), (too many fingers), (((long neck))), NSFW, nude""",
+        ugly, watermark, censored, text font ui, whimiscal interpretation of the prompt, tiling, ugly arms, ugly hands, ugly feet, ugly eyes, ugly nose, ugly mouth, ugly teeth, ugly ears, bad anatomy, gross proportions, 
+        malformed limbs, missing arms, missing legs, extra arms, extra legs, mutated hands, fused fingers, too many fingers, long neck, NSFW, nude, mutant, body horror""",
         "seed":394463348,
         "sampler_name":"DPM++ SDE",
         "scheduler":"Karras",
@@ -91,6 +91,7 @@ def connectWebui(prompt):
         result.append(r['images'][i])
         
     return result
+    
 if __name__ == '__main__':
     print('ImgGenerator')
     prompt = "Ethan, Olivia, business attire, National Assembly room, presenting in front of lawmakers, serious atmosphere, standing confidently at a podium, warm lighting, decorated with national flags and emblems \n Ethan, suit, cluttered office, highlighting data on a screen, focused and concerned expression, papers and reports scattered around, soft overhead light, serious discussion on legal matters \n Ethan, Olivia, formal attire, conference room setting, discussing policy implications, collaborative atmosphere, surrounded by advisors and documents, bright but soft lighting, showcasing teamwork and dedication"
