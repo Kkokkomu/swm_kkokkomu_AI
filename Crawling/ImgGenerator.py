@@ -49,7 +49,7 @@ def connectWebui(prompt):
     payload = {
         "prompt": "high quality, masterpiece, <lora:last-000008:0.7>, ",
         "negative_prompt":"""bad composition, bad anatomy, disfigured, Extra fingers, mutated body parts, poorly drawn hands,  bad hands, poorly drawn hands, extra limb, missing limb, floating limbs, disconnecting limbs, long neck, long body, 
-        undetailed skin, poorly drawn face, poorly rendered face, bad shadow, unrealistic, oversaturated, cartoon, abstract, amateur, grainy, blurry, messy, out of frame, out of focus, worst quality, low quality, 
+        undetailed skin, poorly drawn face, poorly rendered face, bad shadow, unrealistic, oversaturated, abstract, amateur, grainy, blurry, messy, out of frame, out of focus, worst quality, low quality, 
         ugly, watermark, censored, text font ui, whimiscal interpretation of the prompt, tiling, ugly arms, ugly hands, ugly feet, ugly eyes, ugly nose, ugly mouth, ugly teeth, ugly ears, bad anatomy, gross proportions, 
         malformed limbs, missing arms, missing legs, extra arms, extra legs, mutated hands, fused fingers, too many fingers, long neck, NSFW, nude, mutant, body horror""",
         "seed":394463348,
