@@ -13,12 +13,8 @@ def sanitize_filename(filename):
     # 사용할 수 없는 문자를 '_'로 대체
     return re.sub(unsafe_characters, '_', filename)
 
-
-
-
 def SaveImg(response, path ='./image.png'):
     
-    # Base64 문자열 디코딩
     image_data = base64.b64decode(response)
 
     image = Image.open(BytesIO(image_data))
@@ -43,4 +39,5 @@ def saveJsonFile(path, crawl, title, summary, keywords, characters):
 
 def saveTTS(tts, title_path):
     for i,t in enumerate(tts):
-        t.stream_to_file(title_path+f'/sentence_{i}.wav')
+        with open(f"{title_path}/sentence_{i}.wav", 'wb') as audio_file:
+            audio_file.write(t)

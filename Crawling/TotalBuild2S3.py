@@ -6,7 +6,6 @@ import json
 import boto3
 from pydantic import BaseModel
 from tqdm import tqdm
-from ImgGenerator import SaveImg
 from moviepy.editor import ImageClip
 from SaveFiles import SaveImg, saveJsonFile, saveTTS
 from ImgGenerator import connectWebui, ImgGenerator
@@ -21,6 +20,7 @@ AWS_ACCESS_KEY_ID = secrets['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = secrets['AWS_SECRET_ACCESS_KEY']
 AWS_REGION = secrets['AWS_REGION']
 SHORTFORM_BUCKET_NAME = secrets['BUCKET_NAME']
+WITHAD_BUCKET_NAME = secrets['WITHAD-BUCKET_NAME']
 THUMBNAIL_BUCKET_NAME = "kkm-thumbnail"
 
 # S3 클라이언트 생성
@@ -107,6 +107,8 @@ def MakeSeperateComponent(request : ComponentRequest):
 
     response = []
     id_list = request.id_list
+    for i in id_list:
+        print("id list " + str(i))
     id_idx = 0
     for kind, count in zip(tqdm(kind_of_news, desc = '대분류 반복'),counts):
         crawls = kind(count)
@@ -124,6 +126,7 @@ def MakeSeperateComponent(request : ComponentRequest):
             saveTTS(tts, title_path)
 
             try:
+                print("try connectWebui")
                 images = connectWebui(summary['prompt_total'])
 
                 for idx, image in enumerate(images):
@@ -152,11 +155,17 @@ def MakeSeperateComponent(request : ComponentRequest):
             print(crawl['section'])
             video_path = f"{path}/final_output.mp4"
             Video.generate_video(crawl['section'], title)  
+
+            # with 광고 비디오 생성 및 저장
+            Video.addAdVideo()
+            video_withad_path = f"{path}/final_output_withad.mp4"
             
             # 숏폼 S3에 업로드
             url = save_to_s3(video_path, SHORTFORM_BUCKET_NAME, f"{id_list[id_idx]}.mp4")
-            
 
+            # with 광고 숏폼 S3 업로드
+            save_to_s3(video_withad_path, WITHAD_BUCKET_NAME, f"{id_list[id_idx]}.mp4")
+            
             # 썸네일 S3에 업로드
             thumbnail_path = f"{path}/sentence_0.png"
             adjusted_thumbnail_path = f"{path}/adjusted_sentence_0.png"

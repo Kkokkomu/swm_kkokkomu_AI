@@ -41,7 +41,7 @@ def wrap_text(text, max_chars_per_line):
     return "\n".join(textwrap.wrap(text, width=max_chars_per_line))
 os.environ["IMAGEMAGICK_BINARY"] = "/usr/bin/convert"
 
-def create_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=50, font='NanumBarunGothic-Bold', color='white', stroke_color='black', stroke_width=2, max_chars_per_line=40):
+def create_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=50, font='NanumBarunGothic-Bold', color='white', stroke_color='black', stroke_width=2, max_chars_per_line=30):
     subtitle_clips = []
     
     for sentence_idx, (sentence_start_time, sentence_end_time) in enumerate(sentences):
@@ -147,6 +147,7 @@ def generate_video(section, title):
     video_output_path = './resource/generated_video.mp4'
     output_directory = './resource'
     final_output_path = os.path.join(output_directory, 'final_output.mp4')
+    
 
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "google_stt_secret.json"
 
@@ -183,6 +184,10 @@ def generate_video(section, title):
     subtitle_clips = create_subtitle_clips(video, sentence_times, words_info)
 
     # **추가된 코드: 제목 클립 생성**
+    max_chars_per_line = 30
+    
+    title = wrap_text(title, max_chars_per_line)
+
     title_clip = (TextClip(title, fontsize=50, font='NanumBarunGothic-Bold', color='white', stroke_color='black', stroke_width=2, size=(video.size[0] - 40, None), method='caption')
                   .set_position(("center", 300))  # 영상 상단에 제목 배치
                   .set_duration(video.duration))   # 전체 영상 길이 동안 제목을 표시
@@ -205,3 +210,19 @@ def generate_video(section, title):
     # 저장된 결과물의 자막 정보 출력
     for word_info in words_info:
         print(f"Word: {word_info['word']}, Start: {word_info['start']}, End: {word_info['end']}")
+
+def addAdVideo():
+    output_directory = './resource'
+    ad_video_path = './resource/ad.mp4'
+    final_video_path = './resource/final_output.mp4'
+    final_output_path = './resource/final_output_withad.mp4'
+
+    # 광고 영상 이어붙이기
+    ad_video = VideoFileClip(ad_video_path)
+    final_video = VideoFileClip(final_video_path)
+    
+    # 두 개의 비디오 클립을 이어붙임
+    final_video_with_ad = concatenate_videoclips([final_video, ad_video], method="compose")
+
+    # 결과물(광고 포함) 저장
+    final_video_with_ad.write_videofile(final_output_path, codec='libx264', audio_codec='aac', fps=24)

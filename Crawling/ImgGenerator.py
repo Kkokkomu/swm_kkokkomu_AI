@@ -44,7 +44,8 @@ def ImgGenerator(text):
 
 def connectWebui(prompt):
 # Define the URL and the payload to send.
-    url = "http://10.0.4.18:7860"
+    print('start connectWebui')
+    url = "http://10.0.4.53:7860"
 
     payload = {
         "prompt": "high quality, masterpiece, <lora:last-000008:0.7>, ",
@@ -82,10 +83,16 @@ def connectWebui(prompt):
 
     # Send said payload to said URL through the API.
 
-    response = requests.post(url=f'{url}/sdapi/v1/txt2img', json=payload)
+    response = requests.post(url=f'{url}/sdapi/v1/txt2img', json=payload, timeout=360)
+    print(response)
     r = response.json()
     result = []
     for i in range(3):
         result.append(r['images'][i])
         
     return result
+    
+if __name__ == '__main__':
+    print('ImgGenerator')
+    prompt = "Ethan, Olivia, business attire, National Assembly room, presenting in front of lawmakers, serious atmosphere, standing confidently at a podium, warm lighting, decorated with national flags and emblems \n Ethan, suit, cluttered office, highlighting data on a screen, focused and concerned expression, papers and reports scattered around, soft overhead light, serious discussion on legal matters \n Ethan, Olivia, formal attire, conference room setting, discussing policy implications, collaborative atmosphere, surrounded by advisors and documents, bright but soft lighting, showcasing teamwork and dedication"
+    connectWebui(prompt)

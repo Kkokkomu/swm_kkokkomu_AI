@@ -79,7 +79,7 @@ def generate_TTS_clova(text):
     client_secret = CLOVA_CLIENT_SECRET  # Clova API Client Secret
     text = str(text)  # Python 3에서 unicode는 str로 대체됨
     speaker = "ngoeun"
-    speed = "1"
+    speed = "-1"
     volume = "1"
     pitch = "1"
     fmt = "wav"
