@@ -59,7 +59,7 @@ def renewalMakeComponent(count_news = 5, count_sports = 5, count_entertain = 5, 
 
             saveTTS(tts, title_path)
 
-            subprocess.call(f"mfa align --clean -overwrite --output_format json {title_path} korean_mfa korean_mfa {title_path}")
+            subprocess.call(f"mfa align --clean --overwrite --output_format json {title_path} korean_mfa korean_mfa {title_path}")
             
             # try:
             #     images = connectWebui(summary['prompt_total'])
