@@ -4,8 +4,10 @@ from datetime import datetime
 import os
 import json
 from tqdm import tqdm
-from SaveFiles import SaveImg, saveJsonFile, saveTTS, sanitize_filename
+from SaveFiles import SaveImg, saveJsonFile, saveTTS, sanitize_filename, saveTxT
 from ImgGenerator import connectWebui, ImgGenerator
+
+import subprocess
 
 
 def renewalMakeComponent(count_news = 5, count_sports = 5, count_entertain = 5, path = ''):
@@ -43,7 +45,12 @@ def renewalMakeComponent(count_news = 5, count_sports = 5, count_entertain = 5, 
 
             
             title, summary, keywords, characters= Generate.makeJson(content)
+            
+
             title_path = saveJsonFile(section_path, crawl, title, summary,keywords, characters)
+
+            title_path = './Data'
+            saveTxT(title_path, summary)
 
             try:
                 tts = [Generate.generate_TTS_clova(summary[f'sentence_{idx}']) for idx in range(3)]
@@ -51,26 +58,28 @@ def renewalMakeComponent(count_news = 5, count_sports = 5, count_entertain = 5, 
                 tts = [Generate.generate_TTS(summary[f'sentence_{idx}']) for idx in range(3)]
 
             saveTTS(tts, title_path)
-            
-            try:
-                images = connectWebui(summary['prompt_total'])
 
-                for idx, image in enumerate(images):
-                    SaveImg(image, path = title_path+f'/sentence_{idx}.png')
+            subprocess.call(f"mfa align --clean -overwrite --output_format json {title_path} korean_mfa korean_mfa {title_path}")
+            
+            # try:
+            #     images = connectWebui(summary['prompt_total'])
+
+            #     for idx, image in enumerate(images):
+            #         SaveImg(image, path = title_path+f'/sentence_{idx}.png')
 
             
-            except:
-                print("\nGetImg로 이미지를 생성합니다.\n")
-                for idx in range(3):
-                    image = ImgGenerator(summary[f'Prompt{idx}'])
-                    SaveImg(image, path = title_path+f'/sentence_{idx}.png')
+            # except:
+            #     print("\nGetImg로 이미지를 생성합니다.\n")
+            #     for idx in range(3):
+            #         image = ImgGenerator(summary[f'Prompt{idx}'])
+            #         SaveImg(image, path = title_path+f'/sentence_{idx}.png')
             
 
 if __name__ == '__main__':
     # 파라미터 주요뉴스 갯수, 스포츠 뉴스, 연예 뉴스 갯수
     # MakeSeperateComponent(1, 0, 0)
     # MakeJson(0,2,2)
-    renewalMakeComponent(1,1,1)
+    renewalMakeComponent(1,0,0)
 
 
     # with open('./resource/data.json', 'r', encoding='UTF-8') as json_file:

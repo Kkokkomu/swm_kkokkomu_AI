@@ -13,8 +13,8 @@ with open('./secret.json') as f:
     
 SECRET_KEY = secrets['API_Key']
 
-# CLOVA_CLIENT_ID = secrets['CLOVA_CLIENT_ID']
-# CLOVA_CLIENT_SECRET = secrets['CLOVA_CLIENT_SECRET']
+CLOVA_CLIENT_ID = secrets['CLOVA_CLIENT_ID']
+CLOVA_CLIENT_SECRET = secrets['CLOVA_CLIENT_SECRET']
 
 client = OpenAI(
     api_key=SECRET_KEY,

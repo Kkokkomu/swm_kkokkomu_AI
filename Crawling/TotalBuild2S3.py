@@ -7,8 +7,9 @@ import boto3
 from pydantic import BaseModel
 from tqdm import tqdm
 from moviepy.editor import ImageClip
-from SaveFiles import SaveImg, saveJsonFile, saveTTS
+from SaveFiles import SaveImg, saveJsonFile, saveTTS, saveTxT
 from ImgGenerator import connectWebui, ImgGenerator
+import subprocess
 
 import re
 
@@ -66,25 +67,7 @@ def save_to_s3(file_path, bucket_name, s3_key):
         return None
     return f"https://{bucket_name}.s3.{AWS_REGION}.amazonaws.com/{s3_key}"
 
-# def SaveSeperateData(path, crawl, title, summary, keywords ,tts, images = None):
-#     print('SaveSeperateData')
-#     data ={'url' : crawl['url'], 'title' : title, 'summary':summary ,'section' : crawl['section'], 
-#            'keywords' : {f'keyword_{i}' : keyword.strip() for i, keyword in enumerate(keywords.split(','))}}
 
-#     title_path = path
-#     data_json_path = f"{title_path}/data.json"
-#     with open(data_json_path, 'w', encoding='UTF-8') as json_file:
-#         json.dump(data, json_file, indent='\t', ensure_ascii=False)
-
-#     for i, t in enumerate(tts):
-#         with open(f"{title_path}/sentence_{i}.wav", 'wb') as audio_file:
-#             audio_file.write(t)
-
-#     if images:
-#         for i, image in enumerate(images):
-#             SaveImg(image, path=f"{title_path}/sentence_{i}.png")
-
-#     return data_json_path
 
 class ComponentRequest(BaseModel):
     id_list: list[int]
@@ -122,8 +105,20 @@ def MakeSeperateComponent(request : ComponentRequest):
 
             json_path = f'{title_path}/data.json'
 
-            tts = [Generate.generate_TTS_clova(summary[f'sentence_{idx}']) for idx in range(3)]
+            saveTxT(title_path, summary)
+
+
+
+            try:
+                tts = [Generate.generate_TTS_clova(summary[f'sentence_{idx}']) for idx in range(3)]
+            except:
+                tts = [Generate.generate_TTS(summary[f'sentence_{idx}']) for idx in range(3)]
+
+
             saveTTS(tts, title_path)
+
+            subprocess.call(f"mfa align --clean --overwrite --output_format json {title_path} korean_mfa korean_mfa {title_path}")
+
 
             try:
                 print("try connectWebui")
@@ -140,9 +135,7 @@ def MakeSeperateComponent(request : ComponentRequest):
                     SaveImg(image, path = title_path+f'/sentence_{idx}.png')
             
             
-            # title,summary, keywords,tts, images= Generate.SeperateSentence(content)
-            # json_path = SaveSeperateData(path, crawl, title, summary,keywords,tts, images)
-
+            
             # data.json 파일 읽기
             with open(json_path, 'r', encoding='UTF-8') as json_file:
                 data_content = json.load(json_file)
