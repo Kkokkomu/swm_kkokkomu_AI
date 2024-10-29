@@ -54,12 +54,14 @@ def renewalMakeComponent(count_news = 5, count_sports = 5, count_entertain = 5, 
 
             try:
                 tts = [Generate.generate_TTS_clova(summary[f'sentence_{idx}']) for idx in range(3)]
+                print(len(tts))
             except:
+                print('GPT API로 TTS 제작')
                 tts = [Generate.generate_TTS(summary[f'sentence_{idx}']) for idx in range(3)]
 
             saveTTS(tts, title_path)
 
-            subprocess.call(f"mfa align --clean --overwrite --output_format json {title_path} korean_mfa korean_mfa {title_path}")
+            # subprocess.call(f"mfa align --clean --overwrite --output_format json {title_path} korean_mfa korean_mfa {title_path}")
             
             # try:
             #     images = connectWebui(summary['prompt_total'])

@@ -43,9 +43,8 @@ def saveTTS(tts, title_path):
             with open(f"{title_path}/sentence_{i}.wav", 'wb') as audio_file:
                 
                 audio_file.write(t)
-            audio_file.close()
         except:
-            tts.stream_to_file(f"{title_path}/sentence_{i}.wav")
+            t.stream_to_file(f"{title_path}/sentence_{i}.wav")
 def saveTxT(path, summary):
     for i in range(3):
         with open(f'{path}/sentence_{i}.txt','w',encoding='UTF-8') as f:

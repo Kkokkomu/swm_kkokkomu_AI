@@ -169,6 +169,7 @@ def generate_TTS_clova(text):
 
 def makeJson(text):
     response = generation_summary(text)
+    
 
     try:
         response = json.loads(response)
@@ -176,8 +177,20 @@ def makeJson(text):
 
         title = response['title']
         summary_total = response['summary']
+        
         summarys = re.sub(r'다\. ','다.\n',summary_total)
         summarys = summarys.split('\n')
+
+
+        pronounce_summary = TransPronounce(summary_total)
+        pronounce_summary=json.loads(pronounce_summary)
+        pronounce_summary = pronounce_summary['Pronounce']
+
+        pronounce_summarys = re.sub(r'다\. ','다.\n',pronounce_summary)
+        pronounce_summarys = pronounce_summarys.split('\n')
+
+        print(pronounce_summarys)
+
 
         character_response = FindCharacters(summary_total)
 
@@ -188,12 +201,16 @@ def makeJson(text):
         
         characters ={}
 
-
-
         if len(summarys) != 3:
             raise
 
         summary_dic = {f'sentence_{i}' : summary for i,summary in enumerate(summarys)}
+        for i, ps in enumerate(pronounce_summarys):
+            summary_dic[f'Pronounce_{i}']= ps
+
+            
+
+        summary_dic['Pronounce_total']= pronounce_summary
         
         prompt_total = ""
         for i in range(3):
@@ -223,14 +240,16 @@ def makeJson(text):
 
 
         summary_dic['sentence_total'] = summary_total
-        keywords = response['keyword']
+        keywords = generate_keywords(text)
+        keywords = json.loads(keywords)
+        keywords = keywords['keyword']
         
-    except:
+    except Exception as e:    # 모든 예외의 에러 메시지를 출력할 때는 Exception을 사용
+        print('예외가 발생했습니다.', e)
         title, summary_dic, keywords, characters = makeJson(text)
         
     
     return title, summary_dic, keywords, characters
-
 
 def FindCharacters(text):
 
