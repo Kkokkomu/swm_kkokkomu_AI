@@ -13,14 +13,14 @@ with open('./secret.json') as f:
     
 SECRET_KEY = secrets['API_Key']
 
-CLOVA_CLIENT_ID = secrets['CLOVA_CLIENT_ID']
-CLOVA_CLIENT_SECRET = secrets['CLOVA_CLIENT_SECRET']
+# CLOVA_CLIENT_ID = secrets['CLOVA_CLIENT_ID']
+# CLOVA_CLIENT_SECRET = secrets['CLOVA_CLIENT_SECRET']
 
 client = OpenAI(
     api_key=SECRET_KEY,
 )
 
-characters_dic ={'woman1':'Emma','woman2':'Olivia','woman3':'Sophia','woman4':'Ava','man1':'Liam','man2':'Ethan','man3':'Noah','man4':'James'}
+characters_dic ={'woman1':'Olivia','woman2':'Emma','woman3':'Sophia','woman4':'Ava','man1':'Ethan','man2':'Liam','man3':'Noah','man4':'James'}
 
 
 def sanitize_filename(filename):
@@ -45,7 +45,7 @@ def generation_summary(text):
 
     system = '''다음 뉴스를 제목지어 주고 내용을 정확히 3문장으로 이야기하듯이 요약하고 주요한 키워드 3개 뽑아. 요약할때 말투는 무조건 ~했습니다 와 같은 말투로 해. 
     그리고 요약된 3문장 각각에 해당되는 이미지를 구체적으로 묘사하고 prompt로 말해. 묘사할때 obsession with impressions, where, what, atmosphere, subject, color, lighting, extra details 의 주제에 맞게 최대한 상세하게 영어로 표현해. 특히 장소에 대한 묘사를 최대한 세부적으로 표현해. 예를 들어 stadium이면 baseball stadium인지 football stadium인지 정확하게 말해줘.
-    답변을 json형식으로 말해. 예시로는 {"title" : "제목", "summary" : "요약문", 
+    답변을 json형식으로 말해. 예시로는 {"title" : "제목", "summary" : "요약문", "keyword" : "keyword1, keyword2, keyword3",
     "Prompt0": "wear suit, National Assembly​​,presenting in front of people, glad , stand in front of people, brown, studio lighting, utopian future", 
     "Prompt1": "casual clothes, dimly lit room, focused on screen, concentrate ,cluttered with books and gadgets, blue glow from monitor, obsessed with learning", 
     "Prompt2": "red dress, open field, comfort ,midday sun, green grass, carefree expression, short sharp shadows, pure joy"}으로 말해'''

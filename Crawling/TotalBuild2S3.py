@@ -66,25 +66,6 @@ def save_to_s3(file_path, bucket_name, s3_key):
         return None
     return f"https://{bucket_name}.s3.{AWS_REGION}.amazonaws.com/{s3_key}"
 
-# def SaveSeperateData(path, crawl, title, summary, keywords ,tts, images = None):
-#     print('SaveSeperateData')
-#     data ={'url' : crawl['url'], 'title' : title, 'summary':summary ,'section' : crawl['section'], 
-#            'keywords' : {f'keyword_{i}' : keyword.strip() for i, keyword in enumerate(keywords.split(','))}}
-
-#     title_path = path
-#     data_json_path = f"{title_path}/data.json"
-#     with open(data_json_path, 'w', encoding='UTF-8') as json_file:
-#         json.dump(data, json_file, indent='\t', ensure_ascii=False)
-
-#     for i, t in enumerate(tts):
-#         with open(f"{title_path}/sentence_{i}.wav", 'wb') as audio_file:
-#             audio_file.write(t)
-
-#     if images:
-#         for i, image in enumerate(images):
-#             SaveImg(image, path=f"{title_path}/sentence_{i}.png")
-
-#     return data_json_path
 
 class ComponentRequest(BaseModel):
     id_list: list[int]
