@@ -85,6 +85,30 @@ def generate_keywords(text):
     return find_json(response)
 
 
+
+def TransPronounce(text):
+    gpt_version = 'gpt-4o-mini'
+
+    system = '''다음 문장에 적힌 내용의 영어를 한국어로 표기해. 결과는 json형식으로 표현해. 
+                예를 들어 samsung은 삼성, SK는 에스케이, LG는 엘지, U+는 유플러스로 작성해줘. 결과 예시는 
+                KT 위즈의 문상철이 준플레이오프 1차전에서 LG 트윈스를 상대로 선제 투런 홈런을 기록했습니다. 문상철은 2회초 첫 타석에서 LG 선발 투수를 상대로 강력한 타격을 선보이며 팀의 리드를 가져왔습니다. 이강철 감독의 타순 변경 결정이 성공적으로 작용하며 문상철은 기대에 부응하는 활약을 보여주었습니다. 라는 문장을 받으면
+                {"Pronounce" : "케이티 위즈의 문상철이 준플레이오프 1차전에서 엘지 트윈스를 상대로 선제 투런 홈런을 기록했습니다. 문상철은 2회초 첫 타석에서 엘지 선발 투수를 상대로 강력한 타격을 선보이며 팀의 리드를 가져왔습니다. 이강철 감독의 타순 변경 결정이 성공적으로 작용하며 문상철은 기대에 부응하는 활약을 보여주었습니다."}의 결과가 나오게 해줘'''
+    response_sum = client.chat.completions.create(
+        model=gpt_version,  # 또는 다른 모델을 사용
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user", "content": text},
+        ],
+    )
+
+    response = response_sum.json()
+    response = json.loads(response)
+    response = response["choices"][0]["message"]['content']
+
+    return find_json(response)
+
+
+
 def generate_TTS(text):
     response_tts = client.audio.speech.create(
         model="tts-1-hd",
