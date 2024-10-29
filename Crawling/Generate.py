@@ -13,14 +13,14 @@ with open('./secret.json') as f:
     
 SECRET_KEY = secrets['API_Key']
 
-# CLOVA_CLIENT_ID = secrets['CLOVA_CLIENT_ID']
-# CLOVA_CLIENT_SECRET = secrets['CLOVA_CLIENT_SECRET']
+CLOVA_CLIENT_ID = secrets['CLOVA_CLIENT_ID']
+CLOVA_CLIENT_SECRET = secrets['CLOVA_CLIENT_SECRET']
 
 client = OpenAI(
     api_key=SECRET_KEY,
 )
 
-characters_dic ={'woman1':'Olivia','woman2':'Emma','woman3':'Sophia','woman4':'Ava','man1':'Ethan','man2':'Liam','man3':'Noah','man4':'James'}
+characters_dic ={'woman1':'Emma','woman2':'Olivia','woman3':'Sophia','woman4':'Ava','man1':'Liam','man2':'Ethan','man3':'Noah','man4':'James'}
 
 
 def sanitize_filename(filename):
