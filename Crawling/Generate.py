@@ -212,6 +212,8 @@ def FindCharacters(text):
     response = response.split('Prompt:')[-1].strip()
 
     return response
+ 
+
 
 
 def TransSummary(text):
@@ -245,4 +247,5 @@ if __name__ == '__main__':
 앞서 한 대표는 이날 '검찰이 도이치모터스 사건에 대해 김 여사를 불기소할 것 같다'는 취재진 질문에 "검찰이 어떤 계획을 가지고 있는지 알지 못한다"면서도 "검찰이 국민이 납득할만한 결과를 내놔야 한다"고 밝혔다.
 그는 김 여사의 활동 자제가 필요하다고 했던 자신의 입장과 관련해서는 "당초 대선에서 국민에게 약속한 부분 아닌가. 그것을 지키면 된다"고 말했다."""
     response = makeJson(text)
+    print()
     print(response)
