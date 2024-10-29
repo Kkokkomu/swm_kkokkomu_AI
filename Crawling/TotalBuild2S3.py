@@ -110,12 +110,13 @@ def MakeSeperateComponent(request : ComponentRequest):
 
 
             try:
-                tts = [Generate.generate_TTS_clova(summary[f'sentence_{idx}']) for idx in range(3)]
+                tts = [Generate.generate_TTS_clova(summary[f'Pronounce_{idx}']) for idx in range(3)]
+                saveTTS(tts, title_path)
             except:
-                tts = [Generate.generate_TTS(summary[f'sentence_{idx}']) for idx in range(3)]
+                print('GPT API로 TTS 제작')
+                tts = [Generate.generate_TTS(summary[f'Pronounce_{idx}']) for idx in range(3)]
+                saveTTS(tts, title_path)
 
-
-            saveTTS(tts, title_path)
 
             subprocess.call(f"mfa align --clean --overwrite --output_format json {title_path} korean_mfa korean_mfa {title_path}")
 
