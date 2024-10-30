@@ -42,7 +42,7 @@ def wrap_text(text, max_chars_per_line):
     return "\n".join(textwrap.wrap(text, width=max_chars_per_line))
 os.environ["IMAGEMAGICK_BINARY"] = "/usr/bin/convert"
 
-def create_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=50, font='NanumBarunGothic-Bold', color='white', stroke_color='black', stroke_width=2, max_chars_per_line=20):
+def create_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=50, font='NanumGothicBold', color='white', stroke_color='black', stroke_width=2, max_chars_per_line=20):
     subtitle_clips = []
     
     for sentence_idx, (sentence_start_time, sentence_end_time) in enumerate(sentences):
@@ -197,7 +197,7 @@ def generate_video(section, title):
     
     title = wrap_text(title, max_chars_per_line)
 
-    title_clip = (TextClip(title, fontsize=50, font='NanumBarunGothic-Bold', color='white', stroke_color='black', stroke_width=2, size=(video.size[0] - 40, None), method='caption')
+    title_clip = (TextClip(title, fontsize=50, font='NanumGothicBold', color='white', stroke_color='black', stroke_width=2, size=(video.size[0] - 40, None), method='caption')
                   .set_position(("center", 300))  # 영상 상단에 제목 배치
                   .set_duration(video.duration))   # 전체 영상 길이 동안 제목을 표시
 

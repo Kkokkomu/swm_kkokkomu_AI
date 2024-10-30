@@ -1,25 +1,29 @@
 {
-	"url": "https://m.entertain.naver.com/ranking/article/076/0004210487",
-	"title": "율희, 최민환의 업소 출연 폭로와 침묵",
+	"url": "https://n.news.naver.com/mnews/article/020/0003595131",
+	"title": "더불어민주당, 예산 전쟁 예고",
 	"summary": {
-		"sentence_0": "율희는 전남편 최민환의 업소 출연을 폭로하며 현재 침묵하고 있는 상태입니다.",
-		"sentence_1": "그는 유튜브를 통해 이혼 이유와 양육권 포기 사유를 설명하고 생계형 인플루언서로서의 어려움을 호소했습니다.",
-		"sentence_2": "그러나 최민환의 행동과 관련한 녹취록과 폭로로 인해 두 사람의 향후 행보에 대한 관심이 집중되고 있습니다.",
-		"prompt_total": "Emma, Liam, wearing casual clothes, well-lit home office, speaking to the camera, sincere expression, surrounded by family photos, bright and cheerful atmosphere, warm colors, emphasizing vulnerability and sharing personal stories \n Liam, two people sitting at a dining table, dimly lit room, serious conversation, concerned expressions, cluttered with food and drink, shadows casting, tension and secrecy in the air, muted colors to reflect the gravity of the discussion \n Liam, Emma, man holding phone, dark bar setting, uneasy demeanor, neon lights in the background, tension evident in body language, clashing colors creating discomfort, emphasizing the secretive and illicit atmosphere",
-		"Prompt0": "wearing casual clothes, well-lit home office, speaking to the camera, sincere expression, surrounded by family photos, bright and cheerful atmosphere, warm colors, emphasizing vulnerability and sharing personal stories",
-		"Prompt1": "two people sitting at a dining table, dimly lit room, serious conversation, concerned expressions, cluttered with food and drink, shadows casting, tension and secrecy in the air, muted colors to reflect the gravity of the discussion",
-		"Prompt2": "man holding phone, dark bar setting, uneasy demeanor, neon lights in the background, tension evident in body language, clashing colors creating discomfort, emphasizing the secretive and illicit atmosphere",
-		"sentence_total": "율희는 전남편 최민환의 업소 출연을 폭로하며 현재 침묵하고 있는 상태입니다. 그는 유튜브를 통해 이혼 이유와 양육권 포기 사유를 설명하고 생계형 인플루언서로서의 어려움을 호소했습니다. 그러나 최민환의 행동과 관련한 녹취록과 폭로로 인해 두 사람의 향후 행보에 대한 관심이 집중되고 있습니다."
+		"sentence_0": "더불어민주당은 국정감사가 끝난 뒤 677조4000억 원 규모의 내년도 정부 예산안에 대한 예산 전쟁을 예고했습니다.",
+		"sentence_1": "예산안 충돌의 초점은 윤석열 대통령과 김건희 여사 관련 예산, 검찰의 특수활동비 점검으로, 민주당은 주요 삭감 목표를 설정했습니다.",
+		"sentence_2": "반면 국민의힘은 민주당의 예산 삭감 계획을 비난하며 정부 주요 사업에 대한 공격으로 간주하고 맞서겠다고 밝혔습니다.",
+		"Pronounce_0": "더불어민주당은 국정감사가 끝난 뒤 677조4000억 원 규모의 내년도 정부 예산안에 대한 예산 전쟁을 예고했습니다.",
+		"Pronounce_1": "예산안 충돌의 초점은 윤석열 대통령과 김건희 여사 관련 예산, 검찰의 특수활동비 점검으로, 민주당은 주요 삭감 목표를 설정했습니다.",
+		"Pronounce_2": "반면 국민의힘은 민주당의 예산 삭감 계획을 비난하며 정부 주요 사업에 대한 공격으로 간주하고 맞서겠다고 밝혔습니다.",
+		"Pronounce_total": "더불어민주당은 국정감사가 끝난 뒤 677조4000억 원 규모의 내년도 정부 예산안에 대한 예산 전쟁을 예고했습니다. 예산안 충돌의 초점은 윤석열 대통령과 김건희 여사 관련 예산, 검찰의 특수활동비 점검으로, 민주당은 주요 삭감 목표를 설정했습니다. 반면 국민의힘은 민주당의 예산 삭감 계획을 비난하며 정부 주요 사업에 대한 공격으로 간주하고 맞서겠다고 밝혔습니다.",
+		"prompt_total": " National Assembly, standing in front of a podium with microphones, confident and assertive expression, bright lighting highlighting the speaker, the audience looking attentively, contrasting colors between formal attire and the grandeur of the assembly with banners in the background, serious atmosphere reflecting political tension \n Liam, Emma, office attire, cluttered office with stacks of papers and budget reports, focused on a laptop screen with graphs and data, concentration evident on the face, warm light from a desk lamp casting soft shadows, surrounded by political paraphernalia, intense atmosphere filled with urgency and determination to review the budget meticulously \n  casual clothes, diverse group of politicians and people gathered, energetic and passionate expressions amidst a vibrant setting, banners and signs supporting various policies, bright sunlight illuminating the scene, engaging atmosphere emphasizing public participation and political debate",
+		"Prompt0": "business suit, National Assembly, standing in front of a podium with microphones, confident and assertive expression, bright lighting highlighting the speaker, the audience looking attentively, contrasting colors between formal attire and the grandeur of the assembly with banners in the background, serious atmosphere reflecting political tension",
+		"Prompt1": "office attire, cluttered office with stacks of papers and budget reports, focused on a laptop screen with graphs and data, concentration evident on the face, warm light from a desk lamp casting soft shadows, surrounded by political paraphernalia, intense atmosphere filled with urgency and determination to review the budget meticulously",
+		"Prompt2": "outdoor rally, casual clothes, diverse group of politicians and people gathered, energetic and passionate expressions amidst a vibrant setting, banners and signs supporting various policies, bright sunlight illuminating the scene, engaging atmosphere emphasizing public participation and political debate",
+		"sentence_total": "더불어민주당은 국정감사가 끝난 뒤 677조4000억 원 규모의 내년도 정부 예산안에 대한 예산 전쟁을 예고했습니다. 예산안 충돌의 초점은 윤석열 대통령과 김건희 여사 관련 예산, 검찰의 특수활동비 점검으로, 민주당은 주요 삭감 목표를 설정했습니다. 반면 국민의힘은 민주당의 예산 삭감 계획을 비난하며 정부 주요 사업에 대한 공격으로 간주하고 맞서겠다고 밝혔습니다."
 	},
-	"section": "연예",
+	"section": "정치",
 	"keywords": {
-		"keyword_0": "율희",
-		"keyword_1": "최민환",
-		"keyword_2": "이혼"
+		"keyword_0": "예산 전쟁",
+		"keyword_1": "민주당",
+		"keyword_2": "검찰 특활비"
 	},
 	"characters": {
-		"sentence_0": "woman1 man1",
-		"sentence_1": "man1",
-		"sentence_2": "man1 woman1"
+		"sentence_0": "none",
+		"sentence_1": "man1 woman1",
+		"sentence_2": "none"
 	}
 }
