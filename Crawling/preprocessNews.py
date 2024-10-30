@@ -240,20 +240,3 @@ def removeAll(texts):
 if __name__ == '__main__':
     import TransURL
     print(remove_photo_info(['(출처=청주시),(출처 = 청주시)']))
-
-    # link = 'https://news.nate.com/view/20240621n10697?mid=n1008'
-    # link = 'https://news.nate.com/view/20240621n03701?mid=n1008'
-
-    # news_name, news_contents = TransURL.newsContents(link)
-    # print()
-    # print('제목 : ',news_name)
-    # print()
-    # news_contents = re.sub(r'다\.','다.\n ',news_contents)
-    # news_contents = news_contents.split('\n')
-
-    # news_contents = removeAll(news_contents)
-    # # print(news_contents)
-    # for i in news_contents:
-    #     print(i)
-
-    # print()
