@@ -3,6 +3,7 @@ from google.cloud import speech_v1p1beta1 as speech
 import io
 from moviepy.editor import ImageClip, concatenate_videoclips, CompositeAudioClip, TextClip, CompositeVideoClip, AudioFileClip, VideoFileClip
 from pydub import AudioSegment
+import json
 
 def transcribe_audio_with_timing(audio_path):
     client = speech.SpeechClient()
@@ -170,8 +171,16 @@ def generate_video(section, title):
 
     video = video.set_audio(audio)
 
-    # 결합된 음성 파일로부터 단어 타이밍 정보 추출
-    words_info = transcribe_audio_with_timing(combined_audio_path)
+    try:
+        # 생성된 TimeStamp 이용
+        words_info = syncAudiotoText()
+        print('TimeStamp 추출한 것으로 실행합니다.')
+    except:
+        # 결합된 음성 파일로부터 단어 타이밍 정보 추출
+        print('Google STT로 추출한 것으로 실행합니다.')
+        words_info = transcribe_audio_with_timing(combined_audio_path)
+
+    
 
     # 각 문장의 시작과 끝 시간을 저장 (딜레이 없이)
     sentence_times = [
@@ -226,3 +235,40 @@ def addAdVideo():
 
     # 결과물(광고 포함) 저장
     final_video_with_ad.write_videofile(final_output_path, codec='libx264', audio_codec='aac', fps=24)
+
+
+def syncAudiotoText(path = './resource'):
+    start_time = 0
+    words_info = []
+    for i in range(3):
+        with open(f"{path}/sentence_{i}.txt",'r', encoding='UTF-8') as f:
+            words = f.read().split(' ')
+        
+
+
+        with open(f"{path}/sentence_{i}.json", encoding='UTF-8') as js:
+            timeStamp = json.load(js)
+            timeStamps_words = timeStamp['tiers']['words']["entries"]
+            
+        if len(words) == len(timeStamps_words):
+
+            for idx, (start, end, word) in enumerate(timeStamps_words):
+                words_info.append({
+                    'word': words[idx],
+                    'start': start + start_time,
+                    'end': end + start_time
+                })
+        else:
+            for start, end, word in timeStamps_words:
+                words_info.append({
+                    'word': word,
+                    'start': start + start_time,
+                    'end': end + start_time
+                })
+
+        start_time += timeStamp["end"]
+
+    return words_info
+
+if __name__ == '__main__':
+    print(syncAudiotoText('./Data'))

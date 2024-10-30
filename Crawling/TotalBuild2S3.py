@@ -7,8 +7,9 @@ import boto3
 from pydantic import BaseModel
 from tqdm import tqdm
 from moviepy.editor import ImageClip
-from SaveFiles import SaveImg, saveJsonFile, saveTTS
+from SaveFiles import SaveImg, saveJsonFile, saveTTS, saveTxT
 from ImgGenerator import connectWebui, ImgGenerator
+import subprocess
 
 import re
 
@@ -103,8 +104,21 @@ def MakeSeperateComponent(request : ComponentRequest):
 
             json_path = f'{title_path}/data.json'
 
-            tts = [Generate.generate_TTS_clova(summary[f'sentence_{idx}']) for idx in range(3)]
-            saveTTS(tts, title_path)
+            saveTxT(title_path, summary)
+
+
+
+            try:
+                tts = [Generate.generate_TTS_clova(summary[f'Pronounce_{idx}']) for idx in range(3)]
+                saveTTS(tts, title_path)
+            except:
+                print('GPT API로 TTS 제작')
+                tts = [Generate.generate_TTS(summary[f'Pronounce_{idx}']) for idx in range(3)]
+                saveTTS(tts, title_path)
+
+
+            subprocess.call(f"mfa align --clean --overwrite --output_format json {title_path} korean_mfa korean_mfa {title_path}")
+
 
             try:
                 print("try connectWebui")
@@ -121,9 +135,7 @@ def MakeSeperateComponent(request : ComponentRequest):
                     SaveImg(image, path = title_path+f'/sentence_{idx}.png')
             
             
-            # title,summary, keywords,tts, images= Generate.SeperateSentence(content)
-            # json_path = SaveSeperateData(path, crawl, title, summary,keywords,tts, images)
-
+            
             # data.json 파일 읽기
             with open(json_path, 'r', encoding='UTF-8') as json_file:
                 data_content = json.load(json_file)
