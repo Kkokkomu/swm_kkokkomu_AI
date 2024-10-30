@@ -13,14 +13,14 @@ with open('./secret.json') as f:
     
 SECRET_KEY = secrets['API_Key']
 
-CLOVA_CLIENT_ID = secrets['CLOVA_CLIENT_ID']
-CLOVA_CLIENT_SECRET = secrets['CLOVA_CLIENT_SECRET']
+# CLOVA_CLIENT_ID = secrets['CLOVA_CLIENT_ID']
+# CLOVA_CLIENT_SECRET = secrets['CLOVA_CLIENT_SECRET']
 
 client = OpenAI(
     api_key=SECRET_KEY,
 )
 
-characters_dic ={'woman1':'Emma','woman2':'Olivia','woman3':'Sophia','woman4':'Ava','man1':'Liam','man2':'Ethan','man3':'Noah','man4':'James'}
+characters_dic ={'woman1':'Olivia','woman2':'Emma','woman3':'Sophia','woman4':'Ava','man1':'Ethan','man2':'Liam','man3':'Noah','man4':'James'}
 
 
 def sanitize_filename(filename):
@@ -39,14 +39,13 @@ def find_json(text):
     return match.group(0)
 
 
-
 def generation_summary(text):
     # gpt_version ='gpt-3.5-turbo-0125'
     gpt_version = 'gpt-4o-mini'
 
     system = '''다음 뉴스를 제목지어 주고 내용을 정확히 3문장으로 이야기하듯이 요약하고 주요한 키워드 3개 뽑아. 요약할때 말투는 무조건 ~했습니다 와 같은 말투로 해. 
     그리고 요약된 3문장 각각에 해당되는 이미지를 구체적으로 묘사하고 prompt로 말해. 묘사할때 obsession with impressions, where, what, atmosphere, subject, color, lighting, extra details 의 주제에 맞게 최대한 상세하게 영어로 표현해. 특히 장소에 대한 묘사를 최대한 세부적으로 표현해. 예를 들어 stadium이면 baseball stadium인지 football stadium인지 정확하게 말해줘.
-    답변을 json형식으로 말해. 예시로는 {"title" : "제목", "summary" : "요약문", 
+    답변을 json형식으로 말해. 예시로는 {"title" : "제목", "summary" : "요약문", "keyword" : "keyword1, keyword2, keyword3",
     "Prompt0": "wear suit, National Assembly​​,presenting in front of people, glad , stand in front of people, brown, studio lighting, utopian future", 
     "Prompt1": "casual clothes, dimly lit room, focused on screen, concentrate ,cluttered with books and gadgets, blue glow from monitor, obsessed with learning", 
     "Prompt2": "red dress, open field, comfort ,midday sun, green grass, carefree expression, short sharp shadows, pure joy"}으로 말해'''
@@ -84,33 +83,7 @@ def generate_keywords(text):
     response = response["choices"][0]["message"]['content']
     return find_json(response)
 
-<<<<<<< HEAD
-
-
-def TransPronounce(text):
-    gpt_version = 'gpt-4o-mini'
-
-    system = '''다음 문장에 적힌 내용의 영어를 한국어로 표기해. 결과는 json형식으로 표현해. 
-                예를 들어 samsung은 삼성, SK는 에스케이, LG는 엘지, U+는 유플러스로 작성해줘. 결과 예시는 
-                KT 위즈의 문상철이 준플레이오프 1차전에서 LG 트윈스를 상대로 선제 투런 홈런을 기록했습니다. 문상철은 2회초 첫 타석에서 LG 선발 투수를 상대로 강력한 타격을 선보이며 팀의 리드를 가져왔습니다. 이강철 감독의 타순 변경 결정이 성공적으로 작용하며 문상철은 기대에 부응하는 활약을 보여주었습니다. 라는 문장을 받으면
-                {"Pronounce" : "케이티 위즈의 문상철이 준플레이오프 1차전에서 엘지 트윈스를 상대로 선제 투런 홈런을 기록했습니다. 문상철은 2회초 첫 타석에서 엘지 선발 투수를 상대로 강력한 타격을 선보이며 팀의 리드를 가져왔습니다. 이강철 감독의 타순 변경 결정이 성공적으로 작용하며 문상철은 기대에 부응하는 활약을 보여주었습니다."}의 결과가 나오게 해줘'''
-    response_sum = client.chat.completions.create(
-        model=gpt_version,  # 또는 다른 모델을 사용
-        messages=[
-            {"role": "system", "content": system},
-            {"role": "user", "content": text},
-        ],
-    )
-
-    response = response_sum.json()
-    response = json.loads(response)
-    response = response["choices"][0]["message"]['content']
-
-    return find_json(response)
-
-=======
     
->>>>>>> origin/main
 
 
 def generate_TTS(text):
@@ -250,14 +223,12 @@ def makeJson(text):
         
     except Exception as e:    # 모든 예외의 에러 메시지를 출력할 때는 Exception을 사용
         print('예외가 발생했습니다.', e)
-<<<<<<< HEAD
-=======
         print(11111)
->>>>>>> origin/main
         title, summary_dic, keywords, characters = makeJson(text)
         
     
     return title, summary_dic, keywords, characters
+
 
 def FindCharacters(text):
 

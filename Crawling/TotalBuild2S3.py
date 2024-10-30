@@ -68,7 +68,6 @@ def save_to_s3(file_path, bucket_name, s3_key):
     return f"https://{bucket_name}.s3.{AWS_REGION}.amazonaws.com/{s3_key}"
 
 
-
 class ComponentRequest(BaseModel):
     id_list: list[int]
     count_news : int

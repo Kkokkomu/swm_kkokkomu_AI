@@ -1,25 +1,25 @@
 {
-	"url": "https://n.news.naver.com/mnews/article/001/0014986893",
-	"title": "고령 운전자의 페달 오조작 사고 증가",
+	"url": "https://m.entertain.naver.com/ranking/article/076/0004210487",
+	"title": "율희, 최민환의 업소 출연 폭로와 침묵",
 	"summary": {
-		"sentence_0": "자동차 페달 오조작 사고 4건 중 1건은 65세 이상 고령 운전자가 일으킨 것으로 나타났습니다.",
-		"sentence_1": "삼성화재 교통안전문화연구소의 분석에 따르면, 전체 페달 오조작 사고의 39.1%가 61세 이상이었고, 고령 운전자를 위한 오조작 방지 장치 보급이 필요하다는 지적이 있었습니다.",
-		"sentence_2": "일본은 대부분의 신차에 이를 장착하고 있으며, 국내에서도 현대자동차가 페달 오조작 안전보조장치를 제공하고 있습니다.",
-		"prompt_total": "none, traffic accident analysis room, surrounded by charts and reports, focused and analytical, large desk with papers scattered, bright white lighting, atmosphere of urgency and concern \n Ethan, man in casual clothes, modern office, discussing statistics, passionate expression, charts on the wall detailing accidents, soft natural light from windows creating a serious atmosphere \n car showroom, showcases with new vehicles, eager customers exploring, bright and polished environment, vibrant colors of cars, promotional banners highlighting safety features and innovations",
-		"Prompt0": "none, traffic accident analysis room, surrounded by charts and reports, focused and analytical, large desk with papers scattered, bright white lighting, atmosphere of urgency and concern",
-		"Prompt1": "man in casual clothes, modern office, discussing statistics, passionate expression, charts on the wall detailing accidents, soft natural light from windows creating a serious atmosphere",
-		"Prompt2": "car showroom, showcases with new vehicles, eager customers exploring, bright and polished environment, vibrant colors of cars, promotional banners highlighting safety features and innovations",
-		"sentence_total": "자동차 페달 오조작 사고 4건 중 1건은 65세 이상 고령 운전자가 일으킨 것으로 나타났습니다. 삼성화재 교통안전문화연구소의 분석에 따르면, 전체 페달 오조작 사고의 39.1%가 61세 이상이었고, 고령 운전자를 위한 오조작 방지 장치 보급이 필요하다는 지적이 있었습니다. 일본은 대부분의 신차에 이를 장착하고 있으며, 국내에서도 현대자동차가 페달 오조작 안전보조장치를 제공하고 있습니다."
+		"sentence_0": "율희는 전남편 최민환의 업소 출연을 폭로하며 현재 침묵하고 있는 상태입니다.",
+		"sentence_1": "그는 유튜브를 통해 이혼 이유와 양육권 포기 사유를 설명하고 생계형 인플루언서로서의 어려움을 호소했습니다.",
+		"sentence_2": "그러나 최민환의 행동과 관련한 녹취록과 폭로로 인해 두 사람의 향후 행보에 대한 관심이 집중되고 있습니다.",
+		"prompt_total": "Emma, Liam, wearing casual clothes, well-lit home office, speaking to the camera, sincere expression, surrounded by family photos, bright and cheerful atmosphere, warm colors, emphasizing vulnerability and sharing personal stories \n Liam, two people sitting at a dining table, dimly lit room, serious conversation, concerned expressions, cluttered with food and drink, shadows casting, tension and secrecy in the air, muted colors to reflect the gravity of the discussion \n Liam, Emma, man holding phone, dark bar setting, uneasy demeanor, neon lights in the background, tension evident in body language, clashing colors creating discomfort, emphasizing the secretive and illicit atmosphere",
+		"Prompt0": "wearing casual clothes, well-lit home office, speaking to the camera, sincere expression, surrounded by family photos, bright and cheerful atmosphere, warm colors, emphasizing vulnerability and sharing personal stories",
+		"Prompt1": "two people sitting at a dining table, dimly lit room, serious conversation, concerned expressions, cluttered with food and drink, shadows casting, tension and secrecy in the air, muted colors to reflect the gravity of the discussion",
+		"Prompt2": "man holding phone, dark bar setting, uneasy demeanor, neon lights in the background, tension evident in body language, clashing colors creating discomfort, emphasizing the secretive and illicit atmosphere",
+		"sentence_total": "율희는 전남편 최민환의 업소 출연을 폭로하며 현재 침묵하고 있는 상태입니다. 그는 유튜브를 통해 이혼 이유와 양육권 포기 사유를 설명하고 생계형 인플루언서로서의 어려움을 호소했습니다. 그러나 최민환의 행동과 관련한 녹취록과 폭로로 인해 두 사람의 향후 행보에 대한 관심이 집중되고 있습니다."
 	},
-	"section": "경제",
+	"section": "연예",
 	"keywords": {
-		"keyword_0": "고령 운전자",
-		"keyword_1": "페달 오조작 사고",
-		"keyword_2": "안전보조장치"
+		"keyword_0": "율희",
+		"keyword_1": "최민환",
+		"keyword_2": "이혼"
 	},
 	"characters": {
-		"sentence_0": "none",
+		"sentence_0": "woman1 man1",
 		"sentence_1": "man1",
-		"sentence_2": "none"
+		"sentence_2": "man1 woman1"
 	}
 }
