@@ -84,8 +84,6 @@ def generate_keywords(text):
     response = response["choices"][0]["message"]['content']
     return find_json(response)
 
-<<<<<<< HEAD
-
 
 def TransPronounce(text):
     gpt_version = 'gpt-4o-mini'
@@ -107,10 +105,6 @@ def TransPronounce(text):
     response = response["choices"][0]["message"]['content']
 
     return find_json(response)
-
-=======
-    
->>>>>>> origin/main
 
 
 def generate_TTS(text):
@@ -250,10 +244,6 @@ def makeJson(text):
         
     except Exception as e:    # 모든 예외의 에러 메시지를 출력할 때는 Exception을 사용
         print('예외가 발생했습니다.', e)
-<<<<<<< HEAD
-=======
-        print(11111)
->>>>>>> origin/main
         title, summary_dic, keywords, characters = makeJson(text)
         
     
