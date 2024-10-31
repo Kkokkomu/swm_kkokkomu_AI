@@ -166,7 +166,6 @@ def makeJson(text):
         pronounce_summarys = re.sub(r'다\. ','다.\n',pronounce_summary)
         pronounce_summarys = pronounce_summarys.split('\n')
 
-        print(pronounce_summarys)
 
 
         character_response = FindCharacters(summary_total)
@@ -223,7 +222,6 @@ def makeJson(text):
         
     except Exception as e:    # 모든 예외의 에러 메시지를 출력할 때는 Exception을 사용
         print('예외가 발생했습니다.', e)
-        print(11111)
         title, summary_dic, keywords, characters = makeJson(text)
         
     

@@ -14,6 +14,19 @@ class ComponentRequest(BaseModel):
     count_sports : int 
     count_entertain : int
 
+## newsis일 경우 
+    # id_list: list[int]
+    # headline : int
+    # politic : int
+    # world : int
+    # economy : int
+    # IT : int
+    # society : int
+    # sports : int
+    # entertain: int
+
+
+    
 app = FastAPI()
 
 @app.post("/generate")
@@ -21,7 +34,12 @@ def test(request: ComponentRequest):
     print("generate ai resource")
     response = TotalBuild2S3.MakeSeperateComponent(request)
 
+    ## RSS로 실행한 값
+    # response = TotalBuild2S3.newsis_Make(request)
+
     return response
+
+
 
 
 @app.get("/test")

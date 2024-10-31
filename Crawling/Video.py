@@ -173,7 +173,7 @@ def generate_video(section, title):
 
     try:
         # 생성된 TimeStamp 이용
-        words_info = syncAudiotoText()
+        words_info = syncAudiotoText('./resource')
         print('TimeStamp 추출한 것으로 실행합니다.')
     except:
         # 결합된 음성 파일로부터 단어 타이밍 정보 추출
