@@ -23,7 +23,8 @@ class ComponentRequest(BaseModel):
     # IT : int
     # society : int
     # sports : int
-    # entertain: int
+    # entertain : int
+    # culture : int
 
 
     

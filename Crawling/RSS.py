@@ -3,13 +3,16 @@ from bs4 import BeautifulSoup
 from preprocessNews import newsisPreprocessing
 
 
-def findTopNews(headline =7, politic =7, world = 7, economy = 7 , IT = 7 , society = 7 , sports = 7, entertain = 7):
+def findTopNews(headline =7, politic =7, world = 7, economy = 7 , IT = 7 , society = 7 , sports = 7, entertain = 7, culture = 7):
 
-    categorys = {'종합':'https://www.newsis.com/politic/?cid=10300','정치':'https://www.newsis.com/politic/?cid=10300','국제':'https://www.newsis.com/world/?cid=10100','경제':'https://www.newsis.com/economy/?cid=10400',
-            'IT·바이오':'https://www.newsis.com/health/?cid=13100','사회':'https://www.newsis.com/society/?cid=10200','스포츠':'https://www.newsis.com/sports/?cid=10500',
-            '연예':'https://www.newsis.com/entertainment/?cid=10600'}
+    categorys = {'종합':'https://www.newsis.com/politic/?cid=10300','정치':'https://www.newsis.com/politic/?cid=10300','국제':'https://www.newsis.com/world/?cid=10100',
+                 '경제':'https://www.newsis.com/economy/?cid=10400', 'IT·바이오':'https://www.newsis.com/health/?cid=13100','사회':'https://www.newsis.com/society/?cid=10200',
+                 '스포츠':'https://www.newsis.com/sports/?cid=10500', '연예':'https://www.newsis.com/entertainment/?cid=10600','문화' : 'https://www.newsis.com/culture/?cid=10700'}
     
-    num_list = [headline, politic, world, economy , IT , society , sports, entertain]
+    remove_category = set(['광장', '포토', '위클리뉴시스'])
+    #  생활, IT
+    
+    num_list = [headline, politic, world, economy , IT , society , sports, entertain, culture]
     for idx, num in enumerate(num_list):
         if num >7:
             num_list[idx] = 7
@@ -37,7 +40,7 @@ def findTopNews(headline =7, politic =7, world = 7, economy = 7 , IT = 7 , socie
                 cate = soup3.find('p', class_ = 'tit')
                 cate = cate.text
             
-            if cate:
+            if cate and (cate not in remove_category):
                 news_set.add((cate,news_url))
     return news_set
 
@@ -50,6 +53,10 @@ def findNewsContents(news_list):
  '문화': 'https://www.newsis.com/RSS/culture.xml', '광장': 'https://www.newsis.com/RSS/square.xml', '포토': 'https://www.newsis.com/RSS/photo.xml',
  '위클리뉴시스': 'https://www.newsis.com/RSS/newsiseyes.xml'}
 
+    change_category : {'정치':'정치', '국제':'세계', '경제':'경제', '금융':'경제', '산업':'경제', '사회' :'사회', 'IT·바이오':'IT', '수도권':'사회',
+                    '지방':'사회', '스포츠':'스포츠', '연예':'연예', '문화':'문화'}
+    
+
     result_list = []
     for category, link in news_list:
         response= requests.get(RSS[category])
@@ -59,7 +66,7 @@ def findNewsContents(news_list):
                 # print(link)
                 content = newsisPreprocessing(soup.find_all('description')[idx+1].text)
                 if content:
-                    result_list.append({'url':link, 'section': category, 'content' : content})
+                    result_list.append({'url':link, 'section': change_category[category], 'content' : content})
                 break
     return result_list
 if __name__=='__main__':

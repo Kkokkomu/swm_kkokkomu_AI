@@ -80,7 +80,7 @@ def renewalMakeComponent(count_news = 5, count_sports = 5, count_entertain = 5, 
                     SaveImg(image, path = title_path+f'/sentence_{idx}.png')
         
 
-def newsis_Make(headline =7, politic =7, world = 7, economy = 7 , IT = 7 , society = 7 , sports = 7, entertain = 7):
+def newsis_Make(headline =7, politic =7, world = 7, economy = 7 , IT = 7 , society = 7 , sports = 7, entertain = 7,culture =7):
 
     date = datetime.now().date()
     path = str(date)
@@ -96,7 +96,7 @@ def newsis_Make(headline =7, politic =7, world = 7, economy = 7 , IT = 7 , socie
         print('같은 폴더가 존재합니다.')
         return
 
-    news_set =findTopNews(headline, politic, world, economy, IT, society, sports, entertain)
+    news_set =findTopNews(headline, politic, world, economy, IT, society, sports, entertain, culture)
     
     crawls = findNewsContents(news_set)
 

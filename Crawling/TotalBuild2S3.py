@@ -185,9 +185,9 @@ def newsis_Make(request : ComponentRequest):
 
     response = []
 
-    counts = [request.headline, request.politic, request.world, request.economy, request.IT, request.society, request.sports, request.entertain]
+    counts = [request.headline, request.politic, request.world, request.economy, request.IT, request.society, request.sports, request.entertain, request.culture]
 
-    news_set =findTopNews(request.headline, request.politic, request.world, request.economy, request.IT, request.society, request.sports, request.entertain)
+    news_set =findTopNews(request.headline, request.politic, request.world, request.economy, request.IT, request.society, request.sports, request.entertain, request.culture)
     
     crawls = findNewsContents(news_set)
 
@@ -223,7 +223,7 @@ def newsis_Make(request : ComponentRequest):
 
 
         # subprocess.call(f"mfa align --clean --overwrite --output_format json {title_path} korean_mfa korean_mfa {title_path}")
-        
+        #  mfa align --clean --overwrite --output_format json ./resource korean_mfa korean_mfa ./resource
         try:
             images = connectWebui(summary['prompt_total'])
 
