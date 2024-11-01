@@ -3,7 +3,9 @@ import os
 
 def makeSubtitle(path ='./resource'):
 
-    path = os.path.expanduser(path)
+    # path = os.path.expanduser(path)
+    path = os.path.abspath(path)
+    
     # Docker 클라이언트 생성
     client = docker.from_env()
 
@@ -43,4 +45,4 @@ def makeSubtitle(path ='./resource'):
     container.stop()
 
 if __name__== '__main__':
-    startSubtitle('./resource')
+    makeSubtitle('./resource')
