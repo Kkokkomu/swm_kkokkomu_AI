@@ -267,10 +267,17 @@ def syncAudiotoText(path = './resource'):
                     
 
                     # if og_word_length>original_idx and (word[original_idx] == '"' or word[original_idx]=="'"):
-                    while og_word_length>original_idx and (word[original_idx: original_idx + word_length] != timeStamps_word):
+                    if timeStamps_word.isalpha():
+                        timeStamp_word = timeStamps_word.lower()
+                        change_word = word.lower()
+                    else:
+                        change_word = word
+
+
+                    while og_word_length>original_idx and (change_word[original_idx: original_idx + word_length] != timeStamps_word):
                         original_idx += 1
                     
-                    if word[original_idx: original_idx + word_length] == timeStamps_word:
+                    if change_word[original_idx: original_idx + word_length] == timeStamps_word:
                         original_idx = original_idx + word_length
                         save_end = end
                         words_idx += 1
@@ -300,3 +307,4 @@ def syncAudiotoText(path = './resource'):
 
 if __name__ == '__main__':
     print(syncAudiotoText('./Test/samples'))
+    print('나는 똑S 해'.lower())
