@@ -11,3 +11,4 @@ uvicorn==0.18.3
 beautifulsoup4==4.11.1
 lxml==4.9.1
 openai
+docker

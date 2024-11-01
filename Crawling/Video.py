@@ -4,6 +4,7 @@ import io
 from moviepy.editor import ImageClip, concatenate_videoclips, CompositeAudioClip, TextClip, CompositeVideoClip, AudioFileClip, VideoFileClip
 from pydub import AudioSegment
 import json
+from DockerStart import makeSubtitle
 
 def transcribe_audio_with_timing(audio_path):
     client = speech.SpeechClient()
@@ -170,6 +171,9 @@ def generate_video(section, title):
     audio = AudioFileClip(combined_audio_path)
 
     video = video.set_audio(audio)
+
+    makeSubtitle(output_directory)
+    
 
     try:
         # 생성된 TimeStamp 이용
