@@ -1,28 +1,28 @@
 {
-	"url": "https://www.newsis.com/view/NISX20241101_0002943044",
-	"title": "최근 한국의 수출, 13개월 연속 증가세를 기록",
+	"url": "https://www.newsis.com/view/NISX20241101_0002943266",
+	"title": "미국 뉴욕 증시 강세가 민주당 해리스 대선 후보의 승리 가능성을 지지하다",
 	"summary": {
-		"sentence_0": "한국의 지난달 수출은 전년 대비 4.6% 증가하며 575억 2천만 달러를 기록했습니다.",
-		"sentence_1": "반도체와 자동차 등 주요 품목의 수출 실적이 증가하면서 전체 수출에서 월별 최대 실적을 지속적으로 올리고 있습니다.",
-		"sentence_2": "특히 반도체는 40.3% 증가하며 역대 최대 수출 실적을 기록했습니다.",
-		"Pronounce_0": "한국의 지난달 수출은 전년 대비 4.6% 증가하며 575억 2천만 달러를 기록했습니다.",
-		"Pronounce_1": "반도체와 자동차 등 주요 품목의 수출 실적이 증가하면서 전체 수출에서 월별 최대 실적을 지속적으로 올리고 있습니다.",
-		"Pronounce_2": "특히 반도체는 40.3% 증가하며 역대 최대 수출 실적을 기록했습니다.",
-		"Pronounce_total": "한국의 지난달 수출은 전년 대비 4.6% 증가하며 575억 2천만 달러를 기록했습니다. 반도체와 자동차 등 주요 품목의 수출 실적이 증가하면서 전체 수출에서 월별 최대 실적을 지속적으로 올리고 있습니다. 특히 반도체는 40.3% 증가하며 역대 최대 수출 실적을 기록했습니다.",
-		"prompt_total": " bustling international trade fair, presenting charts and data, confident, surrounded by industry professionals, bright lighting with high-tech displays, focused on innovation in exports \n  high-tech manufacturing plant, observing assembly process, engaged, machinery and workers in action, warm industrial lighting reflecting metal surfaces, showcasing production excellence \n  modern office, discussing market statistics, serious expressions, surrounded by large monitors displaying data, soft daylight filtering through large windows, highlighting collaboration",
-		"Prompt0": "business attire, bustling international trade fair, presenting charts and data, confident, surrounded by industry professionals, bright lighting with high-tech displays, focused on innovation in exports",
-		"Prompt1": "smart casual, high-tech manufacturing plant, observing assembly process, engaged, machinery and workers in action, warm industrial lighting reflecting metal surfaces, showcasing production excellence",
-		"Prompt2": "corporate meeting, modern office, discussing market statistics, serious expressions, surrounded by large monitors displaying data, soft daylight filtering through large windows, highlighting collaboration",
-		"sentence_total": "한국의 지난달 수출은 전년 대비 4.6% 증가하며 575억 2천만 달러를 기록했습니다. 반도체와 자동차 등 주요 품목의 수출 실적이 증가하면서 전체 수출에서 월별 최대 실적을 지속적으로 올리고 있습니다. 특히 반도체는 40.3% 증가하며 역대 최대 수출 실적을 기록했습니다."
+		"sentence_0": "최근 뉴욕 증시가 상승세를 보이며, 이 상황이 민주당 카멀라 해리스 대선 후보의 승리 가능성을 암시했습니다.",
+		"sentence_1": "금융서비스 기업 LPL 파이낸셜의 분석에 따르면, S&P 500 지수가 상승하면 현 집권당이 대선에서 승리할 가능성이 높아진다고 주장했습니다.",
+		"sentence_2": "그렇지만 폴리티코는 S&P 500 지수가 완벽한 예측 도구가 아니라고 지적하며, 정치적 불확실성이 여전히 존재한다고 경고했습니다.",
+		"Pronounce_0": "최근 뉴욕 증시가 상승세를 보이며, 이 상황이 민주당 카멀라 해리스 대선 후보의 승리 가능성을 암시했습니다.",
+		"Pronounce_1": "금융서비스 기업 엘피엘 파이낸셜의 분석에 따르면, S&P 500 지수가 상승하면 현 집권당이 대선에서 승리할 가능성이 높아진다고 주장했습니다.",
+		"Pronounce_2": "그렇지만 폴리티코는 S&P 500 지수가 완벽한 예측 도구가 아니라고 지적하며, 정치적 불확실성이 여전히 존재한다고 경고했습니다.",
+		"Pronounce_total": "최근 뉴욕 증시가 상승세를 보이며, 이 상황이 민주당 카멀라 해리스 대선 후보의 승리 가능성을 암시했습니다. 금융서비스 기업 엘피엘 파이낸셜의 분석에 따르면, S&P 500 지수가 상승하면 현 집권당이 대선에서 승리할 가능성이 높아진다고 주장했습니다. 그렇지만 폴리티코는 S&P 500 지수가 완벽한 예측 도구가 아니라고 지적하며, 정치적 불확실성이 여전히 존재한다고 경고했습니다.",
+		"prompt_total": "Emma, business suit, Wall Street financial district, bustling with traders and screens, busy atmosphere, many people walking, bright city lights, reflections on glass buildings, high energy and urgency in the air \n  LPL Financial office, visibly engaged in discussion with colleagues, focused on market charts, modern office environment with glass walls, warm overhead lighting, a sense of teamwork and strategy in the air \n  news studio, live broadcasting with charts behind, dynamic atmosphere, cameras and bright lights, vibrant colors of graphics on screens, exciting yet professional mood captured in the scene",
+		"Prompt0": "business suit, Wall Street financial district, bustling with traders and screens, busy atmosphere, many people walking, bright city lights, reflections on glass buildings, high energy and urgency in the air",
+		"Prompt1": "smart casual clothes, LPL Financial office, visibly engaged in discussion with colleagues, focused on market charts, modern office environment with glass walls, warm overhead lighting, a sense of teamwork and strategy in the air",
+		"Prompt2": "casual clothing, news studio, live broadcasting with charts behind, dynamic atmosphere, cameras and bright lights, vibrant colors of graphics on screens, exciting yet professional mood captured in the scene",
+		"sentence_total": "최근 뉴욕 증시가 상승세를 보이며, 이 상황이 민주당 카멀라 해리스 대선 후보의 승리 가능성을 암시했습니다. 금융서비스 기업 LPL 파이낸셜의 분석에 따르면, S&P 500 지수가 상승하면 현 집권당이 대선에서 승리할 가능성이 높아진다고 주장했습니다. 그렇지만 폴리티코는 S&P 500 지수가 완벽한 예측 도구가 아니라고 지적하며, 정치적 불확실성이 여전히 존재한다고 경고했습니다."
 	},
 	"section": "경제",
 	"keywords": {
-		"keyword_0": "수출 증가",
-		"keyword_1": "반도체",
-		"keyword_2": "자동차"
+		"keyword_0": "미국",
+		"keyword_1": "S&P 500",
+		"keyword_2": "카멀라 해리스"
 	},
 	"characters": {
-		"sentence_0": "none",
+		"sentence_0": "woman1",
 		"sentence_1": "none",
 		"sentence_2": "none"
 	}

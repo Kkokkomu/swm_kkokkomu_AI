@@ -1,41 +1,45 @@
 import os
-# from google.cloud import speech_v1p1beta1 as speech
+from google.cloud import speech_v1p1beta1 as speech
 import io
-# from moviepy.editor import ImageClip, concatenate_videoclips, CompositeAudioClip, TextClip, CompositeVideoClip, AudioFileClip, VideoFileClip
-# from pydub import AudioSegment
+from moviepy.editor import ImageClip, concatenate_videoclips, CompositeAudioClip, TextClip, CompositeVideoClip, AudioFileClip, VideoFileClip
+from pydub import AudioSegment
 import json
-# from DockerStart import makeSubtitle
+from DockerStart import makeSubtitle
 
-# def transcribe_audio_with_timing(audio_path):
-#     client = speech.SpeechClient()
+from pydub import AudioSegment
 
-#     with io.open(audio_path, "rb") as audio_file:
-#         content = audio_file.read()
+from moviepy.editor import ImageClip
 
-#     audio = speech.RecognitionAudio(content=content)
-#     config = speech.RecognitionConfig(
-#         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-#         sample_rate_hertz=24000,
-#         language_code="ko-KR",
-#         enable_word_time_offsets=True  # 타이밍 정보 활성화
-#     )
+def transcribe_audio_with_timing(audio_path):
+    client = speech.SpeechClient()
 
-#     response = client.recognize(config=config, audio=audio)
+    with io.open(audio_path, "rb") as audio_file:
+        content = audio_file.read()
 
-#     words_info = []
-#     for result in response.results:
-#         alternative = result.alternatives[0]
-#         for word_info in alternative.words:
-#             word = word_info.word
-#             start_time = word_info.start_time.total_seconds()
-#             end_time = word_info.end_time.total_seconds()
-#             words_info.append({
-#                 'word': word,
-#                 'start': start_time,
-#                 'end': end_time
-#             })
+    audio = speech.RecognitionAudio(content=content)
+    config = speech.RecognitionConfig(
+        encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+        sample_rate_hertz=24000,
+        language_code="ko-KR",
+        enable_word_time_offsets=True  # 타이밍 정보 활성화
+    )
+
+    response = client.recognize(config=config, audio=audio)
+
+    words_info = []
+    for result in response.results:
+        alternative = result.alternatives[0]
+        for word_info in alternative.words:
+            word = word_info.word
+            start_time = word_info.start_time.total_seconds()
+            end_time = word_info.end_time.total_seconds()
+            words_info.append({
+                'word': word,
+                'start': start_time,
+                'end': end_time
+            })
     
-#     return words_info
+    return words_info
 
 def wrap_text(text, max_chars_per_line):
     """주어진 텍스트를 최대 너비를 초과하지 않도록 줄바꿈합니다."""
