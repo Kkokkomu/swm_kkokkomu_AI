@@ -272,7 +272,7 @@ def syncAudiotoText(path = './resource'):
 
                     # if og_word_length>original_idx and (word[original_idx] == '"' or word[original_idx]=="'"):
                     if timeStamps_word.isalpha():
-                        timeStamp_word = timeStamps_word.lower()
+                        timeStamps_word = timeStamps_word.lower()
                         change_word = word.lower()
                     else:
                         change_word = word
