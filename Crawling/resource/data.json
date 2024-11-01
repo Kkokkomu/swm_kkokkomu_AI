@@ -1,23 +1,23 @@
 {
 	"url": "https://www.newsis.com/view/NISX20241101_0002943044",
-	"title": "한국, 13개월 연속 수출 증가 기록",
+	"title": "최근 한국의 수출, 13개월 연속 증가세를 기록",
 	"summary": {
-		"sentence_0": "한국은 지난달 수출이 전년 대비 4.6% 증가하며 13개월째 플러스 기조를 유지했습니다.",
-		"sentence_1": "특히 반도체와 자동차 부문에서 역대 최대 기록을 세웠으며 이로 인해 전체 수출 실적이 높아졌습니다.",
-		"sentence_2": "산업부는 긍정적인 증가세가 연말까지 이어질 것이라고 전망했습니다.",
-		"Pronounce_0": "한국은 지난달 수출이 전년 대비 4.6% 증가하며 13개월째 플러스 기조를 유지했습니다.",
-		"Pronounce_1": "특히 반도체와 자동차 부문에서 역대 최대 기록을 세웠으며 이로 인해 전체 수출 실적이 높아졌습니다.",
-		"Pronounce_2": "산업부는 긍정적인 증가세가 연말까지 이어질 것이라고 전망했습니다.",
-		"Pronounce_total": "한국은 지난달 수출이 전년 대비 4.6% 증가하며 13개월째 플러스 기조를 유지했습니다. 특히 반도체와 자동차 부문에서 역대 최대 기록을 세웠으며 이로 인해 전체 수출 실적이 높아졌습니다. 산업부는 긍정적인 증가세가 연말까지 이어질 것이라고 전망했습니다.",
-		"prompt_total": " factory environment, presenting to executives, optimistic atmosphere, standing confidently in front of machinery and employees, bright industrial lighting, showcasing economic growth \n  modern office, reviewing reports, focused expression, surrounded by charts and graphs on screens, soft natural light from large windows, emphasizing productivity and success \n  trade exhibition, networking with industry leaders, engaging conversation, colorful booths and displays around, vibrant atmosphere, highlighting technological advancements and innovations",
-		"Prompt0": "business suit, factory environment, presenting to executives, optimistic atmosphere, standing confidently in front of machinery and employees, bright industrial lighting, showcasing economic growth",
-		"Prompt1": "casual clothes, modern office, reviewing reports, focused expression, surrounded by charts and graphs on screens, soft natural light from large windows, emphasizing productivity and success",
-		"Prompt2": "smart casual attire, trade exhibition, networking with industry leaders, engaging conversation, colorful booths and displays around, vibrant atmosphere, highlighting technological advancements and innovations",
-		"sentence_total": "한국은 지난달 수출이 전년 대비 4.6% 증가하며 13개월째 플러스 기조를 유지했습니다. 특히 반도체와 자동차 부문에서 역대 최대 기록을 세웠으며 이로 인해 전체 수출 실적이 높아졌습니다. 산업부는 긍정적인 증가세가 연말까지 이어질 것이라고 전망했습니다."
+		"sentence_0": "한국의 지난달 수출은 전년 대비 4.6% 증가하며 575억 2천만 달러를 기록했습니다.",
+		"sentence_1": "반도체와 자동차 등 주요 품목의 수출 실적이 증가하면서 전체 수출에서 월별 최대 실적을 지속적으로 올리고 있습니다.",
+		"sentence_2": "특히 반도체는 40.3% 증가하며 역대 최대 수출 실적을 기록했습니다.",
+		"Pronounce_0": "한국의 지난달 수출은 전년 대비 4.6% 증가하며 575억 2천만 달러를 기록했습니다.",
+		"Pronounce_1": "반도체와 자동차 등 주요 품목의 수출 실적이 증가하면서 전체 수출에서 월별 최대 실적을 지속적으로 올리고 있습니다.",
+		"Pronounce_2": "특히 반도체는 40.3% 증가하며 역대 최대 수출 실적을 기록했습니다.",
+		"Pronounce_total": "한국의 지난달 수출은 전년 대비 4.6% 증가하며 575억 2천만 달러를 기록했습니다. 반도체와 자동차 등 주요 품목의 수출 실적이 증가하면서 전체 수출에서 월별 최대 실적을 지속적으로 올리고 있습니다. 특히 반도체는 40.3% 증가하며 역대 최대 수출 실적을 기록했습니다.",
+		"prompt_total": " bustling international trade fair, presenting charts and data, confident, surrounded by industry professionals, bright lighting with high-tech displays, focused on innovation in exports \n  high-tech manufacturing plant, observing assembly process, engaged, machinery and workers in action, warm industrial lighting reflecting metal surfaces, showcasing production excellence \n  modern office, discussing market statistics, serious expressions, surrounded by large monitors displaying data, soft daylight filtering through large windows, highlighting collaboration",
+		"Prompt0": "business attire, bustling international trade fair, presenting charts and data, confident, surrounded by industry professionals, bright lighting with high-tech displays, focused on innovation in exports",
+		"Prompt1": "smart casual, high-tech manufacturing plant, observing assembly process, engaged, machinery and workers in action, warm industrial lighting reflecting metal surfaces, showcasing production excellence",
+		"Prompt2": "corporate meeting, modern office, discussing market statistics, serious expressions, surrounded by large monitors displaying data, soft daylight filtering through large windows, highlighting collaboration",
+		"sentence_total": "한국의 지난달 수출은 전년 대비 4.6% 증가하며 575억 2천만 달러를 기록했습니다. 반도체와 자동차 등 주요 품목의 수출 실적이 증가하면서 전체 수출에서 월별 최대 실적을 지속적으로 올리고 있습니다. 특히 반도체는 40.3% 증가하며 역대 최대 수출 실적을 기록했습니다."
 	},
 	"section": "경제",
 	"keywords": {
-		"keyword_0": "수출",
+		"keyword_0": "수출 증가",
 		"keyword_1": "반도체",
 		"keyword_2": "자동차"
 	},

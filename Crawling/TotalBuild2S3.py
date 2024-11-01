@@ -193,11 +193,17 @@ def MakeSeperateComponent(request : ComponentRequest):
 
 def newsis_Make(request : RSSRequest):
 
+    id_list = request.id_list
+    id_idx = 0
+
     path = './resource'
 
     response = []
 
     counts = [request.headline, request.politic, request.world, request.economy, request.IT, request.society, request.sports, request.entertain, request.culture]
+
+    print(f"Initial id_list: {id_list}")
+    print(f"Initial id_idx: {id_idx}")
 
     news_set =findTopNews(request.headline, request.politic, request.world, request.economy, request.IT, request.society, request.sports, request.entertain, request.culture)
     
