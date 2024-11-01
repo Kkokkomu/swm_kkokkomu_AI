@@ -219,6 +219,7 @@ def replace_da_period(text):
 
 
 def removeAll(texts):
+
     texts = remove_dup_sent(texts)
     texts = remove_html(texts)
     texts = remove_email(texts)
@@ -233,27 +234,119 @@ def removeAll(texts):
 
     return texts
 
+ #언론정보 제거
+def remove_press_one(text):
+    """
+    언론 정보를 제거합니다.
+    ``홍길동 기자 (연합뉴스)`` -> ````
+    ``(이스탄불=연합뉴스) 하채림 특파원 -> ````
+    """
+    re_patterns = [
+        r"\([^(]*?(뉴스|경제|일보|미디어|데일리|한겨례|타임즈|위키트리)\)",
+        r"[가-힣]{1,4} (기자|선임기자|수습기자|특파원|객원기자|논설고문|통신원|연구소장)",  # 이름 + 기자
+        r"[가-힣]{1,4}(기자|선임기자|수습기자|특파원|객원기자|논설고문|통신원|연구소장)",  # 이름 + 기자
+        r"[가-힣]{1,}(뉴스|경제|일보|미디어|데일리|한겨례|타임|위키트리)",  # (... 연합뉴스) ..
+        r"\(\s+\)",  # (  )
+        r"\(=\s+\)",  # (=  )
+        r"\(\s+=\)",  # (  =)
+    ]
 
+
+    for re_pattern in re_patterns:
+        text = re.sub(re_pattern, "", text).strip()
+    return text
+
+
+
+def replace_html_entities(text):
+    replacements = {
+        "&nbsp;": " ",
+        "&lt;": "<",
+        "&gt;": ">",
+        "&amp;": "&",
+        "&quot;": "\"",
+        "&#035;": "#",
+        "&#039;": "'"
+    }
+    
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    
+    return text
+
+def remove_email_one(text):
+    text = re.sub(r"[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+", "", text).strip()
+    return text
+
+def remove_html_one(text):
+    """
+    HTML 태그를 제거합니다.
+    ``<p>안녕하세요 ㅎㅎ </p>`` -> ``안녕하세요 ㅎㅎ ``
+    """
+
+    text = re.sub(r"<[^>]+>\s+(?=<)|<[^>]+>", "", text).strip()
+
+    return text
+
+def remove_photo_info_one(text):
+    """
+    뉴스 내 포함된 이미지에 대한 label을 제거합니다.
+    ``(사진= 연합뉴스, 무단 전재-재배포 금지)`` -> ````
+    ``(출처=청주시)`` -> ````
+    """
+    
+    text = re.sub(r"\(출처?=?.+\)|\(출처 ?= ?.+\) |\[[^=]+=[^\]]+\)|\([^=]+=[^\)]+\)|\(사진 ?= ?.+\) |\(자료 ?= ?.+\)| \(자료사진\) |사진=.+기자 ", "", text).strip()
+    return text
+
+
+def remove_newsis(text):
+
+    text = re.sub(r"\[[^]]+?=\s*뉴시스\]", "", text)
+
+    return text
+
+
+def remove_newsis_mark(text):
+
+    text = re.sub(r"\[[^]]+?=\s*뉴시스\]", "", text)
+
+    return text
+
+
+
+# 첫번째에 = 이 오는경우
+def removefirst_one(text):
+    text = text.strip()
+    if text[0] =='=':
+        text = text[1:]
+    return text
+
+
+def newsisPreprocessing(text):
+    try:
+        text= text.split('기자 = ')[1]
+    except Exception as e:    # 모든 예외의 에러 메시지를 출력할 때는 Exception을 사용
+        print('예외가 발생했습니다.', e)
+        print(text)
+        return ""
+    text= replace_html_entities(text)
+    # print(text)
+    text = remove_email_one(text)
+    # print(text)
+
+    text = remove_html_one(text)
+    text = remove_photo_info_one(text)
+    text = remove_press_one(text)
+    text = remove_newsis(text)
+    text = removefirst_one(text)
+    text = text.replace("◎공감언론 뉴시스", "")
+    return text.strip()
 
 
 
 if __name__ == '__main__':
-    import TransURL
-    print(remove_photo_info(['(출처=청주시),(출처 = 청주시)']))
-
-    # link = 'https://news.nate.com/view/20240621n10697?mid=n1008'
-    # link = 'https://news.nate.com/view/20240621n03701?mid=n1008'
-
-    # news_name, news_contents = TransURL.newsContents(link)
-    # print()
-    # print('제목 : ',news_name)
-    # print()
-    # news_contents = re.sub(r'다\.','다.\n ',news_contents)
-    # news_contents = news_contents.split('\n')
-
-    # news_contents = removeAll(news_contents)
-    # # print(news_contents)
-    # for i in news_contents:
-    #     print(i)
-
-    # print()
+    text = '''<p><img src="https://image.newsis.com/2024/10/30/NISI20241030_0020578257_web.jpg?rnd=20241030112046"/></p><br /><br /><br />[서울=뉴시스]신재현 기자 = 더불어민주당이 30일 한동훈 국민의힘 대표 취임 100일 기자회견을 두고 &quot;국민 물음에 답하지 못했다&quot;며 &quot;울림도 알맹이도 없었다&quot;고 혹평했다. <br /><br />조승래 수석대변인은 이날 서면브리핑을 통해 &quot;한 대표가 정작 국민의 물음에는 분명히 답하지 못했다&quot;며 &quot;김건희 여사 국정농단 게이트를 제대로 넘어서지 않고 변화와 쇄신을 말할 수는 없다&quot;고 밝혔다. <br /><br />조 수석대변인은 &quot;김건희 여사 국정농단 의혹에 대해 국민께서 요구하시는 것은, 엄정한 수사로 진상을 철저히 파헤쳐서 법과 원칙에 따라 처리하라는 것&quot;이라고 말했다. <br /><br />이어 &quot;명품백 수수, 주가조작 등 온갖 의혹에 면죄부만 발급해온 검찰은 이미 신뢰를 잃었다. 바로 그 때문에 국민 대다수가 특검을 요구하는 것&quot;이라고 덧붙였다. <br /><br />조 수석대변인은 &quot;한동훈 대표는 특검에 대해 머뭇거리기만 할 뿐 분명하게 답하지 못한다&quot;며 &quot;특검 말고는 김건희 여사 문제를 국민께서 납득할 수준으로 풀 방법이 없다&quot;고 강조했다. <br /><br />그러면서 &quot;한 대표는 미봉책으로 변죽만 울리는 꼼수를 중단하길 바란다&quot;고 했다. <br /><br />한 대표는 이날 국회에서 당대표 취임 100일 기자회견을 열고 김 여사 등 대통령 친인척을 감찰하기 위한 특별감찰관 추진과 관련해 &quot;김 여사에 대한 우려와 걱정이 있다&quot;며 관철 의지를 밝혔다. 그러나 &#039;김건희 특검&#039;에 대해서는 말을 아꼈다.<br />
+◎공감언론 뉴시스 again@newsis.com'''
+    print()
+    print(newsisPreprocessing(text))
+    print()

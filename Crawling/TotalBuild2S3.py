@@ -10,6 +10,8 @@ from moviepy.editor import ImageClip
 from SaveFiles import SaveImg, saveJsonFile, saveTTS, saveTxT
 from ImgGenerator import connectWebui, ImgGenerator
 import subprocess
+from RSS import findTopNews,findNewsContents
+
 
 import re
 
@@ -78,6 +80,18 @@ class ComponentResponse(BaseModel):
     data : dict
     s3 : str
     thumbnail : str
+
+class RSSRequest(BaseModel):
+    id_list: list[int]
+    headline : int
+    politic : int
+    world : int
+    economy : int
+    IT : int
+    society : int
+    sports : int
+    entertain : int
+    culture : int
 
 # 크롤링, gpt 사용
 def MakeSeperateComponent(request : ComponentRequest):
@@ -174,6 +188,109 @@ def MakeSeperateComponent(request : ComponentRequest):
             response.append(ComponentResponse(data=data_content, s3=url, thumbnail=thumbnail_url))
     
     return response
+
+
+
+def newsis_Make(request : RSSRequest):
+
+    path = './resource'
+
+    response = []
+
+    counts = [request.headline, request.politic, request.world, request.economy, request.IT, request.society, request.sports, request.entertain, request.culture]
+
+    news_set =findTopNews(request.headline, request.politic, request.world, request.economy, request.IT, request.society, request.sports, request.entertain, request.culture)
+    
+    crawls = findNewsContents(news_set)
+
+    if not crawls:
+        return 
+
+    for crawl in tqdm(crawls, desc = '뉴스 숏폼 재료 생성 중'):
+        
+
+        content = '\n'.join(crawl['content'])
+
+        
+        title, summary, keywords, characters= Generate.makeJson(content)
+        
+
+        title_path = saveJsonFile(path, crawl, title, summary,keywords, characters)
+
+        json_path = f'{title_path}/data.json'
+
+
+        # title_path = './Data'
+
+        saveTxT(title_path, summary)
+
+        try:
+            tts = [Generate.generate_TTS_clova(summary[f'Pronounce_{idx}']) for idx in range(3)]
+            saveTTS(tts, title_path)
+
+        except:
+            print('GPT API로 TTS 제작')
+            tts = [Generate.generate_TTS(summary[f'Pronounce_{idx}']) for idx in range(3)]
+            saveTTS(tts, title_path)
+
+
+        # subprocess.call(f"mfa align --clean --overwrite --output_format json {title_path} korean_mfa korean_mfa {title_path}")
+        #  mfa align --clean --overwrite --output_format json ./resource korean_mfa korean_mfa ./resource
+        try:
+            images = connectWebui(summary['prompt_total'])
+
+            for idx, image in enumerate(images):
+                SaveImg(image, path = title_path+f'/sentence_{idx}.png')
+
+        
+        except:
+            print("\nGetImg로 이미지를 생성합니다.\n")
+            for idx in range(3):
+                image = ImgGenerator(summary[f'Prompt{idx}'])
+                SaveImg(image, path = title_path+f'/sentence_{idx}.png')
+                
+
+        # data.json 파일 읽기
+        with open(json_path, 'r', encoding='UTF-8') as json_file:
+            data_content = json.load(json_file)
+
+        # title을 data_content에서 추출
+        title = data_content['title']
+        print("data" + title)
+
+        # 비디오 생성 및 저장
+        print(crawl['section'])
+        video_path = f"{path}/final_output.mp4"
+        Video.generate_video(crawl['section'], title)  
+
+        # with 광고 비디오 생성 및 저장
+        Video.addAdVideo()
+        video_withad_path = f"{path}/final_output_withad.mp4"
+        
+        # 숏폼 S3에 업로드
+        url = save_to_s3(video_path, SHORTFORM_BUCKET_NAME, f"{id_list[id_idx]}.mp4")
+
+        # with 광고 숏폼 S3 업로드
+        save_to_s3(video_withad_path, WITHAD_BUCKET_NAME, f"{id_list[id_idx]}.mp4")
+        
+        # 썸네일 S3에 업로드
+        thumbnail_path = f"{path}/sentence_0.png"
+        adjusted_thumbnail_path = f"{path}/adjusted_sentence_0.png"
+        adjust_thumbnail_to_9_16(thumbnail_path, adjusted_thumbnail_path)
+
+        thumbnail_url = save_to_s3(adjusted_thumbnail_path, THUMBNAIL_BUCKET_NAME, f"{id_list[id_idx]}.png")
+        print(f"thumbnail_url : {thumbnail_url}")
+
+        # S3내 객체 이름이 될 id 인덱스 증가
+        id_idx += 1
+
+        # 반환값
+        response.append(ComponentResponse(data=data_content, s3=url, thumbnail=thumbnail_url))
+    
+    return response
+
+
+
 
 
 if __name__ == '__main__':

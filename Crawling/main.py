@@ -14,14 +14,33 @@ class ComponentRequest(BaseModel):
     count_sports : int 
     count_entertain : int
 
+class RSSRequest(BaseModel):
+    id_list: list[int]
+    headline : int
+    politic : int
+    world : int
+    economy : int
+    IT : int
+    society : int
+    sports : int
+    entertain : int
+    culture : int
+
+
+    
 app = FastAPI()
 
 @app.post("/generate")
-def test(request: ComponentRequest):
+def test(request: RSSRequest):
     print("generate ai resource")
-    response = TotalBuild2S3.MakeSeperateComponent(request)
+    # response = TotalBuild2S3.MakeSeperateComponent(request)
+
+    ## RSS로 실행한 값
+    response = TotalBuild2S3.newsis_Make(request)
 
     return response
+
+
 
 
 @app.get("/test")

@@ -4,6 +4,7 @@ import io
 from moviepy.editor import ImageClip, concatenate_videoclips, CompositeAudioClip, TextClip, CompositeVideoClip, AudioFileClip, VideoFileClip
 from pydub import AudioSegment
 import json
+from DockerStart import makeSubtitle
 
 def transcribe_audio_with_timing(audio_path):
     client = speech.SpeechClient()
@@ -171,9 +172,12 @@ def generate_video(section, title):
 
     video = video.set_audio(audio)
 
+    makeSubtitle(output_directory)
+    
+
     try:
         # 생성된 TimeStamp 이용
-        words_info = syncAudiotoText()
+        words_info = syncAudiotoText('./resource')
         print('TimeStamp 추출한 것으로 실행합니다.')
     except:
         # 결합된 음성 파일로부터 단어 타이밍 정보 추출
@@ -244,31 +248,50 @@ def syncAudiotoText(path = './resource'):
         with open(f"{path}/sentence_{i}.txt",'r', encoding='UTF-8') as f:
             words = f.read().split(' ')
         
-
-
         with open(f"{path}/sentence_{i}.json", encoding='UTF-8') as js:
             timeStamp = json.load(js)
-            timeStamps_words = timeStamp['tiers']['words']["entries"]
-            
-        if len(words) == len(timeStamps_words):
+        timeStamps_words = timeStamp['tiers']['words']["entries"]
 
-            for idx, (start, end, word) in enumerate(timeStamps_words):
-                words_info.append({
-                    'word': words[idx],
-                    'start': start + start_time,
-                    'end': end + start_time
-                })
+        result_word = []
+        words_idx = 0
+        if words and timeStamps_words:
+            
+            for word in words:
+                original_idx = 0
+                save_start = timeStamps_words[words_idx][0] + start_time
+
+                og_word_length = len(word)
+
+                for words_idx2, (start, end, timeStamps_word) in enumerate(timeStamps_words[words_idx:]):
+                    word_length = len(timeStamps_word) 
+                    if og_word_length>original_idx and (word[original_idx] == '"' or word[original_idx]=="'"):
+                        original_idx += 1
+                    
+                    if word[original_idx: original_idx + word_length] == timeStamps_word:
+                        original_idx = original_idx + word_length
+                        save_end = end
+                        words_idx += 1
+                    else:
+                        result_word.append([save_start, save_end +start_time,word])
+                        break
+            if result_word[-1][2] != words[-1]:
+                result_word.append([save_start, save_end +start_time,word])
+
+            if len(result_word) != len(words):
+                result_word= timeStamps_words
         else:
-            for start, end, word in timeStamps_words:
+            result_word = timeStamps_words
+        
+        for start, end, word in result_word:
                 words_info.append({
                     'word': word,
-                    'start': start + start_time,
-                    'end': end + start_time
+                    'start': start,
+                    'end': end 
                 })
-
+        
         start_time += timeStamp["end"]
-
     return words_info
 
+
 if __name__ == '__main__':
-    print(syncAudiotoText('./Data'))
+    print(syncAudiotoText('../Test/samples'))
