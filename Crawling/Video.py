@@ -1,14 +1,14 @@
 import os
-from google.cloud import speech_v1p1beta1 as speech
+# from google.cloud import speech_v1p1beta1 as speech
 import io
-from moviepy.editor import ImageClip, concatenate_videoclips, CompositeAudioClip, TextClip, CompositeVideoClip, AudioFileClip, VideoFileClip
-from pydub import AudioSegment
+# from moviepy.editor import ImageClip, concatenate_videoclips, CompositeAudioClip, TextClip, CompositeVideoClip, AudioFileClip, VideoFileClip
+# from pydub import AudioSegment
 import json
-from DockerStart import makeSubtitle
+# from DockerStart import makeSubtitle
 
-from pydub import AudioSegment
+# from pydub import AudioSegment
 
-from moviepy.editor import ImageClip
+# from moviepy.editor import ImageClip
 
 def transcribe_audio_with_timing(audio_path):
     client = speech.SpeechClient()
@@ -271,13 +271,10 @@ def syncAudiotoText(path = './resource'):
                     
 
                     # if og_word_length>original_idx and (word[original_idx] == '"' or word[original_idx]=="'"):
-                    if timeStamps_word.isalpha():
-                        timeStamps_word = timeStamps_word.lower()
-                        change_word = word.lower()
-                    else:
-                        change_word = word
-
-
+                    
+                    timeStamps_word = timeStamps_word.lower()
+                    change_word = word.lower()
+                    
                     while og_word_length>original_idx and (change_word[original_idx: original_idx + word_length] != timeStamps_word):
                         original_idx += 1
                     
@@ -311,4 +308,6 @@ def syncAudiotoText(path = './resource'):
 
 if __name__ == '__main__':
     print(syncAudiotoText('./Test/samples'))
+    x='abcde'
+    print(x[10:])
     print('나는 똑S 해'.lower())
