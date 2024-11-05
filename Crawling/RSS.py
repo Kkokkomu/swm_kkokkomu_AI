@@ -24,11 +24,15 @@ def findTopNews(headline =7, politic =7, world = 7, economy = 7 , IT = 7 , socie
     num = 5
     news_set =set()
     for (category,url), num in zip(categorys.items(), num_list):
-        r= requests.get(url)
-        soup = BeautifulSoup(r.text,'html.parser')
-        soup2 = soup.find('div', {'data-name': category})
-        urls  = soup2.find_all('div', class_='txtCont')
-        
+
+        try:
+            r= requests.get(url)
+            soup = BeautifulSoup(r.text,'html.parser')
+            soup2 = soup.find('div', {'data-name': category})
+            urls  = soup2.find_all('div', class_='txtCont')
+        except Exception as e:
+            print( category," 뉴스 가져오는데 오류 발생:", str(e))
+            continue
         
         cate = category
         for i in range(num):
@@ -70,7 +74,12 @@ def findNewsContents(news_list):
                 break
     return result_list
 if __name__=='__main__':
-    news_list =findTopNews(1,1,1,1,1,1,1,1)
-    for i in findNewsContents(news_list):
+    for i in range(8):
         print(i)
+        li =[0]*8
+        li[i] = 1
+        news_list =findTopNews(*li)
+    # news_list =findTopNews(1,1,1,1,1,1,1,1)
+    # for i in findNewsContents(news_list):
+    #     print(i)
     
