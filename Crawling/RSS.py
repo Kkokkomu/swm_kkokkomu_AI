@@ -31,8 +31,17 @@ def findTopNews(headline =7, politic =7, world = 7, economy = 7 , IT = 7 , socie
             soup2 = soup.find('div', {'data-name': category})
             urls  = soup2.find_all('div', class_='txtCont')
         except Exception as e:
-            print( category," 뉴스 가져오는데 오류 발생:", str(e))
-            continue
+            print(category," 뉴스 가져오는데 오류 발생:", str(e))
+            try:
+                r= requests.get(url)
+                soup = BeautifulSoup(r.text,'html.parser')
+                soup2 = soup.find('div', {'data-name': category})
+                urls  = soup2.find_all('div', class_='txtCont')
+            except Exception as e:
+
+                print('RSS기사 뉴스 가져오기 두번째 실패 ',str(e))
+
+                continue
         
         cate = category
         for i in range(num):
