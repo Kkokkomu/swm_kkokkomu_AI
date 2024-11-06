@@ -21,9 +21,9 @@ def findTopNews(headline =7, politic =7, world = 7, economy = 7 , IT = 7 , socie
 
     base_url = 'https://www.newsis.com'
 
-    num = 5
     news_set =set()
     for (category,url), num in zip(categorys.items(), num_list):
+
 
         try:
             r= requests.get(url)
@@ -39,7 +39,7 @@ def findTopNews(headline =7, politic =7, world = 7, economy = 7 , IT = 7 , socie
                 urls  = soup2.find_all('div', class_='txtCont')
             except Exception as e:
 
-                print('RSS기사 뉴스 가져오기 두번째 실패 ',str(e))
+                print(category,' RSS기사 뉴스 가져오기 두번째 실패 ',str(e))
 
                 continue
         
@@ -83,11 +83,15 @@ def findNewsContents(news_list):
                 break
     return result_list
 if __name__=='__main__':
-    for i in range(8):
-        print(i)
-        li =[0]*8
-        li[i] = 1
+    for i in range(9):
+        li =[0]*9
+        li[i] = 7
+        print(li)
         news_list =findTopNews(*li)
+        print(news_list)
+        print(len(news_list))
+        print(i)
+        print()
     # news_list =findTopNews(1,1,1,1,1,1,1,1)
     # for i in findNewsContents(news_list):
     #     print(i)

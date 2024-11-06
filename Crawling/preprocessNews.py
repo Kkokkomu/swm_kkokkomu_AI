@@ -326,9 +326,13 @@ def newsisPreprocessing(text):
     try:
         text= text.split('기자 = ')[1]
     except Exception as e:    # 모든 예외의 에러 메시지를 출력할 때는 Exception을 사용
-        print('예외가 발생했습니다.', e)
-        print(text)
-        return ""
+        
+        try: 
+            text= text.split('특파원 = ')[1]
+        except Exception as e:
+            print('예외가 발생했습니다.', e)
+            print(text)
+            return ""
     text= replace_html_entities(text)
     # print(text)
     text = remove_email_one(text)
