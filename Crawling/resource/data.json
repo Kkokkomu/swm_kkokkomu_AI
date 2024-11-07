@@ -1,29 +1,29 @@
 {
-	"url": "https://www.newsis.com/view/NISX20241101_0002943266",
-	"title": "미국 뉴욕 증시 강세가 민주당 해리스 대선 후보의 승리 가능성을 지지하다",
+	"url": "https://www.newsis.com/view/NISX20241107_0002950821",
+	"title": "트럼프 당선인의 장녀 이방카, 대선 승리 선언식 참석",
 	"summary": {
-		"sentence_0": "최근 뉴욕 증시가 상승세를 보이며, 이 상황이 민주당 카멀라 해리스 대선 후보의 승리 가능성을 암시했습니다.",
-		"sentence_1": "금융서비스 기업 LPL 파이낸셜의 분석에 따르면, S&P 500 지수가 상승하면 현 집권당이 대선에서 승리할 가능성이 높아진다고 주장했습니다.",
-		"sentence_2": "그렇지만 폴리티코는 S&P 500 지수가 완벽한 예측 도구가 아니라고 지적하며, 정치적 불확실성이 여전히 존재한다고 경고했습니다.",
-		"Pronounce_0": "최근 뉴욕 증시가 상승세를 보이며, 이 상황이 민주당 카멀라 해리스 대선 후보의 승리 가능성을 암시했습니다.",
-		"Pronounce_1": "금융서비스 기업 엘피엘 파이낸셜의 분석에 따르면, S&P 500 지수가 상승하면 현 집권당이 대선에서 승리할 가능성이 높아진다고 주장했습니다.",
-		"Pronounce_2": "그렇지만 폴리티코는 S&P 500 지수가 완벽한 예측 도구가 아니라고 지적하며, 정치적 불확실성이 여전히 존재한다고 경고했습니다.",
-		"Pronounce_total": "최근 뉴욕 증시가 상승세를 보이며, 이 상황이 민주당 카멀라 해리스 대선 후보의 승리 가능성을 암시했습니다. 금융서비스 기업 엘피엘 파이낸셜의 분석에 따르면, S&P 500 지수가 상승하면 현 집권당이 대선에서 승리할 가능성이 높아진다고 주장했습니다. 그렇지만 폴리티코는 S&P 500 지수가 완벽한 예측 도구가 아니라고 지적하며, 정치적 불확실성이 여전히 존재한다고 경고했습니다.",
-		"prompt_total": "Emma, business suit, Wall Street financial district, bustling with traders and screens, busy atmosphere, many people walking, bright city lights, reflections on glass buildings, high energy and urgency in the air \n  LPL Financial office, visibly engaged in discussion with colleagues, focused on market charts, modern office environment with glass walls, warm overhead lighting, a sense of teamwork and strategy in the air \n  news studio, live broadcasting with charts behind, dynamic atmosphere, cameras and bright lights, vibrant colors of graphics on screens, exciting yet professional mood captured in the scene",
-		"Prompt0": "business suit, Wall Street financial district, bustling with traders and screens, busy atmosphere, many people walking, bright city lights, reflections on glass buildings, high energy and urgency in the air",
-		"Prompt1": "smart casual clothes, LPL Financial office, visibly engaged in discussion with colleagues, focused on market charts, modern office environment with glass walls, warm overhead lighting, a sense of teamwork and strategy in the air",
-		"Prompt2": "casual clothing, news studio, live broadcasting with charts behind, dynamic atmosphere, cameras and bright lights, vibrant colors of graphics on screens, exciting yet professional mood captured in the scene",
-		"sentence_total": "최근 뉴욕 증시가 상승세를 보이며, 이 상황이 민주당 카멀라 해리스 대선 후보의 승리 가능성을 암시했습니다. 금융서비스 기업 LPL 파이낸셜의 분석에 따르면, S&P 500 지수가 상승하면 현 집권당이 대선에서 승리할 가능성이 높아진다고 주장했습니다. 그렇지만 폴리티코는 S&P 500 지수가 완벽한 예측 도구가 아니라고 지적하며, 정치적 불확실성이 여전히 존재한다고 경고했습니다."
+		"sentence_0": "트럼프 미국 대통령 당선인은 플로리다주 팜 비치 컨벤션 센터에서 대선 승리 선언식을 열었습니다.",
+		"sentence_1": "그의 장녀 이방카는 짙은 파란색 정장을 입고 화제가 되었으며, 가족과 함께 자리에 있었습니다.",
+		"sentence_2": "이방카는 정치와 거리를 두겠다는 의사를 밝혔지만, 이번 대선에서의 패션 선택에 대한 논의가 이어지고 있습니다.",
+		"Pronounce_0": "트럼프 미국 대통령 당선인은 플로리다주 팜 비치 컨벤션 센터에서 대선 승리 선언식을 열었습니다.",
+		"Pronounce_1": "그의 장녀 이방카는 짙은 파란색 정장을 입고 화제가 되었으며, 가족과 함께 자리에 있었습니다.",
+		"Pronounce_2": "이방카는 정치와 거리를 두겠다는 의사를 밝혔지만, 이번 대선에서의 패션 선택에 대한 논의가 이어지고 있습니다.",
+		"Pronounce_total": "트럼프 미국 대통령 당선인은 플로리다주 팜 비치 컨벤션 센터에서 대선 승리 선언식을 열었습니다. 그의 장녀 이방카는 짙은 파란색 정장을 입고 화제가 되었으며, 가족과 함께 자리에 있었습니다. 이방카는 정치와 거리를 두겠다는 의사를 밝혔지만, 이번 대선에서의 패션 선택에 대한 논의가 이어지고 있습니다.",
+		"prompt_total": "Liam, formal attire, Palm Beach Convention Center, in front of a large crowd, confidently standing with family members, red tie symbolizing the Republican Party, bright and festive atmosphere, colorful decorations, warm lighting \n Emma, dark blue suit, outside in front of convention center, standing proudly with a composed expression, surrounded by family, soft daylight illuminating her features, capturing the essence of political legacy \n Emma, admiring audience, various backgrounds, cheering enthusiastically outside, creating a celebratory mood, flags waving, vibrant colors of red, white, and blue, daylight enhancing the atmosphere",
+		"Prompt0": "formal attire, Palm Beach Convention Center, in front of a large crowd, confidently standing with family members, red tie symbolizing the Republican Party, bright and festive atmosphere, colorful decorations, warm lighting",
+		"Prompt1": "dark blue suit, outside in front of convention center, standing proudly with a composed expression, surrounded by family, soft daylight illuminating her features, capturing the essence of political legacy",
+		"Prompt2": "admiring audience, various backgrounds, cheering enthusiastically outside, creating a celebratory mood, flags waving, vibrant colors of red, white, and blue, daylight enhancing the atmosphere",
+		"sentence_total": "트럼프 미국 대통령 당선인은 플로리다주 팜 비치 컨벤션 센터에서 대선 승리 선언식을 열었습니다. 그의 장녀 이방카는 짙은 파란색 정장을 입고 화제가 되었으며, 가족과 함께 자리에 있었습니다. 이방카는 정치와 거리를 두겠다는 의사를 밝혔지만, 이번 대선에서의 패션 선택에 대한 논의가 이어지고 있습니다."
 	},
-	"section": "경제",
+	"section": "세계",
 	"keywords": {
-		"keyword_0": "미국",
-		"keyword_1": "S&P 500",
-		"keyword_2": "카멀라 해리스"
+		"keyword_0": "트럼프",
+		"keyword_1": "이방카",
+		"keyword_2": "대선"
 	},
 	"characters": {
-		"sentence_0": "woman1",
-		"sentence_1": "none",
-		"sentence_2": "none"
+		"sentence_0": "man1",
+		"sentence_1": "woman1",
+		"sentence_2": "woman1"
 	}
 }

@@ -1,14 +1,14 @@
 import os
-# from google.cloud import speech_v1p1beta1 as speech
+from google.cloud import speech_v1p1beta1 as speech
 import io
-# from moviepy.editor import ImageClip, concatenate_videoclips, CompositeAudioClip, TextClip, CompositeVideoClip, AudioFileClip, VideoFileClip
-# from pydub import AudioSegment
+from moviepy.editor import ImageClip, concatenate_videoclips, CompositeAudioClip, TextClip, CompositeVideoClip, AudioFileClip, VideoFileClip
+from pydub import AudioSegment
 import json
-# from DockerStart import makeSubtitle
+from DockerStart import makeSubtitle
 
-# from pydub import AudioSegment
+from pydub import AudioSegment
 
-# from moviepy.editor import ImageClip
+from moviepy.editor import ImageClip
 
 def transcribe_audio_with_timing(audio_path):
     client = speech.SpeechClient()

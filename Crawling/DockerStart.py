@@ -1,6 +1,18 @@
 import docker
 import os 
 
+def remove_all_containers():
+    # Docker 클라이언트 생성
+    client = docker.from_env()
+    
+    # 실행 중인 모든 컨테이너 가져오기
+    containers = client.containers.list()
+    
+    for container in containers:
+        print(f"컨테이너 중지 및 제거: {container.id}")
+        container.stop()
+        container.remove()
+
 def makeSubtitle(path ='./resource'):
 
     # path = os.path.expanduser(path)
@@ -14,6 +26,8 @@ def makeSubtitle(path ='./resource'):
 
     image = client.images.pull("mmcauliffe/montreal-forced-aligner:latest")
     print('Docker 이미지 풀링 완료')
+
+    remove_all_containers()
 
     print("컨테이너를 실행하는 중입니다...")
     container = client.containers.run(
