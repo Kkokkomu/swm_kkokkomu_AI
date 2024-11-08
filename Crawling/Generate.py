@@ -44,7 +44,7 @@ def generation_summary(text):
     # gpt_version ='gpt-3.5-turbo-0125'
     gpt_version = 'gpt-4o-mini'
 
-    system =  '''다음 뉴스를 제목을 한국어로 15자 이내로 지어 주고, 내용을 정확히 3문장으로 요약해주고 각 문장을 자연스럽게 이어줘. 필요한 경우 요약문의 각 문장 사이를 접속사를 이용해서 자연스럽게 연결해줘. 요약할때 말투는 무조건 ~했습니다 와 같은 말투로 해. 
+    system = '''다음 뉴스를 제목을 한국어로 15자 이내로 지어 주고 제목만 읽어도 무슨 내용인지 대충 유추할 수 있고, 강렬한 인상을 줄 수 있게 작성해줘, 내용을 정확히 3문장으로 요약해주고 각 문장을 자연스럽게 이어줘. 필요한 경우 요약문의 각 문장 사이를 접속사를 이용해서 자연스럽게 연결해줘. 요약할때 말투는 무조건 ~했습니다 와 같은 말투로 해. 
     그리고 요약된 3문장 각각에 해당되는 이미지를 구체적으로 묘사하고 prompt로 말해. 묘사할때 obsession with impressions, where, what, atmosphere, subject, color, lighting, extra details 의 주제에 맞게 최대한 상세하게 영어로 표현해. 특히 장소에 대한 묘사를 최대한 세부적으로 표현해. 예를 들어 stadium이면 baseball stadium인지 football stadium인지 정확하게 말해줘.
     답변을 json형식으로 말해. 예시로는 {"title" : "제목", "summary" : "요약문", 
     "Prompt0": "wear suit, National Assembly​​,presenting in front of people, glad , stand in front of people, brown, studio lighting, utopian future", 
