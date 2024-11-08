@@ -1,14 +1,13 @@
 import os
 # from google.cloud import speech_v1p1beta1 as speech
 import io
-# from moviepy.editor import ImageClip, concatenate_videoclips, CompositeAudioClip, TextClip, CompositeVideoClip, AudioFileClip, VideoFileClip
-# from pydub import AudioSegment
+from moviepy.editor import ImageClip, concatenate_videoclips, CompositeAudioClip, TextClip, CompositeVideoClip, AudioFileClip, VideoFileClip
+from pydub import AudioSegment
 import json
 # from DockerStart import makeSubtitle
 
-# from pydub import AudioSegment
+from pydub import AudioSegment
 
-# from moviepy.editor import ImageClip
 
 def transcribe_audio_with_timing(audio_path):
     client = speech.SpeechClient()
@@ -45,6 +44,7 @@ def wrap_text(text, max_chars_per_line):
     """주어진 텍스트를 최대 너비를 초과하지 않도록 줄바꿈합니다."""
     import textwrap
     return "\n".join(textwrap.wrap(text, width=max_chars_per_line))
+
 os.environ["IMAGEMAGICK_BINARY"] = "/usr/bin/convert"
 
 def create_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=50, font='NanumGothicBold', color='white', stroke_color='black', stroke_width=2, max_chars_per_line=20):
@@ -306,8 +306,151 @@ def syncAudiotoText(path = './resource'):
     return words_info
 
 
+
+def makeOnlyVideo(section, title, path = './resource/final_output.mp4'):
+    # 파일 경로
+    audio_paths = [
+        './resource/sentence_0.wav',
+        './resource/sentence_1.wav',
+        './resource/sentence_2.wav'
+    ]
+    image_paths = [
+        './resource/sentence_0.png',
+        './resource/sentence_1.png',
+        './resource/sentence_2.png'
+    ]
+    bgm_path = getBgmBySection(section)
+    combined_audio_path = './resource/combined_audio.wav'
+    video_output_path = './resource/generated_video.mp4'
+    output_directory = './resource'
+    # final_output_path = os.path.join(output_directory, 'final_output.mp4')
+    
+    final_output_path = path 
+
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "google_stt_secret.json"
+
+    # 여러 개의 오디오 파일을 하나로 결합
+    concatenate_audios(audio_paths, combined_audio_path)
+
+    # 각 오디오 파일의 길이를 가져옴 (딜레이 없이 계산)
+    durations = [AudioSegment.from_file(path).duration_seconds for path in audio_paths]
+    print("duration[0] : " + str(durations[0]))
+    print("duration[1] : " + str(durations[1]))
+    print("duration[2] : " + str(durations[2]))
+
+
+    # 이미지 시퀀스를 사용하여 비디오 생성
+    create_image_sequence_video(image_paths, durations, video_output_path)
+
+    # 생성된 비디오와 오디오 클립 불러오기
+    video = VideoFileClip(video_output_path)
+    audio = AudioFileClip(combined_audio_path)
+
+    video = video.set_audio(audio)
+
+    # makeSubtitle(output_directory)
+    
+
+    # 생성된 TimeStamp 이용
+    words_info = syncAudiotoText('./resource')
+    print('TimeStamp 추출한 것으로 실행합니다.')
+
+    
+
+    # 각 문장의 시작과 끝 시간을 저장 (딜레이 없이)
+    sentence_times = [
+        (0, durations[0]),  # sentence_0
+        (durations[0], durations[0] + durations[1]),  # sentence_1
+        (durations[0] + durations[1], sum(durations))  # sentence_2
+    ]
+
+
+    font = '배달의민족-주아-OTF'
+
+    # 단어 타이밍 정보로부터 자막 클립 생성
+    subtitle_clips = temp_subtitle_clips(video, sentence_times, words_info, font = font)
+
+    # **추가된 코드: 제목 클립 생성**
+    max_chars_per_line = 20
+    
+    title = wrap_text(title, max_chars_per_line)
+    
+    title_clip = (TextClip(title, fontsize=100, font=font, color='white', stroke_color='red', stroke_width=2, size=(video.size[0] - 40, None), method='caption')
+                  .set_position(("center", 300))  # 영상 상단에 제목 배치
+                  .set_duration(video.duration))   # 전체 영상 길이 동안 제목을 표시
+
+    # 비디오와 자막 합치기
+    final_video = CompositeVideoClip([video, title_clip, *subtitle_clips])
+
+    # 배경 음악 추가
+    bgm_audio = AudioSegment.from_mp3(bgm_path)
+    video_duration = final_video.duration * 1000  # 밀리초 단위로 변환
+    bgm_audio = bgm_audio[:video_duration]  # 영상 길이에 맞게 자르기
+    bgm_audio.export('./resource/bgm_cut.wav', format='wav')
+
+    bgm_clip = AudioFileClip('./resource/bgm_cut.wav').volumex(0.05)  # 볼륨 조정
+    final_video = final_video.set_audio(CompositeAudioClip([final_video.audio, bgm_clip]))
+
+    # 결과물 저장
+    final_video.write_videofile(final_output_path, codec='libx264', audio_codec='aac', fps=24)
+
+    # 저장된 결과물의 자막 정보 출력
+    for word_info in words_info:
+        print(f"Word: {word_info['word']}, Start: {word_info['start']}, End: {word_info['end']}")
+
+
+
+def temp_subtitle_clips(video, sentences, words_info, chunk_size=5, fontsize=50, font='NanumGothicBold', color='white', stroke_color='black', stroke_width=2, max_chars_per_line=20):
+    subtitle_clips = []
+    
+    for sentence_idx, (sentence_start_time, sentence_end_time) in enumerate(sentences):
+        # Extract words for the current sentence
+        sentence_words = [word_info for word_info in words_info if sentence_start_time <= word_info['end'] <= sentence_end_time]
+        
+        for i in range(0, len(sentence_words), chunk_size):
+            chunk = sentence_words[i:i + chunk_size]
+            text = " ".join([word['word'] for word in chunk])
+            start_time = chunk[0]['start']
+            end_time = chunk[-1]['end']
+            duration = end_time - start_time
+
+            wrapped_text = wrap_text(text, max_chars_per_line)
+            text_lines = wrapped_text.count('\n') + 1
+            text_clip_height = text_lines * fontsize
+
+            position_y = video.size[1] - 400 - (text_clip_height // 2)
+            
+            subtitle_clip = (TextClip(wrapped_text, fontsize=fontsize, font=font, color=color, 
+                                      bg_color = 'grey', stroke_width=stroke_width, 
+                                      size=(video.size[0] - 40, None), method='caption')
+                             .set_position(("center", position_y))
+                             .set_start(start_time)
+                             .set_duration(duration))
+            subtitle_clips.append(subtitle_clip)
+    
+    return subtitle_clips
+
+
+
 if __name__ == '__main__':
-    print(syncAudiotoText('./Test/samples'))
-    x='abcde'
-    print(x[10:])
-    print('나는 똑S 해'.lower())
+#    print(TextClip.search('Courier', 'font'))
+    print(TextClip.list("font"))
+    # print(TextClip.list('color'))
+    # 글꼴 목록 가져오기
+    # fonts = TextClip.search('배달의민족', 'font')
+    # print(fonts)
+
+    # 각 글꼴로 텍스트 생성 후 이미지로 저장
+    title = '미국 뉴욕 증시 강세가 민주당 해리스 대선 후보의 승리 가능성을 지지하다'
+    section = '경제'
+    # makeOnlyVideo(title = title, section = section, path = f'../Test/video/output.mp4')
+
+    # for font in fonts:
+    #     try:
+    #         # 텍스트 클립 생성
+    #         txt_clip = TextClip("Sample Text", fontsize=24, font=font, color='white', bg_color='black')
+    #         # 이미지 파일로 저장
+    #         txt_clip.save_frame(f"./Test/font/{font}_sample.png")
+    #         print(f"{font}_sample.png 생성 완료")
+    #     except Exception as e:
+    #         print(f"{font} 글꼴을 사용하여 생성하지 못했습니다: {e}")
