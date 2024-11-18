@@ -6,7 +6,7 @@ def remove_all_containers():
     client = docker.from_env()
     
     # 실행 중인 모든 컨테이너 가져오기
-    containers = client.containers.list()
+    containers = client.containers.list(all=True)
     
     for container in containers:
         print(f"컨테이너 중지 및 제거: {container.id}")

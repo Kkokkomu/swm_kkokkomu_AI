@@ -1,29 +1,29 @@
 {
-	"url": "https://www.newsis.com/view/NISX20241107_0002950821",
-	"title": "트럼프 당선인의 장녀 이방카, 대선 승리 선언식 참석",
+	"url": "https://www.newsis.com/view/NISX20241118_0002963234",
+	"title": "국민의힘 당원 게시판의 비방글 경찰 수사 착수",
 	"summary": {
-		"sentence_0": "트럼프 미국 대통령 당선인은 플로리다주 팜 비치 컨벤션 센터에서 대선 승리 선언식을 열었습니다.",
-		"sentence_1": "그의 장녀 이방카는 짙은 파란색 정장을 입고 화제가 되었으며, 가족과 함께 자리에 있었습니다.",
-		"sentence_2": "이방카는 정치와 거리를 두겠다는 의사를 밝혔지만, 이번 대선에서의 패션 선택에 대한 논의가 이어지고 있습니다.",
-		"Pronounce_0": "트럼프 미국 대통령 당선인은 플로리다주 팜 비치 컨벤션 센터에서 대선 승리 선언식을 열었습니다.",
-		"Pronounce_1": "그의 장녀 이방카는 짙은 파란색 정장을 입고 화제가 되었으며, 가족과 함께 자리에 있었습니다.",
-		"Pronounce_2": "이방카는 정치와 거리를 두겠다는 의사를 밝혔지만, 이번 대선에서의 패션 선택에 대한 논의가 이어지고 있습니다.",
-		"Pronounce_total": "트럼프 미국 대통령 당선인은 플로리다주 팜 비치 컨벤션 센터에서 대선 승리 선언식을 열었습니다. 그의 장녀 이방카는 짙은 파란색 정장을 입고 화제가 되었으며, 가족과 함께 자리에 있었습니다. 이방카는 정치와 거리를 두겠다는 의사를 밝혔지만, 이번 대선에서의 패션 선택에 대한 논의가 이어지고 있습니다.",
-		"prompt_total": "Liam, formal attire, Palm Beach Convention Center, in front of a large crowd, confidently standing with family members, red tie symbolizing the Republican Party, bright and festive atmosphere, colorful decorations, warm lighting \n Emma, dark blue suit, outside in front of convention center, standing proudly with a composed expression, surrounded by family, soft daylight illuminating her features, capturing the essence of political legacy \n Emma, admiring audience, various backgrounds, cheering enthusiastically outside, creating a celebratory mood, flags waving, vibrant colors of red, white, and blue, daylight enhancing the atmosphere",
-		"Prompt0": "formal attire, Palm Beach Convention Center, in front of a large crowd, confidently standing with family members, red tie symbolizing the Republican Party, bright and festive atmosphere, colorful decorations, warm lighting",
-		"Prompt1": "dark blue suit, outside in front of convention center, standing proudly with a composed expression, surrounded by family, soft daylight illuminating her features, capturing the essence of political legacy",
-		"Prompt2": "admiring audience, various backgrounds, cheering enthusiastically outside, creating a celebratory mood, flags waving, vibrant colors of red, white, and blue, daylight enhancing the atmosphere",
-		"sentence_total": "트럼프 미국 대통령 당선인은 플로리다주 팜 비치 컨벤션 센터에서 대선 승리 선언식을 열었습니다. 그의 장녀 이방카는 짙은 파란색 정장을 입고 화제가 되었으며, 가족과 함께 자리에 있었습니다. 이방카는 정치와 거리를 두겠다는 의사를 밝혔지만, 이번 대선에서의 패션 선택에 대한 논의가 이어지고 있습니다."
+		"sentence_0": "경찰이 국민의힘 당원 게시판에 올라온 윤석열 대통령과 김건희 여사에 대한 비방글과 관련된 수사를 진행했습니다.",
+		"sentence_1": "또한, 경찰은 국민의힘에 서버 자료 보존 요청 공문을 발송하였으며, 해당 내용이 확인되지 않았음을 밝혔습니다.",
+		"sentence_2": "오상종 자유대한호국단 대표는 비방글 작성자에 대해 고발하여 경찰이 신속한 조치를 취한 것에 대해 긍정적인 입장을 보였습니다.",
+		"Pronounce_0": "경찰이 국민의힘 당원 게시판에 올라온 윤석열 대통령과 김건희 여사에 대한 비방글과 관련된 수사를 진행했습니다.",
+		"Pronounce_1": "또한, 경찰은 국민의힘에 서버 자료 보존 요청 공문을 발송하였으며, 해당 내용이 확인되지 않았음을 밝혔습니다.",
+		"Pronounce_2": "오상종 자유대한호국단 대표는 비방글 작성자에 대해 고발하여 경찰이 신속한 조치를 취한 것에 대해 긍정적인 입장을 보였습니다.",
+		"Pronounce_total": "경찰이 국민의힘 당원 게시판에 올라온 윤석열 대통령과 김건희 여사에 대한 비방글과 관련된 수사를 진행했습니다. 또한, 경찰은 국민의힘에 서버 자료 보존 요청 공문을 발송하였으며, 해당 내용이 확인되지 않았음을 밝혔습니다. 오상종 자유대한호국단 대표는 비방글 작성자에 대해 고발하여 경찰이 신속한 조치를 취한 것에 대해 긍정적인 입장을 보였습니다.",
+		"prompt_total": "Liam, Emma, business attire, police briefing room, discussing legal documents, serious atmosphere, surrounded by police officers, gray tones, bright overhead lights, focus on accountability \n  office environment, sitting at desk with computer, intense concentration, cluttered with paperwork and evidence, warm yellow tones, soft natural lighting, aware of legal intentions \n Liam, formal suit, press conference setting, addressing reporters, assertive stance, flags of the country in the background, patriotic colors, bright flash from cameras, eager to share progress",
+		"Prompt0": "business attire, police briefing room, discussing legal documents, serious atmosphere, surrounded by police officers, gray tones, bright overhead lights, focus on accountability",
+		"Prompt1": "informal clothes, office environment, sitting at desk with computer, intense concentration, cluttered with paperwork and evidence, warm yellow tones, soft natural lighting, aware of legal intentions",
+		"Prompt2": "formal suit, press conference setting, addressing reporters, assertive stance, flags of the country in the background, patriotic colors, bright flash from cameras, eager to share progress",
+		"sentence_total": "경찰이 국민의힘 당원 게시판에 올라온 윤석열 대통령과 김건희 여사에 대한 비방글과 관련된 수사를 진행했습니다. 또한, 경찰은 국민의힘에 서버 자료 보존 요청 공문을 발송하였으며, 해당 내용이 확인되지 않았음을 밝혔습니다. 오상종 자유대한호국단 대표는 비방글 작성자에 대해 고발하여 경찰이 신속한 조치를 취한 것에 대해 긍정적인 입장을 보였습니다."
 	},
-	"section": "세계",
+	"section": "정치",
 	"keywords": {
-		"keyword_0": "트럼프",
-		"keyword_1": "이방카",
-		"keyword_2": "대선"
+		"keyword_0": "국민의힘",
+		"keyword_1": "비방글",
+		"keyword_2": "서울경찰청"
 	},
 	"characters": {
-		"sentence_0": "man1",
-		"sentence_1": "woman1",
-		"sentence_2": "woman1"
+		"sentence_0": "man1 woman1",
+		"sentence_1": "none",
+		"sentence_2": "man1"
 	}
 }

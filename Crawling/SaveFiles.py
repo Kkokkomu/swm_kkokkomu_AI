@@ -37,6 +37,21 @@ def saveJsonFile(path, crawl, title, summary, keywords, characters):
     
     return title_path
 
+def saveJsonFileBySection(path, section, url, title, summary, keywords, characters):
+    data ={'url' : url, 'title' : title, 'summary':summary ,'section' : section, 
+           'keywords' : {f'keyword_{i}' : keyword.strip() for i, keyword in enumerate(keywords.split(','))},'characters' :characters}
+
+    # titleForPath = sanitize_filename(title)
+    # title_path = path + '/'+ titleForPath
+    title_path = path 
+    if not os.path.isdir(title_path):
+        os.makedirs(title_path)
+
+    with open(title_path +'/data.json','w', encoding='UTF-8') as json_file:
+        json.dump(data, json_file,indent='\t',ensure_ascii=False)
+    
+    return title_path
+
 def saveTTS(tts, title_path):
     for i,t in enumerate(tts):
         try:

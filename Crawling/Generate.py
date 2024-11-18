@@ -168,7 +168,6 @@ def generate_TTS_clova(text):
 def makeJson(text):
     response = generation_summary(text)
     
-
     try:
         response = json.loads(response)
         response_prompts = {f'Prompt{i}' :response[f'Prompt{i}'] for i in range(3)}

@@ -26,7 +26,11 @@ class RSSRequest(BaseModel):
     entertain : int
     culture : int
 
-
+class PromptRequest(BaseModel):
+    id: int
+    section : str
+    url : str
+    content : str
     
 app = FastAPI()
 
@@ -40,7 +44,15 @@ def test(request: RSSRequest):
 
     return response
 
+@app.post("/prompt")
+def test(request: PromptRequest):
+    print("generate ai resource")
+    # response = TotalBuild2S3.MakeSeperateComponent(request)
 
+    ## RSS로 실행한 값
+    response = TotalBuild2S3.prompt_Make(request)
+
+    return response
 
 
 @app.get("/test")
